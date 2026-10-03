@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#14080d">
 <title>FOBI 2026｜Face of Beauty International</title>
 <meta name="description" content="2026 Face of Beauty International 世界美顏小姐總決賽｜40國認桌、企業贊助、SELF會員贊助入席">
+<link rel="preload" as="image" href="/assets/fobi-2026-hero.png">
+<meta property="og:image" content="https://fobi.self.com.tw/assets/fobi-2026-hero.png">
 <style>
 :root{--bg:#10070b;--bg2:#1d0b13;--wine:#431226;--gold:#d8b66c;--gold2:#b98b3f;--ivory:#f4ece4;--ink:#241218;--muted:#b8aaa5;--line:#ffffff18;--lightline:#d9c8bc;--ok:#2e8b57}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ivory);font-family:Inter,"Noto Sans TC","PingFang TC",system-ui,sans-serif}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}.wrap{width:min(1180px,88vw);margin:auto}
@@ -25,13 +27,34 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:#74686a;font-size:1
 .sticky{display:none}
 .modal{display:none;position:fixed;z-index:100;inset:0;background:#050204d9;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.card{width:min(560px,100%);max-height:92vh;overflow:auto;background:#f2e9e1;color:#28151a;padding:34px;position:relative}.card .eyebrow{color:#8e641d}.card h3{font:400 40px Georgia;margin:8px 0 10px}.close{position:absolute;right:16px;top:14px;background:none;border:0;font-size:26px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;margin:12px 0;font-size:12px}.field.full{grid-column:1/-1}.field input,.field select,.field textarea{width:100%;border:1px solid #cdbfb6;background:#fffaf6;padding:12px}.field input,.field select{height:46px}.field textarea{min-height:82px}.note{font-size:11px;color:#7d6f69;line-height:1.55}.receipt{display:none;background:#fffaf6;border:1px solid #d0c1b6;padding:18px;margin-top:14px}.receipt.show{display:block}
 @media(max-width:800px){header{height:64px}.links{display:none}.hero{min-height:88vh}.hero .wrap{padding-top:70px}.hero h1{font-size:48px}.actions .btn{width:100%}.stats{grid-template-columns:1fr 1fr}.stat{padding:18px}.choice,.member,.faq{grid-template-columns:1fr}.countryGrid{grid-template-columns:1fr 1fr}.tiers,.steps{grid-template-columns:1fr}.sectionHead{display:block}.schedule{grid-template-columns:105px 1fr}.foot{display:grid;text-align:center}.sticky{display:grid;grid-template-columns:1fr 1fr;position:fixed;z-index:60;left:0;right:0;bottom:0;background:#11080cd9;backdrop-filter:blur(14px);padding:8px;gap:8px;border-top:1px solid #ffffff18}.sticky a{min-height:46px;font-size:12px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}footer{padding-bottom:80px}}
+/* Preserve the supplied artwork in full; the real links also remain readable on phones. */
+.srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero.photoHero{display:block;min-height:0;padding:72px 0 28px;background:#10070b}
+.photoHero:before,.photoHero:after{content:none}
+.heroArtwork{position:relative;width:min(1672px,100%);margin:auto}
+.heroPhoto{display:block;width:100%;height:auto}
+.artworkCta{position:absolute;top:50.5%;height:36.5%;border-radius:24px}
+.sponsorCta{left:3%;width:47.3%}.memberCta{left:52.6%;width:44.4%}
+.artworkCta:focus-visible{outline:4px solid #fff;outline-offset:-6px;background:#ffffff12}
+.hero .heroActionBar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding-top:24px}
+.btn.memberPink{background:linear-gradient(135deg,#ec3989,#a90043);color:#fff;font-weight:800;border-color:#ff8abc}
+section[id],.stats[id]{scroll-margin-top:84px}
+@media(max-width:800px){.hero.photoHero{padding-top:64px;padding-bottom:24px}.hero .heroActionBar{padding-top:18px;width:88vw;display:grid;grid-template-columns:1fr;gap:10px}.artworkCta{border-radius:8px}.heroActionBar .btn{width:100%}section[id],.stats[id]{scroll-margin-top:76px}}
 </style>
 </head>
 <body>
 <header><div class="wrap nav"><a class="brand" href="#top"><span class="seal">♛</span><span>FOBI <small>2026</small></span></a><nav class="links"><a href="#sponsor">企業認桌</a><a href="#countries">40國桌</a><a href="#member">會員贊助</a><a href="#event">活動資訊</a></nav></div></header>
 
 <main id="top">
-<section class="hero"><div class="wrap"><div class="eyebrow">TAIPEI · 30 OCTOBER 2026</div><h1>FACE OF BEAUTY<br><i>INTERNATIONAL</i></h1><div class="zh">世界美顏小姐選美總決賽</div><div class="manifesto">40 COUNTRIES <b>·</b> ONE NIGHT <b>·</b> TAIPEI</div><div class="actions"><a class="btn gold" href="#countries">認領一個國家 →</a><a class="btn glass" href="#member">SELF 會員贊助 NT$3,000</a></div></div></section>
+<section class="hero photoHero" aria-labelledby="heroTitle">
+  <h1 id="heroTitle" class="srOnly">2026 Face of Beauty International 世界美顏小姐選美總決賽</h1>
+  <div class="heroArtwork">
+    <img class="heroPhoto" src="/assets/fobi-2026-hero.png" width="1672" height="941" fetchpriority="high" alt="2026 世界美顏小姐選美總決賽主視覺：皇冠佳麗、國際晚宴及國家桌；10 月 30 日於臺北茹曦酒店 2F 舉行。">
+    <a class="artworkCta sponsorCta" href="#countries" aria-label="企業認桌：選擇國家桌"></a>
+    <a class="artworkCta memberCta" href="#member" aria-label="SELF 會員 NT$3,000 贊助：查看入席資訊"></a>
+  </div>
+  <div class="heroActionBar wrap"><a class="btn gold" href="#countries">企業認桌 →</a><a class="btn memberPink" href="#member">SELF 會員 NT$3,000 贊助 →</a></div>
+</section>
 
 <div class="stats" id="event"><div class="stat"><b>2026.10.30</b><span>星期五</span></div><div class="stat"><b>臺北茹曦酒店 2F</b><span>Taipei</span></div><div class="stat"><b>14:00 總決賽</b><span>19:00 頒獎典禮暨國際晚宴</span></div><div class="stat"><b>OPERA</b><span>After Party</span></div></div>
 
