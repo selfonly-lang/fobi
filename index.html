@@ -56,14 +56,52 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:#74686a;font-size:1
 <div class="modal" id="modal"><div class="card"><button class="close" onclick="closeModal()">×</button><div class="eyebrow" id="modalEyebrow">SPONSOR APPLICATION</div><h3 id="modalTitle">企業認桌</h3><form id="interestForm" onsubmit="submitInterest(event)"><div class="formgrid"><label class="field" id="countryField">國家桌<select id="countrySelect"></select></label><label class="field" id="tierField">方案<select id="tierSelect"><option>VIP 1</option><option>VIP 2</option><option>VIP 3</option></select></label><label class="field">姓名<input id="name" required placeholder="聯絡人姓名"></label><label class="field">手機<input id="phone" required placeholder="09xx xxx xxx"></label><label class="field full">Email<input id="email" type="email" required placeholder="name@example.com"></label><label class="field full" id="companyField">公司 / 品牌<input id="company" placeholder="公司或品牌名稱"></label><label class="field full">備註<textarea id="note" placeholder="想認領的國家、席次或其他需求"></textarea></label></div><button class="btn gold" style="width:100%;margin-top:8px">產生贊助需求單</button><p class="note">目前此頁不會扣款，也不會把資料傳送到外部系統。正式 CRM、SELF ID 與 ECPay 接妥後會直接改為線上訂單。</p></form><div class="receipt" id="receipt"><b>需求單已產生</b><p id="receiptText"></p><button class="btn gold" onclick="downloadReceipt()">下載需求單</button></div></div></div>
 
 <script>
-const countries=['Taiwan','Japan','Korea','Thailand','Philippines','Vietnam','Singapore','Malaysia','Indonesia','India','Australia','New Zealand','USA','Canada','Mexico','Brazil','Argentina','France','Italy','Spain','Portugal','Germany','UK','Netherlands','Sweden','Poland','Ukraine','Turkey','UAE','South Africa','Egypt','Morocco','Mongolia','Kazakhstan','Hong Kong','Macau','China','Cambodia','Myanmar','Nepal'];
+const API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-public';
 const grid=document.getElementById('countryGrid'),sel=document.getElementById('countrySelect');
-countries.forEach((c,i)=>{const s=i<3?'Sponsored':i<6?'Reserved':'Available';const b=document.createElement('button');b.className='country '+(s==='Available'?'':'reserved');b.innerHTML='<strong>'+String(i+1).padStart(2,'0')+' · '+c+'</strong><small>'+s+'</small>';if(s==='Available')b.onclick=()=>openSponsor('VIP 1',c);grid.appendChild(b);const o=document.createElement('option');o.textContent=c;sel.appendChild(o)});
-let mode='sponsor',lastReceipt='';
+let countryRows=[],mode='sponsor',lastReceipt='';
+async function loadCountries(){
+  grid.innerHTML='<div style="grid-column:1/-1;padding:24px;color:#756863">正在同步國家桌庫存…</div>';
+  try{
+    const r=await fetch(API+'?resource=countries');
+    const d=await r.json();
+    if(!r.ok||!d.ok) throw new Error('inventory');
+    countryRows=d.countries||[];
+    grid.innerHTML='';sel.innerHTML='';
+    countryRows.forEach(x=>{
+      const s=x.status||'available';
+      const label=s==='available'?'Available':s==='reserved'?'Reserved':s==='sponsored'?'Sponsored':'Unavailable';
+      const b=document.createElement('button');
+      b.className='country '+(s==='available'?'':'reserved');
+      b.innerHTML='<strong>'+String(x.table_no).padStart(2,'0')+' · '+x.name_en+'</strong><small>'+label+(x.sponsor_name?' · '+x.sponsor_name:'')+'</small>';
+      if(s==='available') b.onclick=()=>openSponsor('VIP 1',x.code);
+      grid.appendChild(b);
+      const o=document.createElement('option');o.value=x.code;o.textContent=x.name_en;sel.appendChild(o);
+    });
+  }catch(e){
+    grid.innerHTML='<div style="grid-column:1/-1;padding:24px;color:#8a672f">目前無法同步桌位，請稍後重新整理。</div>';
+  }
+}
+loadCountries();
 function openSponsor(tier='VIP 1',country=''){mode='sponsor';document.getElementById('modalEyebrow').textContent='SPONSOR APPLICATION';document.getElementById('modalTitle').textContent='企業認桌';document.getElementById('countryField').style.display='grid';document.getElementById('tierField').style.display='grid';document.getElementById('companyField').style.display='grid';document.getElementById('tierSelect').value=tier;if(country)sel.value=country;document.getElementById('receipt').classList.remove('show');document.getElementById('modal').classList.add('show')}
 function openMember(){mode='member';document.getElementById('modalEyebrow').textContent='SELF MEMBER';document.getElementById('modalTitle').textContent='會員贊助入席';document.getElementById('countryField').style.display='none';document.getElementById('tierField').style.display='none';document.getElementById('companyField').style.display='none';document.getElementById('receipt').classList.remove('show');document.getElementById('modal').classList.add('show')}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
-function submitInterest(e){e.preventDefault();const n=document.getElementById('name').value,p=document.getElementById('phone').value,m=document.getElementById('email').value,nt=document.getElementById('note').value;lastReceipt=mode==='sponsor'?'FOBI 2026 企業認桌需求單\n國家：'+sel.value+'\n方案：'+document.getElementById('tierSelect').value+'\n公司：'+document.getElementById('company').value+'\n聯絡人：'+n+'\n手機：'+p+'\nEmail：'+m+'\n備註：'+nt:'FOBI 2026 SELF會員贊助需求單\n方案：NT$3,000 / 人\n姓名：'+n+'\n手機：'+p+'\nEmail：'+m+'\n備註：'+nt;document.getElementById('receiptText').textContent=lastReceipt.replaceAll('\n',' · ');document.getElementById('receipt').classList.add('show')}
+async function submitInterest(e){
+  e.preventDefault();
+  const btn=e.submitter;if(btn){btn.disabled=true;btn.textContent='送出中…'}
+  const n=document.getElementById('name').value.trim(),p=document.getElementById('phone').value.trim(),m=document.getElementById('email').value.trim(),nt=document.getElementById('note').value.trim();
+  const payload={type:mode,country_code:mode==='sponsor'?sel.value:null,tier:mode==='sponsor'?document.getElementById('tierSelect').value:null,member_count:1,company:mode==='sponsor'?document.getElementById('company').value.trim():null,contact_name:n,phone:p,email:m,note:nt};
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const d=await r.json();
+    if(!r.ok||!d.ok) throw new Error('submit');
+    const ref=d.id?d.id.slice(0,8).toUpperCase():'FOBI';
+    const countryName=(countryRows.find(x=>x.code===sel.value)||{}).name_en||sel.value;
+    lastReceipt=mode==='sponsor'?'FOBI 2026 企業認桌需求單\n編號：'+ref+'\n國家：'+countryName+'\n方案：'+document.getElementById('tierSelect').value+'\n公司：'+document.getElementById('company').value+'\n聯絡人：'+n+'\n手機：'+p+'\nEmail：'+m+'\n備註：'+nt:'FOBI 2026 SELF會員贊助需求單\n編號：'+ref+'\n方案：NT$3,000 / 人\n姓名：'+n+'\n手機：'+p+'\nEmail：'+m+'\n備註：'+nt;
+    document.getElementById('receiptText').textContent=lastReceipt.replaceAll('\n',' · ');
+    document.getElementById('receipt').classList.add('show');
+  }catch(err){alert('目前無法送出，請稍後再試。')}
+  finally{if(btn){btn.disabled=false;btn.textContent='產生贊助需求單'}}
+}
 function downloadReceipt(){const blob=new Blob([lastReceipt],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='FOBI-2026-interest.txt';a.click();URL.revokeObjectURL(a.href)}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
 </script>
