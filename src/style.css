@@ -76,3 +76,35 @@ footer{padding:28px 5vw 34px;border-top:1px solid rgba(255,255,255,.08);display:
 
 .exposureLinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.exposureLinks a{display:inline-flex;min-height:48px;align-items:center;padding:0 18px;border:1px solid rgba(216,181,104,.34);border-radius:999px;color:#f0d48f;font-weight:800;font-size:13px}.exposureLinks a:hover{background:rgba(216,181,104,.12)}
 @media(max-width:700px){.exposureLinks{display:grid}.exposureLinks a{justify-content:center;width:100%}}
+
+/* FOBI Crystal Editorial Motion */
+:root{--crystal-hi:rgba(255,255,255,.78);--crystal-mid:rgba(246,221,160,.25);--crystal-edge:rgba(255,232,177,.56);--crystal-pink:rgba(255,116,174,.34)}
+body:before{content:"FOBI / FACE OF BEAUTY INTERNATIONAL / 2026";position:fixed;z-index:-1;left:2vw;bottom:2vh;font:700 9px Inter,sans-serif;letter-spacing:.32em;color:rgba(255,255,255,.055);pointer-events:none}
+.topbar:after{content:"";position:absolute;left:4vw;right:4vw;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,#f4d78788,transparent)}
+.nav a,.lang,.login,.menu,.cardButton,.tier a,.exposureLinks a{
+ position:relative;isolation:isolate;overflow:hidden;
+ border:1px solid var(--crystal-edge);
+ background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(246,221,160,.11) 38%,rgba(125,15,59,.22) 76%,rgba(255,255,255,.11));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 28px rgba(0,0,0,.24),0 0 18px rgba(216,181,104,.08);
+ backdrop-filter:blur(14px) saturate(1.35);
+ transition:transform .28s ease,box-shadow .28s ease,filter .28s ease!important
+}
+.nav a{border-radius:999px;padding:10px 16px}
+.nav a:before,.lang:before,.login:before,.menu:before,.cardButton:before,.tier a:before,.exposureLinks a:before{
+ content:"";position:absolute;z-index:-1;top:-20%;bottom:-20%;left:-45%;width:32%;transform:skewX(-24deg);
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);opacity:.38;animation:crystalSweep 4.7s ease-in-out infinite
+}
+.nav a:hover,.lang:hover,.login:hover,.menu:hover,.cardButton:hover,.tier a:hover,.exposureLinks a:hover{
+ transform:translateY(-2px) scale(1.015);filter:brightness(1.12);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 16px 34px rgba(0,0,0,.32),0 0 28px rgba(241,203,119,.2)
+}
+.cardButton{background:linear-gradient(145deg,rgba(255,248,217,.94),rgba(227,188,98,.9) 48%,rgba(153,94,30,.92))!important;color:#24110d!important}
+.cardButton.pink{background:linear-gradient(145deg,rgba(255,177,208,.95),rgba(221,39,109,.9) 48%,rgba(116,8,50,.94))!important;color:#fff!important}
+.heroCopy:before{content:"WORLD EDITION";display:block;margin-bottom:14px;font:700 9px Inter,sans-serif;letter-spacing:.42em;color:rgba(255,232,179,.72)}
+.heroCopy:after{content:"BEAUTY · CULTURE · INTERNATIONAL";display:block;margin:18px auto 0;font:700 8px Inter,sans-serif;letter-spacing:.28em;color:rgba(255,255,255,.48)}
+.about,.sponsorSection,.directorySection{position:relative}
+.about:before,.sponsorSection:before,.directorySection:before{content:"FOBI EDITORIAL";position:absolute;right:4vw;top:28px;font:700 8px Inter,sans-serif;letter-spacing:.34em;color:rgba(255,255,255,.08)}
+.tier,.sponsorProfile,.directoryEmpty,.stat{backdrop-filter:blur(10px)}
+@keyframes crystalSweep{0%,62%{left:-45%}82%,100%{left:135%}}
+@media(max-width:860px){.nav a{border-radius:12px;padding:13px 14px}.heroCopy:before{margin-bottom:10px}.heroCopy:after{text-align:left}}
+@media(prefers-reduced-motion:reduce){.nav a:before,.lang:before,.login:before,.menu:before,.cardButton:before,.tier a:before,.exposureLinks a:before{animation:none!important}}
