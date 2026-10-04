@@ -19,7 +19,7 @@ function Navbar(){
     <nav className={open?'nav open':'nav'}>
       <a href="#sponsor" onClick={()=>setOpen(false)}>品牌贊助</a>
       <a href="/checkout.html?type=ticket">總決賽入席</a>
-      <a href="/pageants.html">更多賽事</a>
+      <a href="#official-exposure" onClick={()=>setOpen(false)}>合作夥伴</a>
       <a href="/event.html">活動資訊</a>
     </nav>
     <div className="navTools">
@@ -98,11 +98,10 @@ function Hero(){
 function ExposureDirectory(){
   const[sponsors,setSponsors]=useState([]),[participants,setParticipants]=useState([]);
   useEffect(()=>{Promise.all([fetch(API+'?resource=sponsors').then(r=>r.json()),fetch(API+'?resource=participants').then(r=>r.json())]).then(([s,p])=>{if(s.ok)setSponsors(s.items||[]);if(p.ok)setParticipants(p.items||[])}).catch(()=>{})},[]);
-  if(!sponsors.length&&!participants.length)return null;
-  return <section className="directorySection">
+  return <section className="directorySection" id="official-exposure">
     <div className="sectionHead"><p className="sectionEyebrow">OFFICIAL EXPOSURE</p><h2>贊助夥伴與參與貴賓</h2><p>FOBI 官網提供合作品牌卡片曝光，並以頭像方式呈現參與會員／貴賓；內容由活動後台統一管理。</p></div>
-    {!!sponsors.length&&<div className="sponsorCards">{sponsors.map(s=><a className="sponsorProfile" href={s.website_url||'#'} key={s.id} target={s.website_url?'_blank':undefined} rel="noreferrer"><div className="sponsorLogo">{s.logo_url?<img src={s.logo_url} alt={s.name}/>:<Crown/>}</div><div><small>{s.tier||'PARTNER'}</small><h3>{s.name}</h3><p>{s.description||'FOBI 2026 官方合作夥伴'}</p></div></a>)}</div>}
-    {!!participants.length&&<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>}
+    {sponsors.length?<div className="sponsorCards">{sponsors.map(s=><a className="sponsorProfile" href={s.website_url||'#'} key={s.id} target={s.website_url?'_blank':undefined} rel="noreferrer"><div className="sponsorLogo">{s.logo_url?<img src={s.logo_url} alt={s.name}/>:<Crown/>}</div><div><small>{s.tier||'PARTNER'}</small><h3>{s.name}</h3><p>{s.description||'FOBI 2026 官方合作夥伴'}</p></div></a>)}</div>:<div className="directoryEmpty"><Crown/><div><b>官方贊助夥伴</b><p>品牌名錄將由活動後台陸續公開。</p><a href="/checkout.html?type=sponsor">成為 FOBI 贊助夥伴 →</a></div></div>}
+    {participants.length?<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>:<div className="directoryEmpty"><UserRound/><div><b>參與會員／貴賓</b><p>經同意公開的參與者頭像與連結將顯示於此。</p></div></div>}
   </section>
 }
 
