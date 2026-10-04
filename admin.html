@@ -97,7 +97,7 @@
 <section class="panel"><h2>票券與支付</h2><p style="color:#a99a95;line-height:1.7">總決賽購票付款確認後，由系統自動依購買人數核發個別票券序號。格式：FB26-01-000001，其中 FB 為 FOBI、26 為 2026、01 為本場次、最後 6 碼為人次流水號。</p>
 <div class="preview"><article><small>ORDER</small><h3>購票訂單</h3><p>站內建立訂單 → ECPay → callback 驗證 → paid</p></article><article><small>TICKET</small><h3>自動核票</h3><p>付款成功後自動建立每位獨立 ticket_no 與 QR token。</p></article><article><small>CHECK-IN</small><h3>現場報到</h3><p>票券資料已預留 checked_in 狀態，可接續製作掃碼報到。</p></article></div></section>
 <section class="panel"><h2>贊助商票券設定</h2><p style="color:#a99a95;line-height:1.7">VIP1／VIP2／VIP3 目前預設各 10 張票，可由後台調整每個方案包含張數與 OPERA After Party 權益。</p><div class="preview" id="ticketSettings"><div class="notice">登入管理員後載入票券設定。</div></div><div class="saveBar"><button class="btn gold" id="saveTicketSettings">儲存票券設定</button></div></section>
-<section class="panel"><h2>票券狀態</h2><div class="notice">後端出票邏輯已啟用。贊助訂單付款確認後會依 VIP 等級自動核發設定張數；一般會員則依實際購買人數出票。</div></section>
+<section class="panel"><h2>票券與現場報到戰情</h2><div class="notice">贊助訂單付款後依 VIP 等級自動出票；可在此分配賓客姓名並查看報到狀態。</div><div class="preview" id="ticketSummary"></div><div id="ticketList" class="directoryRows" style="margin-top:16px"><div class="directoryEmptyAdmin">登入管理員後載入票券。</div></div></section>
 </section></main>
 </section>
 <script>
@@ -175,6 +175,24 @@ document.getElementById('saveTicketSettings')?.addEventListener('click',async()=
  const items=[...document.querySelectorAll('#ticketSettings article[data-type]')].map(a=>({ticket_type:a.dataset.type,included_count:Number(a.querySelector('.ticketCount').value||1),afterparty_enabled:a.querySelector('.ticketAfter').value==='true',active:true}));
  try{await adminCall({action:'ticket_settings_update',items});alert('票券設定已更新');loadTicketSettings()}catch(e){}
 });
-load();loadDirectory();loadTicketSettings();
+
+async function loadTickets(){
+ if(!adminToken())return;
+ try{
+  const d=await adminCall({action:'ticket_list'}),items=d.items||[];
+  const s=document.getElementById('ticketSummary'),list=document.getElementById('ticketList');
+  const valid=items.filter(x=>x.status==='valid').length,checked=items.filter(x=>x.status==='checked_in').length,vip=items.filter(x=>String(x.ticket_type||'').startsWith('VIP')).length;
+  s.innerHTML='<article><small>TOTAL</small><h3>'+items.length+'</h3><p>已核發</p></article><article><small>VALID</small><h3>'+valid+'</h3><p>待報到</p></article><article><small>CHECKED-IN</small><h3>'+checked+'</h3><p>已報到</p></article><article><small>VIP</small><h3>'+vip+'</h3><p>贊助商票</p></article>';
+  list.innerHTML='';
+  if(!items.length){list.innerHTML='<div class="directoryEmptyAdmin">目前尚無已付款出票資料。</div>';return}
+  items.forEach(t=>{
+   const row=document.createElement('div');row.className='directoryRow';row.style.gridTemplateColumns='130px 1fr 1fr 100px 88px';
+   row.innerHTML='<div><b>'+esc(t.ticket_no)+'</b><small style="display:block">'+esc(t.ticket_type||'TICKET')+(t.afterparty_entitlement?' · AP':'')+'</small></div><input data-name="'+esc(t.id)+'" value="'+esc(t.holder_name||'')+'" placeholder="賓客姓名" style="height:44px;border-radius:9px;border:1px solid #ffffff18;background:#10090c;color:#fff;padding:0 10px"><div><b>'+esc(t.company||'一般會員')+'</b><small style="display:block">'+esc(t.country_code||'')+'</small></div><span class="state">'+esc(t.status)+'</span><button class="btn" data-save="'+esc(t.id)+'">儲存</button>';
+   list.appendChild(row)
+  });
+  list.querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{const id=b.dataset.save,input=list.querySelector('[data-name="'+id+'"]');try{await adminCall({action:'ticket_assign',id,holder_name:input.value});b.textContent='已儲存';setTimeout(()=>b.textContent='儲存',1000)}catch(e){}});
+ }catch(e){}
+}
+load();loadDirectory();loadTicketSettings();loadTickets();
 </script>
 </body></html>
