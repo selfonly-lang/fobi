@@ -21,7 +21,7 @@
 <button class="active" data-tab="dashboard">總覽</button>
 <button data-tab="content">活動內容</button>
 <button data-tab="exposure">曝光方案</button>
-<button data-tab="tables">國家桌</button><button data-tab="pageant">Pageant OS</button><button data-tab="centers">角色中心</button><button data-tab="events">賽事模組</button>
+<button data-tab="tables">國家桌</button><button data-tab="pageant">Pageant OS</button><button data-tab="centers">角色中心</button><button data-tab="events">賽事模組</button><button data-tab="directory">曝光名錄</button>
 </nav>
 </aside>
 <main class="main">
@@ -78,10 +78,29 @@
 <article><small>APPLICATION</small><h3>選美報名</h3><p>SELF ID → 報名資料 → 報名費 → 審核。</p><p><a class="btn" href="/apply.html?event=fobi-2026" target="_blank">查看報名流程 →</a></p></article>
 </section></section>
 </section>
-</main>
+<section class="tab" id="directory">
+<section class="panel">
+<h2>FOBI 官網曝光名錄</h2>
+<p style="color:#a99a95;line-height:1.7">管理首頁 Hero 輪播、贊助商品牌卡與參與會員頭像。支援單筆新增、批次貼上與批次上／下架。正式寫入需己美管理員 SSO。</p>
+<section class="preview">
+<article><small>HERO</small><h3>動態 Hero 輪播</h3><p>每行格式：標題｜副標｜圖片URL｜連結URL｜排序</p><textarea id="batchSlides" style="width:100%;min-height:110px;background:#0f090c;color:white;border:1px solid #ffffff18;border-radius:10px;padding:12px" placeholder="FOBI 2026 世界總決賽｜40 COUNTRIES...｜https://...｜/event.html｜10"></textarea><p><button class="btn" data-batch="slides">批次新增 Hero</button></p></article>
+<article><small>SPONSORS</small><h3>贊助商卡片</h3><p>每行格式：名稱｜Logo URL｜官網URL｜方案｜說明｜排序</p><textarea id="batchSponsors" style="width:100%;min-height:110px;background:#0f090c;color:white;border:1px solid #ffffff18;border-radius:10px;padding:12px" placeholder="品牌A｜https://...logo.png｜https://brand.com｜VIP 1｜官方合作夥伴｜10"></textarea><p><button class="btn" data-batch="sponsors">批次新增贊助商</button></p></article>
+<article><small>PARTICIPANTS</small><h3>參與會員頭像</h3><p>每行格式：顯示名稱｜頭像URL｜個人連結｜國家代碼｜副標｜排序</p><textarea id="batchParticipants" style="width:100%;min-height:110px;background:#0f090c;color:white;border:1px solid #ffffff18;border-radius:10px;padding:12px" placeholder="王小美｜https://...avatar.jpg｜https://...｜TW｜VIP Guest｜10"></textarea><p><button class="btn" data-batch="participants">批次新增參與會員</button></p></article>
+<article><small>APPLICATION</small><h3>FOBI 2026 報名開關</h3><p>本屆 FOBI 不需要佳麗報名，因此目前應保持關閉。其他賽事可於後台個別開啟。</p><p><button class="btn gold" id="toggleFobiApps">FOBI 報名：關閉</button></p></article>
+</section>
+</section>
+<section class="panel"><h2>目前名錄</h2><div class="exposureList" id="directoryList"><div class="notice">登入管理員後可載入與批次管理正式名錄。</div></div></section>
+</section></main>
 </section>
 <script>
 const API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-public';
+const ADMIN_API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-admin';
+function adminToken(){return sessionStorage.getItem('fobi_admin_token')||localStorage.getItem('fobi_admin_token')||''}
+async function adminCall(body){
+ const token=adminToken(); if(!token){alert('請先完成己美管理員 SSO 後再進行正式寫入。');throw new Error('no_admin_token')}
+ const r=await fetch(ADMIN_API,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body)});
+ const d=await r.json(); if(!r.ok||!d.ok)throw new Error(d.error||'admin_error'); return d;
+}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
 async function load(){
  const [cr,er,tr]=await Promise.all([fetch(API+'?resource=config'),fetch(API+'?resource=exposure'),fetch(API+'?resource=countries')]);
@@ -93,6 +112,26 @@ async function load(){
 function draftConfig(){const ids=['sponsor_headline','sponsor_copy','vip1_price','vip2_price','vip3_price','member_price','event_date','venue'];const d={};ids.forEach(id=>d[id]=document.getElementById(id).value);localStorage.setItem('fobi_admin_config_draft',JSON.stringify(d));alert('已儲存本機草稿，不會影響正式網站。')}
 document.getElementById('saveDraft').addEventListener('click',draftConfig);
 document.getElementById('saveExposureDraft').addEventListener('click',()=>{alert('曝光項目目前由正式 CMS 資料庫讀取；寫入功能將在己美管理員 SSO 接通後啟用。')});
-load();
+document.querySelectorAll('[data-batch]').forEach(btn=>btn.addEventListener('click',async()=>{
+ const section=btn.dataset.batch;
+ const id=section==='slides'?'batchSlides':section==='sponsors'?'batchSponsors':'batchParticipants';
+ const lines=document.getElementById(id).value.split('\n').map(x=>x.trim()).filter(Boolean);
+ if(!lines.length)return;
+ const rows=lines.map((line,i)=>{const p=line.split('｜').map(x=>x.trim());
+  if(section==='slides')return {title:p[0],subtitle:p[1],image_url:p[2],link_url:p[3],sort_order:Number(p[4]||((i+1)*10)),active:true};
+  if(section==='sponsors')return {name:p[0],logo_url:p[1],website_url:p[2],tier:p[3],description:p[4],sort_order:Number(p[5]||((i+1)*10)),active:true};
+  return {display_name:p[0],avatar_url:p[1],profile_url:p[2],country_code:p[3],subtitle:p[4],sort_order:Number(p[5]||((i+1)*10)),active:true};
+ });
+ try{await adminCall({action:'directory_upsert',section,rows});alert('批次新增完成');document.getElementById(id).value='';loadDirectory()}catch(e){}
+}));
+document.getElementById('toggleFobiApps')?.addEventListener('click',async()=>{try{await adminCall({action:'event_toggle_applications',slug:'fobi-2026',enabled:false});alert('FOBI 2026 報名維持關閉')}catch(e){}});
+async function loadDirectory(){
+ if(!adminToken())return;
+ try{const d=await adminCall({action:'directory_list'});const list=document.getElementById('directoryList');if(!list)return;list.innerHTML='';
+ const groups=[['Hero 輪播',d.slides||[],'title'],['贊助商',d.sponsors||[],'name'],['參與會員',d.participants||[],'display_name']];
+ groups.forEach(([label,rows,key])=>{const h=document.createElement('div');h.className='exposure';h.innerHTML='<small>'+label+'</small><div><b>'+rows.length+' 筆</b><p>'+rows.map(x=>x[key]).filter(Boolean).slice(0,8).join('、')+(rows.length>8?'…':'')+'</p></div><span>ACTIVE</span>';list.appendChild(h)});
+ }catch(e){}
+}
+load();loadDirectory();
 </script>
 </body></html>
