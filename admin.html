@@ -96,7 +96,8 @@
 <section class="tab" id="tickets">
 <section class="panel"><h2>票券與支付</h2><p style="color:#a99a95;line-height:1.7">總決賽購票付款確認後，由系統自動依購買人數核發個別票券序號。格式：FB26-01-000001，其中 FB 為 FOBI、26 為 2026、01 為本場次、最後 6 碼為人次流水號。</p>
 <div class="preview"><article><small>ORDER</small><h3>購票訂單</h3><p>站內建立訂單 → ECPay → callback 驗證 → paid</p></article><article><small>TICKET</small><h3>自動核票</h3><p>付款成功後自動建立每位獨立 ticket_no 與 QR token。</p></article><article><small>CHECK-IN</small><h3>現場報到</h3><p>票券資料已預留 checked_in 狀態，可接續製作掃碼報到。</p></article></div></section>
-<section class="panel"><h2>票券狀態</h2><div class="notice">管理員 SSO 完整接通後，這裡會載入正式訂單、付款狀態、序號與報到紀錄。目前後端出票邏輯已啟用。</div></section>
+<section class="panel"><h2>贊助商票券設定</h2><p style="color:#a99a95;line-height:1.7">VIP1／VIP2／VIP3 目前預設各 10 張票，可由後台調整每個方案包含張數與 OPERA After Party 權益。</p><div class="preview" id="ticketSettings"><div class="notice">登入管理員後載入票券設定。</div></div><div class="saveBar"><button class="btn gold" id="saveTicketSettings">儲存票券設定</button></div></section>
+<section class="panel"><h2>票券狀態</h2><div class="notice">後端出票邏輯已啟用。贊助訂單付款確認後會依 VIP 等級自動核發設定張數；一般會員則依實際購買人數出票。</div></section>
 </section></main>
 </section>
 <script>
@@ -161,6 +162,19 @@ async function bulkDirectory(active){
 }
 document.getElementById('bulkEnable')?.addEventListener('click',()=>bulkDirectory(true));
 document.getElementById('bulkDisable')?.addEventListener('click',()=>bulkDirectory(false));
-load();loadDirectory();
+function ticketSettingCard(x){
+ const box=document.createElement('article');box.dataset.type=x.ticket_type;
+ box.innerHTML='<small>'+esc(x.ticket_type)+'</small><h3>'+esc(x.ticket_type==='MEMBER'?'一般會員票':x.ticket_type+' 贊助票')+'</h3><label class="field">包含張數<input class="ticketCount" type="number" min="1" max="100" value="'+Number(x.included_count||1)+'"></label><label class="field" style="margin-top:10px"><span>After Party</span><select class="ticketAfter"><option value="true" '+(x.afterparty_enabled?'selected':'')+'>包含</option><option value="false" '+(!x.afterparty_enabled?'selected':'')+'>不包含</option></select></label>';
+ return box;
+}
+async function loadTicketSettings(){
+ if(!adminToken())return;
+ try{const d=await adminCall({action:'ticket_settings_get'});const box=document.getElementById('ticketSettings');if(!box)return;box.innerHTML='';(d.items||[]).forEach(x=>box.appendChild(ticketSettingCard(x)))}catch(e){}
+}
+document.getElementById('saveTicketSettings')?.addEventListener('click',async()=>{
+ const items=[...document.querySelectorAll('#ticketSettings article[data-type]')].map(a=>({ticket_type:a.dataset.type,included_count:Number(a.querySelector('.ticketCount').value||1),afterparty_enabled:a.querySelector('.ticketAfter').value==='true',active:true}));
+ try{await adminCall({action:'ticket_settings_update',items});alert('票券設定已更新');loadTicketSettings()}catch(e){}
+});
+load();loadDirectory();loadTicketSettings();
 </script>
 </body></html>
