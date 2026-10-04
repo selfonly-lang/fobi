@@ -4,7 +4,7 @@
 
 ## 開通必要設定
 
-在己美原有專案 `llyjfsxpdylaejqlcyac` 註冊 client_id 為 `fobi_checkout` 的專屬 FOBI confidential OAuth client，精確 redirect URI 為：
+在己美原有專案 `llyjfsxpdylaejqlcyac` 註冊 client_id 為 `110f8bcac14942a245d48bb6e0beab5e` 的專屬 FOBI confidential OAuth client，精確 redirect URI 為：
 
 `https://fobi.self.com.tw/api/member?action=callback`
 

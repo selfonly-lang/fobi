@@ -65,7 +65,7 @@ export default async function handler(req, res) {
   const action = url.searchParams.get('action') || 'status';
   const clientId = process.env.SELF_OAUTH_CLIENT_ID;
   const secret = process.env.SELF_OAUTH_CLIENT_SECRET;
-  const ready = Boolean(process.env.SELF_OAUTH_ENABLED === 'true' && clientId === 'fobi_checkout' && secret && secret.length >= 32);
+  const ready = Boolean(process.env.SELF_OAUTH_ENABLED === 'true' && clientId === '110f8bcac14942a245d48bb6e0beab5e' && secret && secret.length >= 32);
   const json = (status, data) => res.status(status).json(data);
   const redirect = (path) => { res.statusCode = 303; res.setHeader('Location', path); res.end(); };
   if (action === 'status' && req.method === 'GET') return json(200, { available: ready });

@@ -7,7 +7,7 @@ const origin = 'https://fobi.self.com.tw';
 function response() {
   return { headers: {}, statusCode: 200, setHeader(k, v) { this.headers[k] = v; }, status(n) { this.statusCode = n; return this; }, json(data) { this.data = data; return this; }, end() {} };
 }
-function configure() { process.env.SELF_OAUTH_ENABLED = 'true'; process.env.SELF_OAUTH_CLIENT_ID = 'fobi_checkout'; process.env.SELF_OAUTH_CLIENT_SECRET = secret; }
+function configure() { process.env.SELF_OAUTH_ENABLED = 'true'; process.env.SELF_OAUTH_CLIENT_ID = '110f8bcac14942a245d48bb6e0beab5e'; process.env.SELF_OAUTH_CLIENT_SECRET = secret; }
 
 test('only the three contact fields can leave the bridge', () => {
   assert.deepEqual(contactOnly({ name: ' Jane ', phone: ' 0912345678 ', email: ' jane@example.test ', sub: 'private-id', membership: { tier: 'vip' }, avatar_url: 'https://example.test/photo', lifetime_points: 100 }), { name: 'Jane', phone: '0912345678', email: 'jane@example.test' });
