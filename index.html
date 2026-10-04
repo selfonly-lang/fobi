@@ -36,6 +36,75 @@ main{padding-top:0}.nav{height:66px}.brand{font-size:20px}.brandMark{width:34px;
 .member{padding:88px 0;background:linear-gradient(120deg,#260b17,#0b0609 68%)}.memberGrid{max-width:960px}.ticket{border-radius:3px;padding:30px;background:#efe4da;color:#241317;box-shadow:none}.ticket strong{font-size:44px}.ticket ul{font-size:13px}
 .sticky{padding:7px;background:#080506ef}.sticky a{border-radius:2px;min-height:48px;letter-spacing:.04em}
 @media(max-width:767px){.siteHeader{height:60px}.nav{height:60px}.brand small{display:none}.tools .pill[href]{display:none}.heroInner{padding-top:105px;padding-bottom:154px;justify-content:flex-end}.heroMedia img{object-position:61% 16%}.heroMedia:after{background:linear-gradient(180deg,#08050636 0%,#0805060c 28%,#0805069c 58%,#080506f5 86%),linear-gradient(90deg,#08050692,transparent 78%)}.hero h1{font-size:clamp(47px,15vw,66px)}.hero h1 i{font-size:.49em;letter-spacing:.12em}.heroZh{font-size:15px;letter-spacing:.15em}.heroLead{font-size:14px;max-width:330px}.heroChoices{width:100%!important;grid-template-columns:1fr 1fr!important;gap:7px;margin-top:20px}.choice{padding:14px 12px}.choice small{font-size:7px}.choice strong{font-size:18px!important}.choice span{display:none}.choice em{font-size:11px}.eventBar{grid-template-columns:1fr 1fr}.eventBar span:nth-child(3),.eventBar span:nth-child(5){display:none}.eventBar span{padding:10px 5vw}.eventBar span:nth-child(4){grid-column:1/-1}.section.sponsor,.member{padding:66px 0}.section h2{font-size:39px}.luxuryTiers{display:block;border:0;background:none}.luxuryTier{margin-bottom:8px;border:1px solid #d8b66c2b!important}.luxuryTier p{display:none}.luxuryTier header{margin-bottom:6px}.luxuryTier h3{font-size:21px;margin:10px 0 0}.luxuryTier b{font-size:27px}.tierAction{margin-top:12px;width:100%}.sponsor>.wrap>.goldBtn{display:none}.memberGrid{gap:18px}.ticket ul{display:none}}
+
+/* REFERENCE-HERO FINAL SYSTEM */
+.referenceHero{min-height:100svh;position:relative;overflow:hidden;background:#090608;padding-bottom:78px}
+.heroStage{position:absolute;inset:0;margin:0;z-index:0}
+.heroStage img{width:100%;height:100%;object-fit:cover;object-position:center 46%;filter:saturate(.92) contrast(1.05) brightness(.72);transform:scale(1.03);animation:stageBreath 18s ease-in-out infinite alternate}
+.heroStage:after{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 54% 26%,transparent 0 19%,rgba(9,6,8,.08) 40%,rgba(9,6,8,.64) 77%),
+linear-gradient(90deg,rgba(9,6,8,.9) 0%,rgba(9,6,8,.58) 36%,rgba(9,6,8,.1) 63%,rgba(9,6,8,.26) 100%),
+linear-gradient(0deg,rgba(9,6,8,.94) 0%,rgba(9,6,8,.18) 34%,rgba(9,6,8,.18) 74%,rgba(9,6,8,.58) 100%)}
+@keyframes stageBreath{to{transform:scale(1.075) translate3d(-.5%,0,0)}}
+.heroPerson{position:absolute;z-index:1;margin:0;left:50%;top:56%;transform:translate(-1%,-50%);width:min(41vw,620px);height:88%;pointer-events:none;filter:drop-shadow(0 28px 36px rgba(0,0,0,.45))}
+.heroPerson img{width:100%;height:100%;object-fit:cover;object-position:center 14%;mask-image:linear-gradient(to bottom,#000 0 79%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0 79%,transparent 100%);animation:portraitFloat 10s ease-in-out infinite alternate}
+@keyframes portraitFloat{to{transform:translate3d(0,-6px,0) scale(1.015)}}
+.heroComposition{position:relative;z-index:3;min-height:calc(100svh - 78px);display:grid;align-content:center;padding-top:92px;padding-bottom:210px}
+.heroBrandBlock{width:min(610px,47vw);text-align:center}
+.heroBrandBlock .eyebrow{font-size:12px;letter-spacing:.28em;margin-bottom:18px}
+.heroBrandBlock h1{font:500 clamp(58px,6vw,96px)/.87 Georgia;margin:0;text-shadow:0 8px 34px rgba(0,0,0,.48);letter-spacing:-.055em}
+.heroBrandBlock h1 i{display:block;color:#f1d28e;font-size:.47em;letter-spacing:.22em;margin-top:13px}
+.heroBrandBlock .heroZh{font-size:22px;letter-spacing:.23em;margin:22px 0 12px}
+.heroTagline{font:500 16px Georgia;letter-spacing:.14em;margin:0;color:#f7eee6}
+.heroTagline span{color:#d8b66c;padding:0 5px}
+.heroBrandBlock .heroLead{font-size:15px;letter-spacing:.12em;color:#d8c8c1;margin:10px 0 0}
+.heroDecisionGrid{position:absolute;left:0;right:0;bottom:102px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.heroDecision{position:relative;overflow:hidden;min-height:210px;padding:26px 30px 24px;border:1px solid rgba(227,194,119,.58);border-radius:22px;background:linear-gradient(135deg,rgba(61,29,15,.86),rgba(26,10,14,.9));backdrop-filter:blur(18px);box-shadow:0 28px 70px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.12)}
+.heroDecision.memberDecision{background:linear-gradient(135deg,rgba(137,18,67,.88),rgba(52,5,27,.92));border-color:rgba(255,123,177,.62)}
+.heroDecision small{font-size:10px;letter-spacing:.18em;color:#f0cf86}
+.heroDecision h2{font:33px Georgia;margin:8px 0 8px}
+.heroDecision p{margin:0;color:#e5d5ce;font-size:14px}
+.heroDecision p strong{font:31px Georgia;color:#fff}
+.heroDecision .micro{margin-top:4px;font-size:12px;color:#e6c9d4}
+.heroCta{position:absolute;left:30px;right:30px;bottom:24px;height:50px;border-radius:999px;border:0;font-weight:850;letter-spacing:.06em;cursor:pointer;transition:.28s transform,.28s box-shadow,.28s filter}
+.heroCta span{margin-left:8px}
+.goldCta{background:linear-gradient(180deg,#fff0bd,#e9c56e 56%,#ba8732);color:#2b160c;box-shadow:inset 0 1px 0 #fff9,0 12px 28px rgba(191,133,41,.24)}
+.pinkCta{background:linear-gradient(180deg,#ff5d9f,#d91f68 56%,#8f0f43);color:#fff;box-shadow:inset 0 1px 0 #fff7,0 12px 28px rgba(201,27,93,.28)}
+.heroCta:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.referenceEventBar{position:absolute!important;bottom:0!important;left:0;right:0;z-index:4!important;display:grid!important;grid-template-columns:repeat(5,1fr)!important;background:linear-gradient(90deg,rgba(16,5,10,.95),rgba(69,9,33,.82),rgba(16,5,10,.95))!important;border-top:1px solid rgba(216,182,108,.32)!important}
+.referenceEventBar span{padding:15px 14px!important;text-align:center!important;font-size:11px!important;border-right:1px solid rgba(216,182,108,.18)!important;border-bottom:0!important}
+.referenceEventBar b{font:17px Georgia!important;color:#f5e2ba!important;margin-bottom:4px!important}
+
+@media(max-width:1024px){
+ .heroPerson{left:57%;width:min(52vw,540px);opacity:.9}
+ .heroBrandBlock{width:min(560px,58vw)}
+ .heroDecisionGrid{gap:12px}
+}
+@media(max-width:767px){
+ .referenceHero{padding-bottom:0;min-height:auto}
+ .heroStage{height:58svh}
+ .heroStage img{object-position:64% 20%}
+ .heroStage:after{background:linear-gradient(180deg,rgba(9,6,8,.15) 0%,rgba(9,6,8,.08) 26%,rgba(9,6,8,.72) 66%,#090608 100%),linear-gradient(90deg,rgba(9,6,8,.66),transparent 78%)}
+ .heroPerson{left:58%;top:31svh;transform:translate(-8%,-50%);width:72vw;height:52svh;opacity:.9}
+ .heroComposition{display:block;min-height:auto;padding-top:95px;padding-bottom:26px}
+ .heroBrandBlock{width:100%;text-align:left;padding-top:21svh}
+ .heroBrandBlock .eyebrow{font-size:9px;letter-spacing:.18em}
+ .heroBrandBlock h1{font-size:clamp(43px,14vw,62px);line-height:.87}
+ .heroBrandBlock h1 i{font-size:.42em;letter-spacing:.13em;margin-top:9px}
+ .heroBrandBlock .heroZh{font-size:16px;letter-spacing:.12em;margin-top:14px}
+ .heroTagline{font-size:11px;letter-spacing:.08em}
+ .heroBrandBlock .heroLead{display:none}
+ .heroDecisionGrid{position:relative;bottom:auto;left:auto;right:auto;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+ .heroDecision{min-height:148px;padding:15px 14px 14px;border-radius:16px}
+ .heroDecision small{font-size:7px;letter-spacing:.1em}
+ .heroDecision h2{font-size:20px;margin:6px 0}
+ .heroDecision p{font-size:11px}.heroDecision p strong{font-size:23px}.heroDecision .micro{display:none}
+ .heroCta{left:14px;right:14px;bottom:13px;height:42px;font-size:12px}
+ .referenceEventBar{position:relative!important;grid-template-columns:1fr 1fr!important}
+ .referenceEventBar span{padding:11px 10px!important;font-size:10px!important}
+ .referenceEventBar span:nth-child(3),.referenceEventBar span:nth-child(5){display:none}
+ .referenceEventBar span:nth-child(4){grid-column:1/-1}
+}
 </style></head>
 <body>
 <header class="siteHeader"><nav class="wrap nav" aria-label="主要導覽">
@@ -44,13 +113,48 @@ main{padding-top:0}.nav{height:66px}.brand{font-size:20px}.brandMark{width:34px;
 <section class="tools"><button class="pill" id="langSwitch" type="button">EN</button><a class="pill" href="https://www.self.com.tw/auth?redirect=%2Fmember">己美會員</a><button class="hamb" id="menuToggle" type="button" aria-controls="mobileNav"><span></span><span></span><span></span><b class="srOnly">選單</b></button></section>
 </nav><nav class="mobileNav" id="mobileNav"><a href="#sponsor">國家品牌贊助</a><a href="#final">參加總決賽</a><a href="#event">活動資訊</a></nav></header>
 <main id="top">
-<section class="hero">
-<figure class="heroMedia"><img src="https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/CKN_6633.jpg?resize=1600%2C1200&ssl=1" alt="Face of Beauty International 國際總決賽官方舞台與佳麗" fetchpriority="high"></figure>
-<article class="wrap heroInner"><section class="heroCopyBox">
-<p class="eyebrow">2026 · TAIPEI · 40 COUNTRIES</p><h1>FACE OF BEAUTY<i>INTERNATIONAL</i></h1><p class="heroZh">世界美顏小姐選美總決賽</p><p class="heroLead">40 國佳麗齊聚臺北。選擇品牌贊助，或加入總決賽之夜。</p>
-<section class="heroChoices"><a class="choice" href="#sponsor"><small>SPONSOR A COUNTRY</small><strong>認領一個國家</strong><span>品牌 × 國際舞台</span><em>NT$40,000 起 →</em></a><a class="choice member" href="#final"><small>JOIN THE GRAND FINAL</small><strong>參加總決賽</strong><span>GALA × AFTER PARTY</span><em>NT$3,000 / 人 →</em></a></section>
-</section></article>
-<aside class="eventBar"><span><b>2026.10.30</b>FRIDAY</span><span><b>14:00</b>總決賽</span><span><b>19:00</b>頒獎典禮暨晚宴</span><span><b>臺北茹曦酒店 2F</b>TAIPEI</span><span><b>OPERA</b>AFTER PARTY</span></aside>
+<section class="hero referenceHero" aria-labelledby="heroTitle">
+  <figure class="heroStage" aria-hidden="true">
+    <img src="https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/CKN_6633.jpg?resize=1600%2C1200&ssl=1" alt="" fetchpriority="high">
+  </figure>
+  <figure class="heroPerson" aria-label="Face of Beauty International 歷屆冠軍官方形象">
+    <img src="https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/599984544_18070655006622120_2305142344171806814_n-1.jpg?resize=900%2C1200&ssl=1" alt="Face of Beauty International 歷屆冠軍官方形象" fetchpriority="high">
+  </figure>
+
+  <article class="wrap heroComposition">
+    <header class="heroBrandBlock">
+      <p class="eyebrow">2026 · TAIPEI · 40 COUNTRIES</p>
+      <h1 id="heroTitle">FACE OF BEAUTY<i>INTERNATIONAL</i></h1>
+      <p class="heroZh">世界美顏小姐選美總決賽</p>
+      <p class="heroTagline">40 COUNTRIES <span>·</span> ONE STAGE <span>·</span> ONE NIGHT</p>
+      <p class="heroLead">全球佳麗齊聚臺北，遇見更美的世界。</p>
+    </header>
+
+    <section class="heroDecisionGrid" aria-label="FOBI 主要參與方式">
+      <article class="heroDecision sponsorDecision">
+        <small>SPONSOR A COUNTRY</small>
+        <h2>認領一個國家</h2>
+        <p>國家桌 × 品牌曝光 × VIP 接待</p>
+        <button type="button" class="heroCta goldCta" onclick="openSponsor('VIP 1')">立即認桌 <span>→</span></button>
+      </article>
+
+      <article class="heroDecision memberDecision">
+        <small>JOIN THE GRAND FINAL</small>
+        <h2>參加總決賽</h2>
+        <p><strong>NT$3,000</strong> / 人</p>
+        <p class="micro">總決賽 × 國際晚宴 × OPERA 慶功宴</p>
+        <button type="button" class="heroCta pinkCta" onclick="openMember()">立即參加 <span>→</span></button>
+      </article>
+    </section>
+  </article>
+
+  <aside class="eventBar referenceEventBar" aria-label="活動摘要">
+    <span><b>2026.10.30</b>FRIDAY</span>
+    <span><b>14:00</b>總決賽</span>
+    <span><b>19:00</b>頒獎典禮暨國際晚宴</span>
+    <span><b>臺北茹曦酒店 2F</b>TAIPEI</span>
+    <span><b>OPERA</b>AFTER PARTY</span>
+  </aside>
 </section>
 <section class="story editorialSecondary"><article class="wrap"><header class="storyHead"><p class="eyebrow">THE WORLD MEETS IN TAIPEI</p><h2>一個舞台，40 個國家。<br>讓品牌進入這一夜。</h2><p>用真正的國際選美舞台說故事，不堆疊資訊。先看見盛會，再選擇「企業贊助」或「總決賽入席」。</p></header><section class="storyGrid">
 <figure class="storyCard"><img src="https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/599984544_18070655006622120_2305142344171806814_n-1.jpg?resize=900%2C1200&ssl=1" alt="Face of Beauty International 歷屆冠軍官方形象" loading="lazy"><figcaption><small>FOBI LEGACY</small><b>International Beauty</b></figcaption></figure>
