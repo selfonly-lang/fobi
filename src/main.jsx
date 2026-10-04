@@ -48,7 +48,7 @@ function ActionCards(){
       <div className="cardText">
         <div className="cardTitle"><Crown/><div><h2>認領一個國家</h2><span>SPONSOR A COUNTRY</span></div></div>
         <p>40國佳麗・50席國家餐桌</p>
-        <small>企業品牌 × 國際曝光 × 尊榮晚宴 × 己美／醫美版曝光</small>
+        <small>企業品牌 × 國際曝光 × 尊榮晚宴 × 官方合作曝光</small>
         <span className="cardButton">立即認桌 <ArrowRight/></span>
       </div>
     </motion.a>
@@ -99,7 +99,7 @@ function ExposureDirectory(){
   const[sponsors,setSponsors]=useState([]),[participants,setParticipants]=useState([]);
   useEffect(()=>{Promise.all([fetch(API+'?resource=sponsors').then(r=>r.json()),fetch(API+'?resource=participants').then(r=>r.json())]).then(([s,p])=>{if(s.ok)setSponsors(s.items||[]);if(p.ok)setParticipants(p.items||[])}).catch(()=>{})},[]);
   return <section className="directorySection" id="official-exposure">
-    <div className="sectionHead"><p className="sectionEyebrow">OFFICIAL EXPOSURE</p><h2>贊助夥伴與參與貴賓</h2><p>FOBI 官網提供合作品牌卡片曝光，並以頭像方式呈現參與會員／貴賓；內容由活動後台統一管理。</p><div className="exposureLinks"><a href="/partners.html">查看所有合作夥伴</a><a href="/guests.html">查看參與會員／貴賓</a></div></div>
+    <div className="sectionHead"><p className="sectionEyebrow">OFFICIAL EXPOSURE</p><h2>贊助夥伴與參與貴賓</h2><p>FOBI 官網提供合作品牌卡片曝光，並以頭像方式呈現參與貴賓；內容由活動後台統一管理。</p><div className="exposureLinks"><a href="/partners.html">查看所有合作夥伴</a><a href="/guests.html">查看參與貴賓</a></div></div>
     {sponsors.length?<div className="sponsorCards">{sponsors.map(s=><a className="sponsorProfile" href={s.website_url||'#'} key={s.id} target={s.website_url?'_blank':undefined} rel="noreferrer"><div className="sponsorLogo">{s.logo_url?<img src={s.logo_url} alt={s.name}/>:<Crown/>}</div><div><small>{s.tier||'PARTNER'}</small><h3>{s.name}</h3><p>{s.description||'FOBI 2026 官方合作夥伴'}</p></div></a>)}</div>:<div className="directoryEmpty"><Crown/><div><b>官方贊助夥伴</b><p>品牌名錄將由活動後台陸續公開。</p><a href="/sponsors.html">查看贊助方案 →</a></div></div>}
     {participants.length?<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>:<div className="directoryEmpty"><UserRound/><div><b>參與會員／貴賓</b><p>經同意公開的參與者頭像與連結將顯示於此。</p></div></div>}
   </section>
@@ -122,19 +122,19 @@ function Highlights(){
 
 function Sponsor(){
   const data=[
-    ['VIP 1','NT$70,000','國際旗艦贊助','國家桌・OPERA 慶功宴・己美 SELF 與醫美版延伸曝光'],
-    ['VIP 2','NT$60,000','品牌尊榮贊助','國家桌・After Party・社群與會員曝光'],
+    ['VIP 1','NT$70,000','國際旗艦贊助','國家桌・OPERA 慶功宴・官方合作曝光・尊榮接待'],
+    ['VIP 2','NT$60,000','品牌尊榮贊助','國家桌・After Party・品牌露出・尊榮接待'],
     ['VIP 3','NT$40,000','國家桌品牌贊助','國家桌・現場品牌識別・活動內容露出']
   ];
-  return <section className="sponsorSection" id="sponsor"><div className="sectionHead"><p className="sectionEyebrow">SPONSOR A COUNTRY</p><h2>讓品牌代表一個國家入席。</h2><p>FOBI 國家桌不是單純餐席，而是結合國際舞台、企業貴賓接待、己美 SELF 會員與醫美版社群曝光的品牌合作方案。</p></div><div className="tierGrid">{data.map((item,index)=><motion.article key={item[0]} className={'tier '+(index===0?'featured':'')} whileHover={{y:-6}} transition={{duration:.3}}><span>{item[0]}</span><h3>{item[2]}</h3><b>{item[1]}</b><p>{item[3]}</p><a href={'/checkout.html?type=sponsor&tier='+encodeURIComponent(item[0])}>立即認桌 <ArrowRight/></a></motion.article>)}</div></section>
+  return <section className="sponsorSection" id="sponsor"><div className="sectionHead"><p className="sectionEyebrow">SPONSOR A COUNTRY</p><h2>讓品牌代表一個國家入席。</h2><p>FOBI 國家桌不是單純餐席，而是結合國際舞台、企業貴賓接待、官方品牌曝光與活動內容延伸的合作方案。</p></div><div className="tierGrid">{data.map((item,index)=><motion.article key={item[0]} className={'tier '+(index===0?'featured':'')} whileHover={{y:-6}} transition={{duration:.3}}><span>{item[0]}</span><h3>{item[2]}</h3><b>{item[1]}</b><p>{item[3]}</p><a href={'/checkout.html?type=sponsor&tier='+encodeURIComponent(item[0])}>立即認桌 <ArrowRight/></a></motion.article>)}</div></section>
 }
 
 function Footer(){
-  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">參與貴賓</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">嘉賓名錄</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
 }
 
 function App(){
-  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯參賽者、企業贊助、己美 SELF 會員與全球選美活動，以精品時尚的數位體驗完成認桌、入席與後續互動。</p></section><Sponsor/><ExposureDirectory/></main><Footer/></>
+  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯全球佳麗、企業贊助與國際貴賓，以精品時尚的數位體驗完成認桌、入席與活動互動。</p></section><Sponsor/><ExposureDirectory/></main><Footer/></>
 }
 
 createRoot(document.getElementById('root')).render(<App/>);
