@@ -16,12 +16,10 @@ function Navbar(){
   return <header className={'topbar '+(scrolled?'isScrolled':'')}>
     <a className="logo" href="#top"><span className="logoCrest"><Crown size={24}/></span><span><b>FOBI</b><small>FACE OF BEAUTY<br/>INTERNATIONAL</small></span></a>
     <nav className={open?'nav open':'nav'}>
-      <a href="#about" onClick={()=>setOpen(false)}>關於FOBI</a>
-      <a href="#sponsor" onClick={()=>setOpen(false)}>國家贊助</a>
-      <a href="#final" onClick={()=>setOpen(false)}>總決賽</a>
-      <a href="/sponsors.html">合作夥伴</a>
-      <a href="#highlights" onClick={()=>setOpen(false)}>最新消息</a>
-      <a href="#footer" onClick={()=>setOpen(false)}>聯絡我們</a>
+      <a href="#sponsor" onClick={()=>setOpen(false)}>品牌贊助</a>
+      <a href="/checkout.html?type=ticket">總決賽入席</a>
+      <a href="/apply.html?event=fobi-2026">佳麗報名</a>
+      <a href="/event.html">活動資訊</a>
     </nav>
     <div className="navTools">
       <button className="lang"><Globe2 size={16}/>繁中<ChevronDown size={14}/></button>
@@ -44,7 +42,7 @@ function ActionCards(){
   const ref=useRef(null);
   const seen=useInView(ref,{once:true,margin:'-80px'});
   return <div className="actionWrap" ref={ref}>
-    <motion.a href="#sponsor" className="actionCard sponsorCard" initial={{opacity:0,x:-40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55}}>
+    <motion.a href="/checkout.html?type=sponsor" className="actionCard sponsorCard" initial={{opacity:0,x:-40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55}}>
       <div className="cardImage"><img src={contestant} alt="FOBI 國家品牌贊助"/></div>
       <div className="cardText">
         <div className="cardTitle"><Crown/><div><h2>認領一個國家</h2><span>SPONSOR A COUNTRY</span></div></div>
@@ -53,7 +51,7 @@ function ActionCards(){
         <span className="cardButton">立即認桌 <ArrowRight/></span>
       </div>
     </motion.a>
-    <motion.a href="/tickets.html" id="final" className="actionCard ticketCard" initial={{opacity:0,x:40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55,delay:.08}}>
+    <motion.a href="/checkout.html?type=ticket" id="final" className="actionCard ticketCard" initial={{opacity:0,x:40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55,delay:.08}}>
       <div className="cardText">
         <div className="cardTitle"><Ticket/><div><h2>我要參加總決賽</h2><span>JOIN THE GRAND FINAL</span></div></div>
         <p><strong>NT$3,000</strong> / 人</p>
@@ -111,11 +109,11 @@ function Sponsor(){
     ['VIP 2','NT$60,000','品牌尊榮贊助','國家桌・After Party・社群與會員曝光'],
     ['VIP 3','NT$40,000','國家桌品牌贊助','國家桌・現場品牌識別・活動內容露出']
   ];
-  return <section className="sponsorSection" id="sponsor"><div className="sectionHead"><p className="sectionEyebrow">SPONSOR A COUNTRY</p><h2>讓品牌代表一個國家入席。</h2><p>FOBI 國家桌不是單純餐席，而是結合國際舞台、企業貴賓接待、己美 SELF 會員與醫美版社群曝光的品牌合作方案。</p></div><div className="tierGrid">{data.map((item,index)=><motion.article key={item[0]} className={'tier '+(index===0?'featured':'')} whileHover={{y:-6}} transition={{duration:.3}}><span>{item[0]}</span><h3>{item[2]}</h3><b>{item[1]}</b><p>{item[3]}</p><a href="/sponsors.html">查看方案 <ArrowRight/></a></motion.article>)}</div></section>
+  return <section className="sponsorSection" id="sponsor"><div className="sectionHead"><p className="sectionEyebrow">SPONSOR A COUNTRY</p><h2>讓品牌代表一個國家入席。</h2><p>FOBI 國家桌不是單純餐席，而是結合國際舞台、企業貴賓接待、己美 SELF 會員與醫美版社群曝光的品牌合作方案。</p></div><div className="tierGrid">{data.map((item,index)=><motion.article key={item[0]} className={'tier '+(index===0?'featured':'')} whileHover={{y:-6}} transition={{duration:.3}}><span>{item[0]}</span><h3>{item[2]}</h3><b>{item[1]}</b><p>{item[3]}</p><a href={'/checkout.html?type=sponsor&tier='+encodeURIComponent(item[0])}>立即認桌 <ArrowRight/></a></motion.article>)}</div></section>
 }
 
 function Footer(){
-  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/tickets.html">總決賽入席</a><a href="/pageants.html">更多選美賽事</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/checkout.html?type=ticket">總決賽入席</a><a href="/apply.html?event=fobi-2026">佳麗報名</a><a href="/pageants.html">更多選美賽事</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
 }
 
 function App(){
