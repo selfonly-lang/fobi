@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FOBI 2026｜電子票券</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--bg:#090507;--gold:#d8b568;--iv:#fff8ee;--mut:#b9aaa4;--line:#d8b56835}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% 0,#35101e,#090507 64%);color:var(--iv);font-family:Inter,"Noto Sans TC",system-ui}
+.wrap{width:min(760px,92vw);margin:auto}.top{padding:24px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.brand{font:26px Georgia;color:#f6dda1}
+h1{font:44px Georgia;margin:54px 0 10px}.muted{color:var(--mut);line-height:1.7}.ticket{margin:24px 0 70px;padding:26px;border:1px solid var(--line);border-radius:22px;background:#140a0f}
+.serial{font:38px Georgia;color:#f6dda1;margin:18px 0 24px}.row{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid #ffffff0d}.row span{color:var(--mut)}
+.code{margin-top:22px;padding:16px;border:1px dashed var(--line);border-radius:12px;word-break:break-all;font-family:monospace;color:#f6dda1}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="brand">FOBI 2026</div><a href="/" style="color:var(--gold)">返回官網</a></div>
+<h1>電子入場票</h1>
+<p class="muted">現場請出示本頁票券資訊。每張票僅可完成一次報到。</p>
+<section class="ticket">
+<div class="serial" id="serial">載入中…</div>
+<div class="row"><span>票種</span><b id="type">—</b></div>
+<div class="row"><span>持票人</span><b id="holder">—</b></div>
+<div class="row"><span>品牌／公司</span><b id="company">—</b></div>
+<div class="row"><span>國家</span><b id="country">—</b></div>
+<div class="row"><span>After Party</span><b id="after">—</b></div>
+<div class="row"><span>狀態</span><b id="status">—</b></div>
+<div class="code" id="code">—</div>
+</section>
+</div>
+<script>
+const API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-public';
+const token=new URLSearchParams(location.search).get('token')||'';
+(async()=>{
+ if(!token){document.getElementById('serial').textContent='找不到票券';return}
+ try{
+  const r=await fetch(API+'?resource=ticket&token='+encodeURIComponent(token));
+  const d=await r.json();if(!r.ok||!d.ok)throw new Error();
+  const t=d.ticket;
+  document.getElementById('serial').textContent=t.ticket_no;
+  document.getElementById('type').textContent=(t.ticket_type||'TICKET')+(t.sponsor_tier?' · '+t.sponsor_tier:'');
+  document.getElementById('holder').textContent=t.holder_name||'尚未分配';
+  document.getElementById('company').textContent=t.company||'—';
+  document.getElementById('country').textContent=t.country_code||'—';
+  document.getElementById('after').textContent=t.afterparty_entitlement?'包含':'不包含';
+  document.getElementById('status').textContent=t.status==='checked_in'?'已報到':t.status==='void'?'已作廢':'有效';
+  document.getElementById('code').textContent=t.qr_token;
+ }catch(e){document.getElementById('serial').textContent='票券無效或無法載入'}
+})();
+</script>
+</body></html>
