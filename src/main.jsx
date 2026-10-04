@@ -130,7 +130,7 @@ function Sponsor(){
 }
 
 function Footer(){
-  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/checkout.html?type=ticket">總決賽入席</a><a href="/pageants.html">更多選美賽事</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/checkout.html?type=ticket">總決賽入席</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
 }
 
 function App(){
