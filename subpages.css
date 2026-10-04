@@ -27,3 +27,36 @@ footer{background:#080406!important;border-top:1px solid var(--line)!important}
  .btn{min-height:52px!important;font-size:16px!important}
  .field input,.field select,.field textarea{font-size:16px!important}
 }
+
+/* FOBI Editorial Crystal System */
+:root{--crystal-hi:rgba(255,255,255,.78);--crystal-mid:rgba(246,221,160,.28);--crystal-edge:rgba(255,232,177,.58);--crystal-shadow:rgba(118,24,65,.34)}
+body:before{content:"FOBI  /  2026  /  TAIPEI";position:fixed;z-index:-1;right:-34px;top:42%;transform:rotate(90deg);font:700 10px/1 Inter,sans-serif;letter-spacing:.42em;color:rgba(255,255,255,.07);pointer-events:none}
+.hero:after{content:"THE GRAND FINAL · EDITION 2026";position:absolute;z-index:2;right:4vw;bottom:22px;font:700 9px/1 Inter,sans-serif;letter-spacing:.32em;color:rgba(255,240,204,.56)}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif!important}.ey,.eyebrow{font-weight:800}.section:before,.panel:before,.card:before{pointer-events:none}
+.btn,.back,.selfBox a,.modeSwitch a,.links a,.nav a,.actions a,.tier a,.exposureLinks a{
+ position:relative;isolation:isolate;overflow:hidden;
+ border:1px solid var(--crystal-edge)!important;
+ background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(246,221,160,.11) 38%,rgba(122,19,61,.2) 72%,rgba(255,255,255,.12))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -1px 0 rgba(255,214,139,.12),0 8px 28px rgba(0,0,0,.24),0 0 18px rgba(216,181,104,.08)!important;
+ backdrop-filter:blur(14px) saturate(1.35);
+ color:#fff7e9!important;text-shadow:0 1px 10px rgba(255,226,169,.18);
+ transition:transform .28s ease,box-shadow .28s ease,filter .28s ease!important
+}
+.btn:before,.back:before,.selfBox a:before,.modeSwitch a:before,.links a:before,.nav a:before,.actions a:before,.tier a:before,.exposureLinks a:before{
+ content:"";position:absolute;z-index:-1;inset:-2px auto -2px -45%;width:34%;transform:skewX(-22deg);
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent);opacity:.36;animation:crystalSweep 4.8s ease-in-out infinite
+}
+.btn:hover,.back:hover,.selfBox a:hover,.modeSwitch a:hover,.links a:hover,.nav a:hover,.actions a:hover,.tier a:hover,.exposureLinks a:hover{
+ transform:translateY(-2px) scale(1.012);filter:brightness(1.13);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 14px 34px rgba(0,0,0,.32),0 0 26px rgba(241,203,119,.22)!important
+}
+.gold,.primary,.modeSwitch a.active{background:linear-gradient(145deg,rgba(255,249,222,.92),rgba(230,190,101,.88) 44%,rgba(155,101,34,.88) 100%)!important;color:#25120d!important;text-shadow:none!important}
+@keyframes crystalSweep{0%,62%{left:-45%}82%,100%{left:135%}}
+.card,.panel,.tier,.summary,.countryCard,.sponsorProfile,.directoryEmpty{
+ border-color:rgba(246,221,160,.28)!important;
+ background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(54,11,29,.34) 46%,rgba(9,5,7,.82))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 60px rgba(0,0,0,.22)!important;
+ backdrop-filter:blur(10px)
+}
+.card:after,.panel:after,.tier:after{content:"";display:block;width:42px;height:1px;margin-top:18px;background:linear-gradient(90deg,#f7dda1,transparent)}
+@media(prefers-reduced-motion:reduce){.btn:before,.back:before,.selfBox a:before,.modeSwitch a:before,.links a:before,.nav a:before,.actions a:before,.tier a:before,.exposureLinks a:before{animation:none!important}}
