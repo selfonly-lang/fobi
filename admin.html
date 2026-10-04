@@ -11,6 +11,8 @@
 @media(max-width:900px){.shell{display:block}.side{position:sticky;top:0;z-index:10;border-right:0;border-bottom:1px solid var(--line);padding:14px}.nav{grid-template-columns:repeat(4,1fr);margin-top:12px;overflow:auto}.nav button{font-size:12px;text-align:center;padding:10px}.stats{grid-template-columns:1fr 1fr}.formGrid,.preview{grid-template-columns:1fr}.field.full{grid-column:auto}.exposure{grid-template-columns:1fr}.row{grid-template-columns:50px 1fr 90px}.row>*:last-child{grid-column:2/-1}.main{padding:18px}.top h1{font-size:30px}}
 
 .side{background:linear-gradient(180deg,#12080c,#0b0608)!important}.brand{letter-spacing:.04em}.top{padding-bottom:10px;border-bottom:1px solid #ffffff10}.notice{background:linear-gradient(135deg,#2a190e,#1a0d0d)!important}.stat,.panel{box-shadow:0 16px 40px #0003}.stat b{font-family:Georgia,serif;color:#f0cf83}.nav button{transition:.25s}.nav button.active{background:linear-gradient(90deg,#d9b66c20,#ffffff05)!important;color:#f3d691!important;border-left:2px solid #d9b66c}.preview article,.module{transition:.25s transform,.25s border-color}.preview article:hover,.module:hover{transform:translateY(-3px);border-color:#d9b66c55}.btn{transition:.25s}.btn:hover{transform:translateY(-1px);border-color:#d9b66c66}.table .row:hover{background:#ffffff04}@media(max-width:900px){.side{position:relative!important}.nav{grid-template-columns:repeat(2,minmax(130px,1fr))!important}.top{align-items:flex-start;flex-direction:column}.top .btn{width:100%;text-align:center}}
+
+.directoryGroup{margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden}.directoryHead{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#ffffff05}.directoryRows{display:grid}.directoryRow{display:grid;grid-template-columns:34px 90px 1fr 120px 90px;gap:10px;align-items:center;padding:11px 14px;border-top:1px solid var(--line)}.directoryRow img{width:54px;height:54px;object-fit:cover;border-radius:10px;background:#fff}.directoryRow .avatar{border-radius:50%}.directoryRow small{color:var(--muted)}.directoryRow .state{font-size:11px;color:#d9b66c}.directoryRow input[type=checkbox]{width:18px;height:18px}.directoryEmptyAdmin{padding:14px;color:var(--muted)}@media(max-width:900px){.directoryRow{grid-template-columns:30px 60px 1fr}.directoryRow>*:nth-child(4),.directoryRow>*:nth-child(5){grid-column:3}}
 </style>
 </head>
 <body>
@@ -89,7 +91,7 @@
 <article><small>APPLICATION</small><h3>FOBI 2026 報名開關</h3><p>本屆 FOBI 不需要佳麗報名，因此目前應保持關閉。其他賽事可於後台個別開啟。</p><p><button class="btn gold" id="toggleFobiApps">FOBI 報名：關閉</button></p></article>
 </section>
 </section>
-<section class="panel"><h2>目前名錄</h2><div class="exposureList" id="directoryList"><div class="notice">登入管理員後可載入與批次管理正式名錄。</div></div></section>
+<section class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 style="margin:0">目前名錄</h2><div class="saveBar" style="margin:0"><button class="btn" id="bulkEnable">批次上架</button><button class="btn" id="bulkDisable">批次下架</button></div></div><div class="notice" style="margin-top:14px">勾選 Hero／贊助商／參與會員後，可一次上架或下架。資料不會被刪除，可隨時重新啟用。</div><div class="exposureList" id="directoryList"><div class="notice">登入管理員後可載入與批次管理正式名錄。</div></div></section>
 </section></main>
 </section>
 <script>
@@ -125,13 +127,35 @@ document.querySelectorAll('[data-batch]').forEach(btn=>btn.addEventListener('cli
  try{await adminCall({action:'directory_upsert',section,rows});alert('批次新增完成');document.getElementById(id).value='';loadDirectory()}catch(e){}
 }));
 document.getElementById('toggleFobiApps')?.addEventListener('click',async()=>{try{await adminCall({action:'event_toggle_applications',slug:'fobi-2026',enabled:false});alert('FOBI 2026 報名維持關閉')}catch(e){}});
+let directoryCache={slides:[],sponsors:[],participants:[]};
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function renderDirectoryGroup(list,section,label,rows,key,imageKey){
+ const wrap=document.createElement('section');wrap.className='directoryGroup';
+ const head=document.createElement('div');head.className='directoryHead';head.innerHTML='<b>'+label+'</b><span>'+rows.length+' 筆</span>';wrap.appendChild(head);
+ const box=document.createElement('div');box.className='directoryRows';
+ if(!rows.length){box.innerHTML='<div class="directoryEmptyAdmin">目前尚無資料。</div>'}
+ rows.forEach(x=>{const row=document.createElement('label');row.className='directoryRow';
+   const image=imageKey&&x[imageKey]?'<img class="'+(section==='participants'?'avatar':'')+'" src="'+esc(x[imageKey])+'" alt="">':'<div style="width:54px;height:54px;border:1px solid #ffffff18;border-radius:10px;display:grid;place-items:center;color:#d9b66c">—</div>';
+   row.innerHTML='<input type="checkbox" class="dirCheck" data-section="'+section+'" value="'+esc(x.id)+'">'+image+'<div><b>'+esc(x[key]||'未命名')+'</b><small style="display:block;margin-top:4px">'+esc(section==='slides'?(x.subtitle||''):section==='sponsors'?(x.tier||x.description||''):(x.subtitle||x.country_code||''))+'</small></div><small>#'+esc(x.sort_order)+'</small><span class="state">'+(x.active?'已上架':'已下架')+'</span>';
+   box.appendChild(row)
+ });wrap.appendChild(box);list.appendChild(wrap)
+}
 async function loadDirectory(){
  if(!adminToken())return;
- try{const d=await adminCall({action:'directory_list'});const list=document.getElementById('directoryList');if(!list)return;list.innerHTML='';
- const groups=[['Hero 輪播',d.slides||[],'title'],['贊助商',d.sponsors||[],'name'],['參與會員',d.participants||[],'display_name']];
- groups.forEach(([label,rows,key])=>{const h=document.createElement('div');h.className='exposure';h.innerHTML='<small>'+label+'</small><div><b>'+rows.length+' 筆</b><p>'+rows.map(x=>x[key]).filter(Boolean).slice(0,8).join('、')+(rows.length>8?'…':'')+'</p></div><span>ACTIVE</span>';list.appendChild(h)});
+ try{const d=await adminCall({action:'directory_list'});directoryCache={slides:d.slides||[],sponsors:d.sponsors||[],participants:d.participants||[]};const list=document.getElementById('directoryList');if(!list)return;list.innerHTML='';
+ renderDirectoryGroup(list,'slides','Hero 輪播',directoryCache.slides,'title','image_url');
+ renderDirectoryGroup(list,'sponsors','贊助商卡片',directoryCache.sponsors,'name','logo_url');
+ renderDirectoryGroup(list,'participants','參與會員頭像',directoryCache.participants,'display_name','avatar_url');
  }catch(e){}
 }
+async function bulkDirectory(active){
+ const checks=[...document.querySelectorAll('.dirCheck:checked')];
+ if(!checks.length){alert('請先勾選要處理的項目');return}
+ const by={};checks.forEach(x=>(by[x.dataset.section]??=[]).push(x.value));
+ try{for(const [section,ids] of Object.entries(by))await adminCall({action:'directory_bulk_active',section,ids,active});alert(active?'批次上架完成':'批次下架完成');loadDirectory()}catch(e){}
+}
+document.getElementById('bulkEnable')?.addEventListener('click',()=>bulkDirectory(true));
+document.getElementById('bulkDisable')?.addEventListener('click',()=>bulkDirectory(false));
 load();loadDirectory();
 </script>
 </body></html>
