@@ -5,6 +5,7 @@ import {motion,useInView} from 'framer-motion';
 import {Crown,Globe2,UserRound,Menu,X,CalendarDays,Clock3,MapPin,Martini,ArrowRight,Ticket,ChevronDown} from 'lucide-react';
 import './style.css';
 
+const API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-public';
 const stage='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/CKN_6633.jpg?resize=1600%2C1200&ssl=1';
 const queen='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/599984544_18070655006622120_2305142344171806814_n-1.jpg?resize=900%2C1200&ssl=1';
 const contestant='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/03/637647404_1375377174624326_2336921487574729613_n.jpg?fit=720%2C960&ssl=1';
@@ -64,9 +65,14 @@ function ActionCards(){
 }
 
 function Hero(){
+  const [slides,setSlides]=useState([{id:'fallback',title:'FOBI 2026 世界總決賽',subtitle:'40 COUNTRIES · ONE STAGE · ONE NIGHT',image_url:stage,link_url:'/event.html'}]);
+  const [active,setActive]=useState(0);
+  useEffect(()=>{fetch(API+'?resource=slides').then(r=>r.json()).then(d=>{if(d.ok&&d.items?.length)setSlides(d.items)}).catch(()=>{})},[]);
+  useEffect(()=>{if(slides.length<2)return;const t=setInterval(()=>setActive(v=>(v+1)%slides.length),6000);return()=>clearInterval(t)},[slides.length]);
+  const s=slides[active]||slides[0];
   return <section className="hero" id="top">
-    <motion.div className="heroBg" initial={{opacity:.55,scale:1.05}} animate={{opacity:1,scale:1}} transition={{duration:1.2}}>
-      <img src={stage} alt="FOBI 世界美顏小姐總決賽舞台"/>
+    <motion.div key={s.id||active} className="heroBg" initial={{opacity:.25,scale:1.06}} animate={{opacity:1,scale:1}} transition={{duration:1.1}}>
+      <img src={s.image_url||stage} alt={s.title||'FOBI 世界美顏小姐總決賽舞台'}/>
     </motion.div>
     <div className="heroShade"/>
     <div className="particles" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i} style={{left:((i*37)%100)+'%',top:((i*53)%100)+'%',animationDelay:(i*.23)+'s'}}/>)}</div>
@@ -79,12 +85,24 @@ function Hero(){
         <h1><span>FACE OF BEAUTY</span><em>INTERNATIONAL</em></h1>
         <p className="heroZh">世界美顏小姐選美總決賽</p>
         <p className="tagline">40 COUNTRIES <b>|</b> ONE STAGE <b>|</b> ONE NIGHT</p>
-        <p className="subline">全球佳麗・於臺北・遇見更美的世界</p>
+        <p className="subline">{s.subtitle||'全球佳麗・於臺北・遇見更美的世界'}</p>
         <p className="scriptLine">Beauty for a Better World</p>
       </motion.div>
     </div>
+    <div className="heroDots" aria-label="Hero 輪播">{slides.map((x,i)=><button key={x.id||i} className={i===active?'active':''} onClick={()=>setActive(i)} aria-label={'第 '+(i+1)+' 張'}/>)}</div>
     <ActionCards/>
     <EventBar/>
+  </section>
+}
+
+function ExposureDirectory(){
+  const[sponsors,setSponsors]=useState([]),[participants,setParticipants]=useState([]);
+  useEffect(()=>{Promise.all([fetch(API+'?resource=sponsors').then(r=>r.json()),fetch(API+'?resource=participants').then(r=>r.json())]).then(([s,p])=>{if(s.ok)setSponsors(s.items||[]);if(p.ok)setParticipants(p.items||[])}).catch(()=>{})},[]);
+  if(!sponsors.length&&!participants.length)return null;
+  return <section className="directorySection">
+    <div className="sectionHead"><p className="sectionEyebrow">OFFICIAL EXPOSURE</p><h2>贊助夥伴與參與貴賓</h2><p>FOBI 官網提供合作品牌卡片曝光，並以頭像方式呈現參與會員／貴賓；內容由活動後台統一管理。</p></div>
+    {!!sponsors.length&&<div className="sponsorCards">{sponsors.map(s=><a className="sponsorProfile" href={s.website_url||'#'} key={s.id} target={s.website_url?'_blank':undefined} rel="noreferrer"><div className="sponsorLogo">{s.logo_url?<img src={s.logo_url} alt={s.name}/>:<Crown/>}</div><div><small>{s.tier||'PARTNER'}</small><h3>{s.name}</h3><p>{s.description||'FOBI 2026 官方合作夥伴'}</p></div></a>)}</div>}
+    {!!participants.length&&<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>}
   </section>
 }
 
@@ -117,7 +135,7 @@ function Footer(){
 }
 
 function App(){
-  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯參賽者、企業贊助、己美 SELF 會員與全球選美活動，以精品時尚的數位體驗完成認桌、入席與後續互動。</p></section><Sponsor/></main><Footer/></>
+  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯參賽者、企業贊助、己美 SELF 會員與全球選美活動，以精品時尚的數位體驗完成認桌、入席與後續互動。</p></section><Sponsor/><ExposureDirectory/></main><Footer/></>
 }
 
 createRoot(document.getElementById('root')).render(<App/>);
