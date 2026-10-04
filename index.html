@@ -89,6 +89,13 @@ linear-gradient(135deg,#0a0608 0,#1a0912 36%,#4d1330 70%,#12070c 100%)!important
 .heroMeta{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:34px;position:relative;z-index:2;border:1px solid rgba(217,182,108,.18);border-radius:18px;overflow:hidden;background:#10070b88}.heroMeta span{padding:16px 18px;text-align:center;border-right:1px solid rgba(217,182,108,.14);color:#b7a7a2;font-size:12px}.heroMeta b{display:block;color:#fff0de;margin-bottom:4px}
 @media(max-width:900px){.brandHeroGrid{grid-template-columns:1fr}.brandHeroCards{grid-template-columns:1fr 1fr}.heroMeta{grid-template-columns:1fr 1fr}.heroMeta span:last-child{grid-column:1/-1}.brandHeroCopy h1{font-size:58px}}
 @media(max-width:650px){.brandHero{padding-top:90px!important}.brandHeroCards{grid-template-columns:1fr}.brandHeroCopy h1{font-size:46px}.heroZh{font-size:17px}.heroDeal{min-height:190px;padding:28px}.heroMeta{grid-template-columns:1fr 1fr}.brandLockup b{font-size:30px}}
+</style><style>
+/* 2026-10 homepage IA: one purpose per section, no repeated sales modules */
+.contestantShowcase{padding-top:72px}.contestantPreview{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:34px}.contestantPreview article{color:#241218}.portrait{height:260px;border-radius:18px;position:relative;overflow:hidden;background:linear-gradient(160deg,#3d1423,#b67a5d 55%,#251018);box-shadow:0 14px 34px #43122622}.portrait:before{content:"♛";position:absolute;font:120px Georgia;color:#fff2;right:-12px;top:38px}.portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#13070bd9,transparent 50%)}.portrait span{position:absolute;z-index:2;left:16px;bottom:15px;color:white;font-size:11px;letter-spacing:.13em}.p2{background:linear-gradient(150deg,#29101a,#c28b70,#4a1729)}.p3{background:linear-gradient(150deg,#5b2d1d,#d3a274,#22101a)}.p4{background:linear-gradient(150deg,#17121b,#a66c65,#3a1024)}.p5{background:linear-gradient(150deg,#4b201b,#b98261,#210e18)}.contestantPreview article>b{display:block;margin:10px 3px 2px;font:20px Georgia}.contestantPreview article>small{margin-left:3px;color:#8b746d;letter-spacing:.1em}
+.sponsorExperience{background:radial-gradient(circle at 75% 30%,#611c3544,transparent 30%),#10070b}.splitFeature{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:center}.splitFeature>div>p{color:#b6a7a2;line-height:1.9;max-width:590px}.tierCompact{display:grid;gap:10px}.tierCompact button{text-align:left;padding:24px;border:1px solid #d8b66c35;border-radius:18px;background:linear-gradient(145deg,#3b1324,#17090f);color:#fff;cursor:pointer}.tierCompact button:hover{border-color:#e5c574;transform:translateY(-2px)}.tierCompact small{color:#d8b66c;letter-spacing:.15em}.tierCompact b{display:block;font:30px Georgia;margin:7px 0}.tierCompact span{color:#ad9e98;font-size:12px}
+.memberSpotlight{background:linear-gradient(135deg,#240b16,#54152f 70%,#1a0911)}.memberSpotlight .ticket p{color:#735d55}.eventFeature{background:#0d070a}
+@media(max-width:900px){.contestantPreview{grid-template-columns:repeat(3,1fr)}.contestantPreview article:nth-child(n+4){display:none}.splitFeature{grid-template-columns:1fr;gap:40px}}
+@media(max-width:650px){.contestantPreview{grid-template-columns:1fr 1fr}.contestantPreview article:nth-child(n+3){display:none}.portrait{height:220px}.contestantShowcase .sectionHead .btn{margin-top:18px}}
 </style></head>
 <body>
 <header><div class="wrap nav"><a class="brand" href="#top"><span class="seal">♛</span><span>FOBI <small>2026</small></span></a><nav class="links"><a href="/contestants.html">40國佳麗</a><a href="#countries">企業認桌</a><a href="/sponsors.html">品牌合作</a><a href="/tickets.html">己美 VIP 聯盟</a><a href="/event.html">活動資訊</a><a class="selfLogin" href="https://www.self.com.tw/auth?redirect=%2Fmember">己美會員登入</a></nav></div></header>
@@ -97,73 +104,56 @@ linear-gradient(135deg,#0a0608 0,#1a0912 36%,#4d1330 70%,#12070c 100%)!important
 <section class="hero brandHero" aria-labelledby="heroTitle">
   <div class="wrap brandHeroGrid">
     <div class="brandHeroCopy">
-      <div class="brandLockup"><span class="brandCrown">♛</span><div><b>FOBI</b><small>FACE OF BEAUTY INTERNATIONAL</small></div></div>
-      <div class="eyebrow">己美 VIP 聯盟 · TAIPEI 2026</div>
+      <div class="eyebrow">2026 · TAIPEI · 己美 VIP 聯盟</div>
       <h1 id="heroTitle">FACE OF BEAUTY<br><i>INTERNATIONAL</i></h1>
       <div class="heroZh">世界美顏小姐選美總決賽</div>
       <p class="heroTag">40 COUNTRIES <b>·</b> ONE STAGE <b>·</b> ONE NIGHT</p>
-      <p class="heroSub">FOBI 2026 正式加入己美 VIP 聯盟，以己美 SELF 會員身份串聯國際選美、品牌合作、晚宴與 VIP 體驗。</p>
+      <p class="heroSub">全球佳麗齊聚臺北。FOBI 2026 串聯國際選美、企業品牌與己美 VIP 聯盟，打造一場真正可以參與、認領與入席的國際盛會。</p>
     </div>
     <div class="brandHeroCards">
-      <a class="heroDeal sponsorDeal" href="#countries">
-        <span class="dealIcon">♕</span><small>SPONSOR A COUNTRY</small><strong>認領一個國家</strong><p>40 國佳麗 × 國家桌 × 企業品牌曝光</p><em>VIP 認桌 NT$40,000 起 →</em>
-      </a>
-      <a class="heroDeal memberDeal" href="/tickets.html">
-        <span class="dealIcon">✦</span><small>SELF VIP ALLIANCE</small><strong>己美 VIP 聯盟</strong><p>己美會員專屬總決賽晚宴與 OPERA 慶功宴</p><em>會員贊助 NT$3,000 / 位 →</em>
-      </a>
+      <a class="heroDeal sponsorDeal" href="#countries"><span class="dealIcon">♕</span><small>SPONSOR A COUNTRY</small><strong>企業認領一個國家</strong><p>40 國佳麗 × 國家桌 × 企業品牌曝光</p><em>VIP 認桌 NT$40,000 起 →</em></a>
+      <a class="heroDeal memberDeal" href="/tickets.html"><span class="dealIcon">✦</span><small>SELF VIP ALLIANCE</small><strong>己美會員參加總決賽</strong><p>總決賽國際晚宴 × 頒獎典禮 × OPERA 慶功宴</p><em>會員贊助 NT$3,000 / 位 →</em></a>
     </div>
   </div>
-  <div class="wrap heroMeta">
-    <span><b>2026.10.30</b> 星期五</span><span><b>14:00</b> 總決賽</span><span><b>19:00</b> 頒獎典禮暨國際晚宴</span><span><b>臺北茹曦酒店 2F</b></span><span><b>OPERA</b> 慶功宴</span>
-  </div>
+  <div class="wrap heroMeta"><span><b>2026.10.30</b> 星期五</span><span><b>14:00</b> 總決賽</span><span><b>19:00</b> 頒獎典禮暨國際晚宴</span><span><b>臺北茹曦酒店 2F</b></span><span><b>OPERA</b> 慶功宴</span></div>
 </section>
 
-<div class="stats" id="event"><div class="stat"><b>2026.10.30</b><span>星期五</span></div><div class="stat"><b>臺北茹曦酒店 2F</b><span>Taipei</span></div><div class="stat"><b>14:00 總決賽</b><span>19:00 頒獎典禮暨國際晚宴</span></div><div class="stat"><b>OPERA</b><span>After Party</span></div></div>
+<section class="experienceNav" aria-label="主要功能"><div class="wrap experienceGrid">
+<a href="/contestants.html"><span>◎</span><b>40國佳麗</b><small>COUNTRIES</small></a>
+<a href="#countries"><span>♕</span><b>企業認桌</b><small>VIP 1 · VIP 2 · VIP 3</small></a>
+<a href="/sponsors.html"><span>◇</span><b>品牌合作</b><small>PARTNERSHIP</small></a>
+<a href="/tickets.html"><span>✦</span><b>己美 VIP 聯盟</b><small>SELF MEMBER</small></a>
+<a href="/event.html"><span>⌖</span><b>活動資訊</b><small>EVENT</small></a>
+</div></section>
 
-<section class="center" id="sponsor"><div class="wrap"><div class="eyebrow">CHOOSE YOUR WAY TO JOIN</div><h2>這一夜，你要代表一個國家，<br>還是成為贊助會員？</h2><div class="choice"><article><div class="eyebrow">FOR BRAND & COMPANY</div><h3>企業認桌</h3><p>認領一個國家與佳麗，取得專屬國家桌、品牌露出與現場合影體驗。</p><div class="price">NT$40,000 起</div><a class="btn gold" href="#countries">選擇國家桌 →</a></article><article><div class="eyebrow">FOR SELF MEMBER</div><h3>會員贊助入席</h3><p>以 SELF 會員身份參加總決賽晚宴與 OPERA 慶功宴。</p><div class="price">NT$3,000 <small>/ PERSON</small></div><a class="btn glass" href="#member">我要參加 →</a></article></div></div></section>
-
-<section class="light section" id="countries"><div class="wrap"><div class="sectionHead"><div><div class="eyebrow">SPONSOR A COUNTRY</div><h2>認領你的國家桌</h2></div><p>每桌代表一個國家與一位佳麗 · 付款前再次確認庫存</p></div><div class="countryGrid" id="countryGrid"></div><p class="note">目前展示為預售庫存狀態。正式認桌會加入 15 分鐘暫時鎖桌，避免同一國家重複下單。</p></div></section>
-
-<section class="section"><div class="wrap"><div class="eyebrow">TABLE SPONSORSHIP</div><h2>三種企業認桌方案</h2><div class="tiers"><article class="tier"><span>VIP 1</span><h3>NT$ 70,000</h3><p>最高規格國家桌席次，含 OPERA 慶功宴；品牌曝光與桌位權益以正式招商方案為準。</p><button class="btn gold" onclick="openSponsor('VIP 1')">選擇 VIP 1</button></article><article class="tier"><span>VIP 2</span><h3>NT$ 60,000</h3><p>國家桌席次，含 OPERA 慶功宴；適合企業貴賓接待與品牌合作。</p><button class="btn glass" onclick="openSponsor('VIP 2')">選擇 VIP 2</button></article><article class="tier"><span>VIP 3</span><h3>NT$ 40,000</h3><p>國家桌贊助方案；實際席次與權益由活動主辦後台統一設定。</p><button class="btn glass" onclick="openSponsor('VIP 3')">選擇 VIP 3</button></article></div><div class="steps"><div class="step"><b>01</b><h3>選國家</h3><p>從 40 國名單選擇尚可認領的代表國家。</p></div><div class="step"><b>02</b><h3>送出資料</h3><p>留下公司、品牌與聯絡人資訊，主辦確認桌位。</p></div><div class="step"><b>03</b><h3>完成付款</h3><p>ECPay 與正式訂單開通後，完成付款即鎖定國家桌。</p></div></div></div></section>
-
-<section class="section brandCollab" id="brand">
-  <div class="wrap brandCollabGrid">
-    <div class="brandCopy">
-      <div class="eyebrow">BRAND PARTNERSHIP</div>
-      <h2>讓品牌進入<br>全球佳麗的鏡頭裡。</h2>
-      <p>除了國家桌，企業可申請品牌展示區、產品體驗、現場內容合作與國際晚宴露出。所有合作以「高質感、低干擾、可被拍攝」為原則。</p>
-      <a class="btn gold" href="/sponsors.html">查看品牌合作方案 →</a>
-    </div>
-    <div class="boothCard">
-      <span class="boothBadge">FOBI BRAND LOUNGE</span>
-      <h3>品牌 Booth × 國際曝光</h3>
-      <ul><li>精品展示與拍攝動線</li><li>佳麗／VIP 合影節點</li><li>品牌 Logo 與現場素材整合</li><li>可選配 SELF 社群內容曝光</li></ul>
-      <a href="/sponsors.html">企業合作洽詢 →</a>
-    </div>
+<section class="light section contestantShowcase"><div class="wrap">
+  <div class="sectionHead"><div><div class="eyebrow">40 COUNTRIES</div><h2>40國佳麗 · 全球風采</h2><p>來自世界各地的美麗代表，於臺北同台綻放。</p></div><a class="btn gold" href="/contestants.html">探索全部佳麗 →</a></div>
+  <div class="contestantPreview">
+    <article><div class="portrait p1"><span>TAIWAN</span></div><b>台灣</b><small>TAIWAN</small></article>
+    <article><div class="portrait p2"><span>JAPAN</span></div><b>日本</b><small>JAPAN</small></article>
+    <article><div class="portrait p3"><span>USA</span></div><b>美國</b><small>USA</small></article>
+    <article><div class="portrait p4"><span>FRANCE</span></div><b>法國</b><small>FRANCE</small></article>
+    <article><div class="portrait p5"><span>THAILAND</span></div><b>泰國</b><small>THAILAND</small></article>
   </div>
-</section>
+  <p class="note">佳麗正式姓名與肖像將由活動後台逐步發布；目前卡片使用品牌化預告介面，不以虛構人物冒充正式參賽者。</p>
+</div></section>
 
-<section class="section" id="member" style="background:#230c16"><div class="wrap member"><div><div class="eyebrow">己美 VIP 聯盟 × FOBI 2026</div><h2>用己美會員身份，<br>加入國際總決賽之夜。</h2><p>FOBI 不另建會員帳號；登入、會員識別與會員中心皆以己美 SELF 系統為主。本次 FOBI 2026 正式作為己美 VIP 聯盟活動。</p><ul><li>✓ 己美 SELF 會員身份</li><li>✓ 總決賽國際晚宴</li><li>✓ 19:00 頒獎典禮</li><li>✓ OPERA After Party</li><li>✓ 付款後 QR 電子票／報到</li></ul><div class="actions"><a class="btn glass" href="https://www.self.com.tw/auth?redirect=%2Fmember">登入／註冊己美會員</a><a class="btn glass" href="https://www.self.com.tw/member">己美會員中心</a></div></div><div class="ticket"><small>SELF VIP ALLIANCE · FOBI 2026</small><strong>NT$ 3,000</strong><span>/ PERSON</span><button class="btn gold" onclick="openMember()">建立 VIP 聯盟活動訂單 →</button><p class="note">目前會員身份入口直接使用己美 SELF；FOBI 不建立第二套會員資料庫。跨站 SSO 尚未接通前，不會假裝已完成登入。</p></div></div></section>
+<section class="section sponsorExperience" id="countries"><div class="wrap splitFeature">
+ <div><div class="eyebrow">SPONSOR A COUNTRY</div><h2>不是買一桌。<br>是代表一個國家。</h2><p>企業從 40 國中認領代表國家與佳麗，建立品牌專屬國家桌。選國家、選 VIP 等級、送出企業資料，再進入付款與鎖桌。</p><div class="actions"><button class="btn gold" onclick="openSponsor('VIP 1')">開始認桌 →</button><a class="btn glass" href="/sponsors.html">企業合作方案</a></div></div>
+ <div class="tierCompact"><button onclick="openSponsor('VIP 1')"><small>VIP 1</small><b>NT$70,000</b><span>國家桌＋OPERA 慶功宴</span></button><button onclick="openSponsor('VIP 2')"><small>VIP 2</small><b>NT$60,000</b><span>企業貴賓接待＋After Party</span></button><button onclick="openSponsor('VIP 3')"><small>VIP 3</small><b>NT$40,000</b><span>國家桌贊助方案</span></button></div>
+</div></section>
 
-<section class="section"><div class="wrap"><div class="eyebrow">GRAND FINAL SCHEDULE</div><h2>10.30 · Taipei</h2><div class="schedule"><div><time>14:00</time></div><div><b>FACE OF BEAUTY INTERNATIONAL GRAND FINAL</b><span>世界美顏小姐總決賽</span></div><div><time>19:00</time></div><div><b>AWARDS GALA & INTERNATIONAL DINNER</b><span>頒獎典禮暨國際晚宴</span></div><div><time>After</time></div><div><b>OPERA AFTER PARTY</b><span>慶功宴</span></div></div></div></section>
+<section class="section memberSpotlight" id="member"><div class="wrap member">
+ <div><div class="eyebrow">己美 VIP 聯盟 × FOBI 2026</div><h2>己美會員，<br>今晚就是 VIP。</h2><p>FOBI 不另建第二套會員帳號。登入、會員識別與會員中心皆以己美 SELF 為主，會員可參加國際晚宴、頒獎典禮與 OPERA After Party。</p><ul><li>✓ 己美 SELF 會員身份</li><li>✓ 總決賽國際晚宴</li><li>✓ 頒獎典禮與 OPERA After Party</li><li>✓ 付款後 QR 電子票／報到</li></ul><div class="actions"><a class="btn glass" href="https://www.self.com.tw/auth?redirect=%2Fmember">登入／註冊己美會員</a><a class="btn glass" href="https://www.self.com.tw/member">會員中心</a></div></div>
+ <div class="ticket"><small>SELF VIP ALLIANCE · FOBI 2026</small><strong>NT$ 3,000</strong><span>/ PERSON</span><p>一個入口完成會員身份、活動訂單與現場報到。</p><button class="btn gold" onclick="openMember()">會員贊助入席 →</button></div>
+</div></section>
 
-<section class="section" style="background:#16090f"><div class="wrap"><div class="eyebrow">FAQ</div><h2>常見問題</h2><div class="faq"><details><summary>認桌是買一桌餐席嗎？</summary><p>FOBI 將認桌包裝為「國家桌贊助」。企業除席位外，還會與代表國家、佳麗與品牌曝光權益綁定；最終權益以主辦正式招商方案為準。</p></details><details><summary>會員 NT$3,000 包含什麼？</summary><p>己美 VIP 聯盟會員贊助目前包含總決賽國際晚宴與 OPERA 慶功宴；會員登入與會員中心統一由己美 SELF 提供。</p></details><details><summary>可以直接線上付款嗎？</summary><p>目前已完成訂單、15 分鐘鎖桌與綠界測試付款流程；正式 MerchantID / HashKey / HashIV 切換後即可進入正式收款。</p></details><details><summary>國家桌會不會被重複認領？</summary><p>正式交易版會有桌位庫存與暫時鎖定機制，付款成功後轉為 Sponsored，其他企業無法再次購買。</p></details></div></div></section>
+<section class="section eventFeature"><div class="wrap splitFeature">
+ <div><div class="eyebrow">GRAND FINAL · 10.30</div><h2>從伸展台，<br>一路到國際晚宴。</h2><p>活動資訊只保留真正需要決策的節點，不在首頁重複說明。</p><a class="btn gold" href="/event.html">查看完整活動資訊 →</a></div>
+ <div class="schedule"><div><time>14:00</time></div><div><b>GRAND FINAL</b><span>世界美顏小姐總決賽</span></div><div><time>19:00</time></div><div><b>AWARDS GALA</b><span>頒獎典禮暨國際晚宴</span></div><div><time>After</time></div><div><b>OPERA</b><span>Official After Party</span></div></div>
+</div></section>
 
-<section class="section pageArchitecture">
-  <div class="wrap">
-    <div class="eyebrow">FOBI DIGITAL JOURNEY</div>
-    <h2>從看見佳麗，到完成入席，<br>每一步都只有一個下一步。</h2>
-    <div class="pageCards">
-      <a href="/contestants.html"><b>COUNTRIES</b><strong>40 國佳麗</strong><span>國家、佳麗、桌位狀態</span></a>
-      <a href="/sponsors.html"><b>SPONSOR</b><strong>企業合作</strong><span>VIP 認桌、品牌 Booth、曝光</span></a>
-      <a href="/tickets.html"><b>SELF VIP</b><strong>己美 VIP 聯盟</strong><span>己美會員、NT$3,000／位、晚宴、After Party</span></a>
-      <a href="/event.html"><b>EVENT</b><strong>活動流程</strong><span>14:00 總決賽 → 19:00 晚宴</span></a>
-      <a href="/admin.html"><b>CONTROL</b><strong>活動戰情</strong><span>桌位、訂單、付款、報到</span></a>
-    </div>
-  </div>
-</section>
-
-<section class="section cta"><div class="wrap"><div class="eyebrow">FACE OF BEAUTY INTERNATIONAL 2026</div><h2>One table.<br>One country.<br>One unforgettable night.</h2><div class="actions" style="justify-content:center"><a class="btn gold" href="#countries">認領國家桌</a><button class="btn glass" onclick="openMember()">SELF 會員贊助</button></div></div></section>
+<section class="section cta"><div class="wrap"><div class="eyebrow">FACE OF BEAUTY INTERNATIONAL 2026</div><h2>40 Countries.<br>One unforgettable night.</h2><div class="actions" style="justify-content:center"><a class="btn gold" href="#countries">企業認領國家</a><a class="btn glass" href="/tickets.html">己美 VIP 聯盟</a></div></div></section>
 </main>
 
 <footer><div class="wrap foot"><b>FOBI 2026</b><span>Face of Beauty International · Taipei</span><span>© 2026 FOBI</span></div></footer>
