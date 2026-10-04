@@ -23,7 +23,7 @@
 <button class="active" data-tab="dashboard">總覽</button>
 <button data-tab="content">活動內容</button>
 <button data-tab="exposure">曝光方案</button>
-<button data-tab="tables">國家桌</button><button data-tab="pageant">Pageant OS</button><button data-tab="centers">角色中心</button><button data-tab="events">賽事模組</button><button data-tab="directory">曝光名錄</button>
+<button data-tab="tables">國家桌</button><button data-tab="pageant">Pageant OS</button><button data-tab="centers">角色中心</button><button data-tab="events">賽事模組</button><button data-tab="directory">曝光名錄</button><button data-tab="tickets">票券與支付</button>
 </nav>
 </aside>
 <main class="main">
@@ -92,6 +92,11 @@
 </section>
 </section>
 <section class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 style="margin:0">目前名錄</h2><div class="saveBar" style="margin:0"><button class="btn" id="bulkEnable">批次上架</button><button class="btn" id="bulkDisable">批次下架</button></div></div><div class="notice" style="margin-top:14px">勾選 Hero／贊助商／參與會員後，可一次上架或下架。資料不會被刪除，可隨時重新啟用。</div><div class="exposureList" id="directoryList"><div class="notice">登入管理員後可載入與批次管理正式名錄。</div></div></section>
+</section>
+<section class="tab" id="tickets">
+<section class="panel"><h2>票券與支付</h2><p style="color:#a99a95;line-height:1.7">總決賽購票付款確認後，由系統自動依購買人數核發個別票券序號。格式：FB26-01-000001，其中 FB 為 FOBI、26 為 2026、01 為本場次、最後 6 碼為人次流水號。</p>
+<div class="preview"><article><small>ORDER</small><h3>購票訂單</h3><p>站內建立訂單 → ECPay → callback 驗證 → paid</p></article><article><small>TICKET</small><h3>自動核票</h3><p>付款成功後自動建立每位獨立 ticket_no 與 QR token。</p></article><article><small>CHECK-IN</small><h3>現場報到</h3><p>票券資料已預留 checked_in 狀態，可接續製作掃碼報到。</p></article></div></section>
+<section class="panel"><h2>票券狀態</h2><div class="notice">管理員 SSO 完整接通後，這裡會載入正式訂單、付款狀態、序號與報到紀錄。目前後端出票邏輯已啟用。</div></section>
 </section></main>
 </section>
 <script>
