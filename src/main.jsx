@@ -1,16 +1,125 @@
-import React,{useMemo,useState}from'react';import{createRoot}from'react-dom/client';import{Crown,MapPin,CalendarDays,ArrowRight,Check,Users,Building2,PartyPopper,Menu,X}from'lucide-react';import'./style.css';
-const countries=['Taiwan','Japan','Korea','Thailand','Philippines','Vietnam','Singapore','Malaysia','Indonesia','India','Australia','New Zealand','USA','Canada','Mexico','Brazil','Argentina','France','Italy','Spain','Portugal','Germany','UK','Netherlands','Sweden','Poland','Ukraine','Turkey','UAE','South Africa','Egypt','Morocco','Mongolia','Kazakhstan','Hong Kong','Macau','China','Cambodia','Myanmar','Nepal'];
-const tiers=[['VIP 1','70,000','最高規格國家桌席次＋OPERA 慶功宴'],['VIP 2','60,000','國家桌席次＋OPERA 慶功宴'],['VIP 3','40,000','國家桌贊助席次']];
-function App(){const[nav,setNav]=useState(false),[country,setCountry]=useState(''),[tier,setTier]=useState('VIP 1'),[member,setMember]=useState(1),[modal,setModal]=useState(null);const status=useMemo(()=>Object.fromEntries(countries.map((c,i)=>[c,i<3?'Sponsored':i<6?'Reserved':'Available'])),[]);
-const go=id=>{document.getElementById(id)?.scrollIntoView({behavior:'smooth'});setNav(false)};
-return <><header><button className="brand" onClick={()=>go('top')}><span className="crest"><Crown size={18}/></span><span>FOBI <small>2026</small></span></button><nav className={nav?'open':''}><button onClick={()=>go('countries')}>認領國家</button><button onClick={()=>go('member')}>會員贊助</button><button onClick={()=>go('event')}>活動資訊</button></nav><button className="hamb" onClick={()=>setNav(!nav)}>{nav?<X/>:<Menu/>}</button></header>
-<main id="top"><section className="hero"><div className="glow"/><div className="heroCopy"><p className="eyebrow">TAIPEI · 30 OCTOBER 2026</p><h1>FACE OF BEAUTY<br/><i>INTERNATIONAL</i></h1><p className="zh">世界美顏小姐選美總決賽</p><p className="manifesto">40 COUNTRIES <b>·</b> ONE NIGHT <b>·</b> TAIPEI</p><div className="heroActions"><button className="gold" onClick={()=>go('countries')}><Building2/> 認領一個國家 <ArrowRight/></button><button className="glass" onClick={()=>go('member')}><Users/> 會員贊助 NT$3,000</button></div></div><div className="silhouette"><div className="crown">♛</div><div className="figure"/></div></section>
-<section className="facts" id="event"><div><CalendarDays/><span><b>2026.10.30</b> 星期五</span></div><div><MapPin/><span><b>臺北茹曦酒店 2F</b> Taipei</span></div><div><Crown/><span><b>14:00 總決賽</b> 19:00 頒獎晚宴</span></div><div><PartyPopper/><span><b>OPERA</b> After Party</span></div></section>
-<section className="intro"><p className="eyebrow">THE COUNTRY TABLE EXPERIENCE</p><h2>一桌，代表一個國家。</h2><p>40 國佳麗齊聚台北。企業可認領專屬國家桌，讓品牌與佳麗、國際賓客及總決賽現場共同留下年度影像。</p></section>
-<section id="countries" className="countries"><div className="sectionHead"><div><p className="eyebrow">SPONSOR A COUNTRY</p><h2>選擇你的國家桌</h2></div><p>綠點可認領 · 金色已保留／贊助</p></div><div className="countryGrid">{countries.map((c,i)=><button key={c} className={'country '+status[c].toLowerCase()} disabled={status[c]!=='Available'} onClick={()=>{setCountry(c);setModal('sponsor')}}><span className="num">{String(i+1).padStart(2,'0')}</span><strong>{c}</strong><small>{status[c]}</small></button>)}</div><p className="note">示範狀態將由正式後台即時庫存取代；付款前需再次確認桌位。</p></section>
-<section className="tiers"><p className="eyebrow">TABLE SPONSORSHIP</p><h2>企業認桌方案</h2><div className="tierGrid">{tiers.map(t=><article key={t[0]}><span>{t[0]}</span><h3>NT$ {t[1]}</h3><p>{t[2]}</p><button onClick={()=>{setTier(t[0]);setModal('sponsor')}}>選擇此方案 <ArrowRight/></button></article>)}</div></section>
-<section id="member" className="member"><div><p className="eyebrow">SELF MEMBER EXPERIENCE</p><h2>不只是入場，<br/>成為這一夜的贊助會員。</h2><p>SELF 會員以每位 NT$3,000 參與總決賽國際晚宴，並包含 OPERA 慶功宴資格。</p><ul><li><Check/>總決賽國際晚宴</li><li><Check/>頒獎典禮</li><li><Check/>OPERA After Party</li><li><Check/>電子 QR 入場憑證（正式串接後啟用）</li></ul></div><div className="ticket"><small>MEMBER SPONSORSHIP</small><strong>NT$ 3,000</strong><span>/ PERSON</span><label>人數 <div><button onClick={()=>setMember(Math.max(1,member-1))}>−</button><b>{member}</b><button onClick={()=>setMember(member+1)}>＋</button></div></label><p>合計 NT$ {(member*3000).toLocaleString()}</p><button className="gold" onClick={()=>setModal('member')}>我要贊助入席 <ArrowRight/></button></div></section>
-<section className="closing"><Crown/><p>FACE OF BEAUTY INTERNATIONAL</p><h2>Be part of the world<br/>that arrives in Taipei.</h2><button className="gold" onClick={()=>go('countries')}>立即認領國家桌</button></section></main>
-<footer><b>FOBI 2026</b><span>Face of Beauty International · Taipei</span><small>© 2026 FOBI. All rights reserved.</small></footer>
-{modal&&<div className="modalBack" onClick={()=>setModal(null)}><div className="modal" onClick={e=>e.stopPropagation()}><button className="close" onClick={()=>setModal(null)}><X/></button>{modal==='sponsor'?<><p className="eyebrow">SPONSOR APPLICATION</p><h2>企業認桌</h2><p>{country?<>國家：<b>{country}</b><br/></>:null}方案：<b>{tier}</b></p><label>公司／品牌<input placeholder="品牌名稱"/></label><label>聯絡人<input placeholder="姓名"/></label><label>手機<input placeholder="09xx xxx xxx"/></label><label>Email<input type="email" placeholder="name@company.com"/></label><button className="gold" onClick={()=>alert('目前為預售申請介面。正式金流與 CRM API 接妥後才會送出訂單。')}>送出贊助意向 <ArrowRight/></button><small>目前不會扣款。正式上線前將串接 ECPay、SELF ID 與桌位鎖定。</small></>:<><p className="eyebrow">SELF MEMBER</p><h2>會員贊助入席</h2><p>{member} 位 · <b>NT$ {(member*3000).toLocaleString()}</b></p><label>姓名<input placeholder="會員姓名"/></label><label>手機<input placeholder="09xx xxx xxx"/></label><label>Email<input type="email" placeholder="SELF ID / Email"/></label><button className="gold" onClick={()=>alert('目前為預售介面，尚未啟用正式扣款與 QR 發票。')}>確認贊助資料 <ArrowRight/></button><small>正式付款與 QR 電子票將於 ECPay / SELF ID API 串接後啟用。</small></>}</div></div>}</>}
+
+import React,{useEffect,useRef,useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import {motion,useInView} from 'framer-motion';
+import {Crown,Globe2,UserRound,Menu,X,CalendarDays,Clock3,MapPin,Martini,ArrowRight,Ticket,ChevronDown} from 'lucide-react';
+import './style.css';
+
+const stage='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/CKN_6633.jpg?resize=1600%2C1200&ssl=1';
+const queen='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/02/599984544_18070655006622120_2305142344171806814_n-1.jpg?resize=900%2C1200&ssl=1';
+const contestant='https://i0.wp.com/faceofbeautyinternational.com/wp-content/uploads/2026/03/637647404_1375377174624326_2336921487574729613_n.jpg?fit=720%2C960&ssl=1';
+
+function Navbar(){
+  const [open,setOpen]=useState(false);
+  const [scrolled,setScrolled]=useState(false);
+  useEffect(()=>{const fn=()=>setScrolled(window.scrollY>20);fn();window.addEventListener('scroll',fn,{passive:true});return()=>window.removeEventListener('scroll',fn)},[]);
+  return <header className={'topbar '+(scrolled?'isScrolled':'')}>
+    <a className="logo" href="#top"><span className="logoCrest"><Crown size={24}/></span><span><b>FOBI</b><small>FACE OF BEAUTY<br/>INTERNATIONAL</small></span></a>
+    <nav className={open?'nav open':'nav'}>
+      <a href="#about" onClick={()=>setOpen(false)}>關於FOBI</a>
+      <a href="#sponsor" onClick={()=>setOpen(false)}>國家贊助</a>
+      <a href="#final" onClick={()=>setOpen(false)}>總決賽</a>
+      <a href="/sponsors.html">合作夥伴</a>
+      <a href="#highlights" onClick={()=>setOpen(false)}>最新消息</a>
+      <a href="#footer" onClick={()=>setOpen(false)}>聯絡我們</a>
+    </nav>
+    <div className="navTools">
+      <button className="lang"><Globe2 size={16}/>繁中<ChevronDown size={14}/></button>
+      <a className="login" href="https://www.self.com.tw/auth?redirect=%2Fmember"><UserRound size={16}/>登入／註冊</a>
+      <button className="menu" onClick={()=>setOpen(!open)} aria-label="選單">{open?<X/>:<Menu/>}</button>
+    </div>
+  </header>
+}
+
+function EventBar(){
+  return <div className="eventBar">
+    <div><CalendarDays/><span><b>2026.10.30（五）</b></span></div>
+    <div><Clock3/><span><b>14:00 總決賽</b><small>19:00 頒獎典禮暨國際晚宴</small></span></div>
+    <div><MapPin/><span><b>臺北茹曦酒店 2F</b></span></div>
+    <div><Martini/><span><b>OPERA 慶功宴</b></span></div>
+  </div>
+}
+
+function ActionCards(){
+  const ref=useRef(null);
+  const seen=useInView(ref,{once:true,margin:'-80px'});
+  return <div className="actionWrap" ref={ref}>
+    <motion.a href="#sponsor" className="actionCard sponsorCard" initial={{opacity:0,x:-40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55}}>
+      <div className="cardImage"><img src={contestant} alt="FOBI 國家品牌贊助"/></div>
+      <div className="cardText">
+        <div className="cardTitle"><Crown/><div><h2>認領一個國家</h2><span>SPONSOR A COUNTRY</span></div></div>
+        <p>40國佳麗・50席國家餐桌</p>
+        <small>企業品牌 × 國際曝光 × 尊榮晚宴 × 己美／醫美版曝光</small>
+        <span className="cardButton">立即認桌 <ArrowRight/></span>
+      </div>
+    </motion.a>
+    <motion.a href="/tickets.html" id="final" className="actionCard ticketCard" initial={{opacity:0,x:40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55,delay:.08}}>
+      <div className="cardText">
+        <div className="cardTitle"><Ticket/><div><h2>我要參加總決賽</h2><span>JOIN THE GRAND FINAL</span></div></div>
+        <p><strong>NT$3,000</strong> / 人</p>
+        <small>總決賽 × 國際晚宴 × OPERA 慶功宴</small>
+        <span className="cardButton pink">立即購票 <ArrowRight/></span>
+      </div>
+      <div className="ticketVisual"><div className="ticketMock"><Crown/><b>FOBI<br/>2026</b><small>GRAND FINAL · TAIPEI</small></div></div>
+    </motion.a>
+  </div>
+}
+
+function Hero(){
+  return <section className="hero" id="top">
+    <motion.div className="heroBg" initial={{opacity:.55,scale:1.05}} animate={{opacity:1,scale:1}} transition={{duration:1.2}}>
+      <img src={stage} alt="FOBI 世界美顏小姐總決賽舞台"/>
+    </motion.div>
+    <div className="heroShade"/>
+    <div className="particles" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i} style={{left:((i*37)%100)+'%',top:((i*53)%100)+'%',animationDelay:(i*.23)+'s'}}/>)}</div>
+    <motion.figure className="queen" initial={{opacity:0,x:50}} animate={{opacity:1,x:0}} transition={{duration:1.05,delay:.12}}>
+      <img src={queen} alt="FOBI 國際佳麗形象"/>
+    </motion.figure>
+    <div className="heroContent">
+      <motion.div className="heroCopy" initial={{opacity:0,y:32}} animate={{opacity:1,y:0}} transition={{duration:.9,delay:.18}}>
+        <p className="year"><span>✦</span>2026<span>✦</span></p>
+        <h1><span>FACE OF BEAUTY</span><em>INTERNATIONAL</em></h1>
+        <p className="heroZh">世界美顏小姐選美總決賽</p>
+        <p className="tagline">40 COUNTRIES <b>|</b> ONE STAGE <b>|</b> ONE NIGHT</p>
+        <p className="subline">全球佳麗・於臺北・遇見更美的世界</p>
+        <p className="scriptLine">Beauty for a Better World</p>
+      </motion.div>
+    </div>
+    <ActionCards/>
+    <EventBar/>
+  </section>
+}
+
+function Count({value,label}){
+  const ref=useRef(null);
+  const active=useInView(ref,{once:true});
+  const [n,setN]=useState(0);
+  useEffect(()=>{if(!active)return;let v=0;const timer=setInterval(()=>{v+=Math.max(1,Math.ceil(value/24));if(v>=value){v=value;clearInterval(timer)}setN(v)},38);return()=>clearInterval(timer)},[active,value]);
+  return <div className="stat" ref={ref}><b>{n}</b><span>{label}</span></div>
+}
+
+function Highlights(){
+  return <section className="highlights" id="highlights">
+    <p className="sectionEyebrow">FOBI 2026 · TAIPEI</p>
+    <div className="stats"><Count value={40} label="國家代表"/><Count value={50} label="國家餐桌"/><Count value={1} label="世界總決賽之夜"/><Count value={3} label="核心活動節點"/></div>
+  </section>
+}
+
+function Sponsor(){
+  const data=[
+    ['VIP 1','NT$70,000','國際旗艦贊助','國家桌・OPERA 慶功宴・己美 SELF 與醫美版延伸曝光'],
+    ['VIP 2','NT$60,000','品牌尊榮贊助','國家桌・After Party・社群與會員曝光'],
+    ['VIP 3','NT$40,000','國家桌品牌贊助','國家桌・現場品牌識別・活動內容露出']
+  ];
+  return <section className="sponsorSection" id="sponsor"><div className="sectionHead"><p className="sectionEyebrow">SPONSOR A COUNTRY</p><h2>讓品牌代表一個國家入席。</h2><p>FOBI 國家桌不是單純餐席，而是結合國際舞台、企業貴賓接待、己美 SELF 會員與醫美版社群曝光的品牌合作方案。</p></div><div className="tierGrid">{data.map((item,index)=><motion.article key={item[0]} className={'tier '+(index===0?'featured':'')} whileHover={{y:-6}} transition={{duration:.3}}><span>{item[0]}</span><h3>{item[2]}</h3><b>{item[1]}</b><p>{item[3]}</p><a href="/sponsors.html">查看方案 <ArrowRight/></a></motion.article>)}</div></section>
+}
+
+function Footer(){
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/tickets.html">總決賽入席</a><a href="/pageants.html">更多選美賽事</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
+}
+
+function App(){
+  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯參賽者、企業贊助、己美 SELF 會員與全球選美活動，以精品時尚的數位體驗完成認桌、入席與後續互動。</p></section><Sponsor/></main><Footer/></>
+}
+
 createRoot(document.getElementById('root')).render(<App/>);
