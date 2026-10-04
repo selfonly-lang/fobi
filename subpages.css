@@ -10,3 +10,20 @@ linear-gradient(135deg,rgba(20,7,12,.96),rgba(56,10,28,.88))!important;padding-t
 footer{background:#080406!important;border-top:1px solid var(--line)!important}
 .notice{border-radius:14px!important}.field input,.field select,.field textarea{transition:.25s border-color,.25s box-shadow}.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#c69438!important;box-shadow:0 0 0 3px rgba(198,148,56,.12)}
 @media(max-width:800px){.hero{padding-top:68px!important}.hero h1{font-size:clamp(38px,11vw,52px)!important}.links{display:none!important}.grid,.countryGrid,.preview,.modules{grid-template-columns:1fr!important}.btn{min-height:50px}.actions{display:grid!important}.actions .btn{width:100%}}
+
+/* 50+ readability rules */
+@media(min-width:801px){
+ header .nav{min-height:76px}
+ .links{gap:28px!important}
+ .links a{font-size:15px!important;font-weight:650!important;letter-spacing:.015em!important}
+ .hero p,.section p,.card p{font-size:16px!important}
+ .btn{min-height:52px!important;font-size:15px!important;padding-inline:22px!important}
+ .field{font-size:14px!important}
+ .field input,.field select,.field textarea{font-size:16px!important}
+}
+@media(max-width:800px){
+ body{font-size:16px}
+ .hero p,.section p,.card p{font-size:16px!important}
+ .btn{min-height:52px!important;font-size:16px!important}
+ .field input,.field select,.field textarea{font-size:16px!important}
+}
