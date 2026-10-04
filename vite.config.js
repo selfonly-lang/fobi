@@ -24,7 +24,8 @@ export default defineConfig({
         apply:resolve(__dirname,'apply.html'),
         contestantCenter:resolve(__dirname,'contestant-center.html'),
         beautyJourney:resolve(__dirname,'beauty-journey.html'),
-        checkin:resolve(__dirname,'checkin.html')
+        checkin:resolve(__dirname,'checkin.html'),
+        ticket:resolve(__dirname,'ticket.html')
       }
     }
   }
