@@ -105,6 +105,22 @@ linear-gradient(0deg,rgba(9,6,8,.94) 0%,rgba(9,6,8,.18) 34%,rgba(9,6,8,.18) 74%,
  .referenceEventBar span:nth-child(3),.referenceEventBar span:nth-child(5){display:none}
  .referenceEventBar span:nth-child(4){grid-column:1/-1}
 }
+
+/* FINAL POLISH — couture spacing, legibility, motion */
+.heroBrandBlock{animation:editorialReveal .9s cubic-bezier(.2,.7,.2,1) both}
+.heroDecisionGrid{animation:editorialReveal 1s .12s cubic-bezier(.2,.7,.2,1) both}
+@keyframes editorialReveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.heroDecision:after{content:"";position:absolute;inset:-120% -40%;background:linear-gradient(105deg,transparent 43%,rgba(255,238,190,.13) 50%,transparent 57%);transform:translateX(-45%);transition:transform .9s ease;pointer-events:none}.heroDecision:hover:after{transform:translateX(45%)}
+.heroDecision h2,.heroBrandBlock h1{text-wrap:balance}.heroCta:focus-visible,.pill:focus-visible,.tierAction:focus-visible,.goldBtn:focus-visible,.glassBtn:focus-visible{outline:3px solid #fff2c2;outline-offset:3px}
+@media(min-width:1200px){.heroComposition{padding-bottom:222px}.heroDecisionGrid{left:1.5vw;right:1.5vw}.heroDecision{min-height:218px}.heroBrandBlock{transform:translateY(-18px)}}
+@media(max-width:767px){
+ .heroBrandBlock{padding-top:18svh}.heroPerson{top:29svh;height:49svh;width:70vw}
+ .heroDecisionGrid{margin-top:18px}.heroDecision{min-height:152px}
+ .heroDecision h2{font-size:21px}.heroDecision p:not(.micro){line-height:1.4}
+ .referenceEventBar b{font-size:14px!important}
+}
+@media(max-width:390px){.heroBrandBlock h1{font-size:45px}.heroDecision{padding:13px 11px}.heroCta{left:11px;right:11px}.heroDecision h2{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.heroBrandBlock,.heroDecisionGrid{animation:none!important}.heroDecision:after{display:none}}
 </style></head>
 <body>
 <header class="siteHeader"><nav class="wrap nav" aria-label="主要導覽">
