@@ -34,3 +34,22 @@ footer{padding:28px 5vw 34px;border-top:1px solid rgba(255,255,255,.08);display:
 }
 @media(max-width:430px){.login{display:none}.heroCopy{padding-top:19svh}.hero h1 span{font-size:44px}.actionWrap{width:94vw}.cardTitle h2{font-size:17px}.cardText{padding:13px 10px}.cardButton{min-height:39px}.stat b{font-size:40px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.actionCard:hover{transform:none}}
+
+/* 50+ Executive UX — readable, calm, high-confidence navigation */
+@media(min-width:861px){
+ .topbar{height:86px;padding:0 3.2vw;gap:20px}
+ .topbar.isScrolled{height:76px}
+ .logo{min-width:250px}
+ .nav{gap:22px}
+ .nav a{font-size:15px;font-weight:650;letter-spacing:.02em;padding:14px 2px}
+ .lang,.login{height:48px;font-size:14px}
+ .login{padding:0 20px}
+ .heroContent{padding-top:118px}
+}
+@media(max-width:860px){
+ .topbar{height:72px}
+ .nav{top:72px}
+ .nav a{font-size:16px;min-height:52px;display:flex;align-items:center}
+ .login{height:44px;font-size:13px}
+ .menu{width:46px;height:46px}
+}
