@@ -34,7 +34,7 @@ function EventBar(){
   return <div className="eventBar">
     <div><CalendarDays/><span><b>2026.10.30（五）</b></span></div>
     <div><Clock3/><span><b>14:00 總決賽</b><small>19:00 頒獎典禮暨國際晚宴</small></span></div>
-    <div><MapPin/><span><b>臺北茹曦酒店 2F</b></span></div>
+    <div><MapPin/><span><b>臺北新板希爾頓酒店</b></span></div>
     <div><Martini/><span><b>OPERA 慶功宴</b></span></div>
   </div>
 }
@@ -130,7 +130,7 @@ function Sponsor(){
 }
 
 function Footer(){
-  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">嘉賓名錄</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a></div><span>2026.10.30 · 臺北茹曦酒店 2F</span></footer>
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">嘉賓名錄</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a></div><span>2026.10.30 · 臺北新板希爾頓酒店</span></footer>
 }
 
 function App(){
