@@ -33,26 +33,7 @@ function restoreCountry() {
   if ([...select.options].some(option => option.value === restoredCountry)) select.value = restoredCountry;
 }
 
-async function beforeOrder() {
-  if (authenticated || asked) return true;
-  if (prompting) return false;
-  prompting = true;
-  const dialog = document.getElementById('signupDialog');
-  return new Promise(resolve => {
-    const finish = proceed => { prompting = false; dialog.close(); resolve(proceed); };
-    document.getElementById('signupNo').onclick = () => { asked = true; finish(true); };
-    document.getElementById('signupBack').onclick = () => finish(false);
-    document.getElementById('signupYes').onclick = () => {
-      // Registration remains a user-confirmed SELF action; no contact data is sent.
-      window.open('https://www.self.com.tw/auth', '_blank', 'noopener,noreferrer');
-      asked = true;
-      status.textContent = '請在己美網站選擇註冊並完成確認，再返回本頁。您也可以直接繼續建立 FOBI 訂單。';
-      finish(false);
-    };
-    dialog.oncancel = event => { event.preventDefault(); finish(false); };
-    dialog.showModal();
-  });
-}
+async function beforeOrder() { return true; }
 
 window.fobiMember = { beforeOrder, clearDraft, restoreCountry };
 restoreDraft();
@@ -66,7 +47,7 @@ async function initialize() {
     available = response.ok && data.available === true;
   } catch {}
   buttons.forEach(button => { button.disabled = !available; });
-  status.textContent = available ? '請選擇登入方式，或直接填寫下方資料。' : '己美快速登入尚未開通，您可以直接填表建立訂單。';
+  status.textContent = available ? '可選擇登入快速帶入資料，也可以直接填表。' : '快速帶入目前尚未開通，請直接填表建立訂單。';
   if (params.has('member_result')) {
     const result = params.get('member_result');
     params.delete('member_result');
@@ -80,7 +61,7 @@ async function initialize() {
           if (typeof data.contact[id] === 'string' && data.contact[id]) document.getElementById(id).value = data.contact[id];
         }
         authenticated = true;
-        status.textContent = '已帶入己美會員基本資料。請確認姓名、手機、Email，補齊缺少的欄位後建立訂單。';
+        status.textContent = '已帶入基本聯絡資料。請確認姓名、手機、Email，補齊缺少欄位後建立訂單。';
       } catch { status.textContent = '會員資料帶入未完成，請重新登入或直接填表。請確認下方填表內容。'; }
     } else status.textContent = '會員登入未完成，請重試或直接填表。請確認下方填表內容。';
   }
@@ -89,7 +70,7 @@ async function initialize() {
 buttons.forEach(button => button.addEventListener('click', async () => {
   saveDraft();
   buttons.forEach(item => { item.disabled = true; });
-  status.textContent = '正在前往己美安全登入…';
+  status.textContent = '正在前往安全登入…';
   try {
     const response = await fetch('/api/member?action=start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ provider: button.dataset.provider, returnPath: location.pathname + location.search }), signal: AbortSignal.timeout(8000) });
     const data = await response.json();
