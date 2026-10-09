@@ -101,7 +101,7 @@ function ExposureDirectory(){
   return <section className="directorySection" id="official-exposure">
     <div className="sectionHead"><p className="sectionEyebrow">OFFICIAL EXPOSURE</p><h2>贊助夥伴與參與貴賓</h2><p>FOBI 官網提供合作品牌卡片曝光，並以頭像方式呈現參與貴賓；內容由活動後台統一管理。</p><div className="exposureLinks"><a href="/partners.html">查看所有合作夥伴</a><a href="/guests.html">查看參與貴賓</a></div></div>
     {sponsors.length?<div className="sponsorCards">{sponsors.map(s=><a className="sponsorProfile" href={s.website_url||'#'} key={s.id} target={s.website_url?'_blank':undefined} rel="noreferrer"><div className="sponsorLogo">{s.logo_url?<img src={s.logo_url} alt={s.name}/>:<Crown/>}</div><div><small>{s.tier||'PARTNER'}</small><h3>{s.name}</h3><p>{s.description||'FOBI 2026 官方合作夥伴'}</p></div></a>)}</div>:<div className="directoryEmpty"><Crown/><div><b>官方贊助夥伴</b><p>品牌名錄將由活動後台陸續公開。</p><a href="/sponsors.html">查看贊助方案 →</a></div></div>}
-    {participants.length?<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>:<div className="directoryEmpty"><UserRound/><div><b>參與會員／貴賓</b><p>經同意公開的參與者頭像與連結將顯示於此。</p></div></div>}
+    {participants.length?<div className="participantStrip">{participants.map(p=><a className="participant" href={p.profile_url||'#'} key={p.id}><span>{p.avatar_url?<img src={p.avatar_url} alt={p.display_name}/>:<UserRound/>}</span><b>{p.display_name}</b><small>{p.subtitle||''}</small></a>)}</div>:<div className="directoryEmpty"><UserRound/><div><b>VIP 嘉賓</b><p>經同意公開的參與者頭像與連結將顯示於此。</p></div></div>}
   </section>
 }
 
