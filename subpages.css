@@ -60,3 +60,40 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif!important}.ey,.eyebrow{font
 }
 .card:after,.panel:after,.tier:after{content:"";display:block;width:42px;height:1px;margin-top:18px;background:linear-gradient(90deg,#f7dda1,transparent)}
 @media(prefers-reduced-motion:reduce){.btn:before,.back:before,.selfBox a:before,.modeSwitch a:before,.links a:before,.nav a:before,.actions a:before,.tier a:before,.exposureLinks a:before{animation:none!important}}
+
+/* FOBI Crystal Editorial v2 — all controls / magazine rhythm */
+body{animation:fobiPageReveal .52s ease both}
+@keyframes fobiPageReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pageLinks a,.pageCta,button,.primary,.secondary,.providers button,summary{
+ position:relative;isolation:isolate;overflow:hidden;
+ border:1px solid var(--crystal-edge)!important;
+ background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(246,221,160,.11) 38%,rgba(122,19,61,.2) 72%,rgba(255,255,255,.1))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.46),0 9px 26px rgba(0,0,0,.22),0 0 18px rgba(216,181,104,.08)!important;
+ color:#fff8eb!important;backdrop-filter:blur(14px) saturate(1.3);
+ transition:transform .28s ease,box-shadow .28s ease,filter .28s ease!important
+}
+.pageLinks a,.pageCta{border-radius:999px;padding:10px 16px}
+button,.primary,.secondary,.providers button{border-radius:999px!important}
+.pageLinks a:before,.pageCta:before,button:before,.primary:before,.secondary:before,.providers button:before{
+ content:"";position:absolute;z-index:-1;top:-25%;bottom:-25%;left:-45%;width:32%;transform:skewX(-24deg);
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent);opacity:.34;animation:crystalSweep 4.9s ease-in-out infinite
+}
+.pageLinks a:hover,.pageCta:hover,button:hover,.primary:hover,.secondary:hover,.providers button:hover{
+ transform:translateY(-2px) scale(1.01);filter:brightness(1.12);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 15px 34px rgba(0,0,0,.3),0 0 26px rgba(241,203,119,.2)!important
+}
+.primary,.pageCta{background:linear-gradient(145deg,rgba(255,248,218,.94),rgba(229,190,101,.9) 48%,rgba(151,96,32,.94))!important;color:#26130d!important;text-shadow:none!important}
+.primary.pink{background:linear-gradient(145deg,rgba(255,178,208,.95),rgba(222,38,109,.92) 48%,rgba(116,8,50,.95))!important;color:#fff!important}
+.hero.pageHero .wrap:before{content:"FOBI / EDITORIAL";display:block;margin-bottom:18px;font:800 8px Inter,sans-serif;letter-spacing:.42em;color:rgba(255,239,199,.58)}
+.section>.wrap{position:relative}.section>.wrap:after{content:"";position:absolute;top:0;right:0;width:64px;height:1px;background:linear-gradient(90deg,transparent,#f5d995)}
+.section h2{max-width:860px;text-wrap:balance}.section p{max-width:780px}
+.card h3,.countryCard h3{letter-spacing:-.015em}
+.memberLogin{box-shadow:none!important;background:rgba(255,255,255,.035)!important}
+.memberLogin summary{box-shadow:none!important;background:transparent!important;border:0!important;padding:3px 0!important;color:#cdbcb4!important}
+.memberLogin summary:before{display:none!important}
+@media(max-width:800px){
+ .pageLinks{display:none!important}
+ .hero.pageHero .wrap:before{margin-bottom:12px}
+ body:before{display:none}
+}
+@media(prefers-reduced-motion:reduce){body{animation:none!important}.pageLinks a:before,.pageCta:before,button:before,.primary:before,.secondary:before,.providers button:before{animation:none!important}}
