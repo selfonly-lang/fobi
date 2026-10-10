@@ -78,9 +78,9 @@ function Hero(){
       const b=el.getBoundingClientRect();
       const x=Math.max(-1,Math.min(1,((e.clientX-b.left)/b.width-.5)*2));
       const y=Math.max(-1,Math.min(1,((e.clientY-b.top)/b.height-.5)*2));
-      el.style.setProperty('--scene-x',x.toFixed(3));el.style.setProperty('--scene-y',y.toFixed(3));
+      el.style.setProperty('--scene-shift-x',(x*10).toFixed(2)+'px');el.style.setProperty('--scene-shift-y',(y*7).toFixed(2)+'px');
     })};
-    const reset=()=>{el.style.setProperty('--scene-x','0');el.style.setProperty('--scene-y','0')};
+    const reset=()=>{el.style.setProperty('--scene-shift-x','0px');el.style.setProperty('--scene-shift-y','0px')};
     el.addEventListener('pointermove',move,{passive:true});el.addEventListener('pointerleave',reset);
     return()=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerleave',reset);cancelAnimationFrame(frame)};
   },[]);
