@@ -111,19 +111,19 @@ body:before{content:"FOBI / FACE OF BEAUTY INTERNATIONAL / 2026";position:fixed;
 
 /* FOBI 2026 — spatial atelier. CSS 3D depth with GPU-friendly compositor transforms */
 .hero{--scene-x:0;--scene-y:0;isolation:isolate;perspective:1300px}
-.heroBg{transform:translate3d(calc(var(--scene-x)*-9px),calc(var(--scene-y)*-6px),-40px) scale(1.055);will-change:transform}
+.heroBg{transform:translate3d(calc(var(--scene-shift-x) * -0.9),calc(var(--scene-shift-y) * -0.86),-40px) scale(1.055);will-change:transform}
 .stageScene{position:absolute;inset:0;z-index:2;pointer-events:none;transform-style:preserve-3d;perspective:950px;overflow:hidden}
-.stageHalo{position:absolute;left:44%;top:1%;width:60vw;height:55vw;max-height:720px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,218,146,.18),rgba(153,22,65,.11) 32%,transparent 68%);filter:blur(20px);transform:translate3d(calc(var(--scene-x)*14px),calc(var(--scene-y)*10px),0);animation:stageBreathe 9s ease-in-out infinite}
-.stageArch{position:absolute;left:42%;top:-15%;width:56%;height:99%;border:2px solid rgba(247,212,143,.33);border-radius:48% 48% 0 0 / 34% 34% 0 0;box-shadow:inset 0 0 18px rgba(255,231,170,.10),0 0 35px rgba(224,178,90,.10),inset 0 0 0 14px rgba(21,6,13,.08);transform:rotateY(calc(var(--scene-x)*-3deg)) rotateX(calc(var(--scene-y)*2deg)) translate3d(calc(var(--scene-x)*12px),0,24px);opacity:.75}
+.stageHalo{position:absolute;left:44%;top:1%;width:60vw;height:55vw;max-height:720px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,218,146,.18),rgba(153,22,65,.11) 32%,transparent 68%);filter:blur(20px);transform:translate3d(calc(var(--scene-shift-x) * 1.4),calc(var(--scene-shift-y) * 1.4),0);animation:stageBreathe 9s ease-in-out infinite}
+.stageArch{position:absolute;left:42%;top:-15%;width:56%;height:99%;border:2px solid rgba(247,212,143,.33);border-radius:48% 48% 0 0 / 34% 34% 0 0;box-shadow:inset 0 0 18px rgba(255,231,170,.10),0 0 35px rgba(224,178,90,.10),inset 0 0 0 14px rgba(21,6,13,.08);transform:rotateY(0deg) rotateX(0deg) translate3d(var(--scene-shift-x,0px),0,24px);opacity:.75}
 .archInner{left:46%;top:-8%;width:48%;height:87%;border-width:1px;opacity:.5;box-shadow:0 0 44px rgba(245,211,144,.09)}
-.stageColumns{position:absolute;inset:7% 2% 17% 39%;display:flex;justify-content:space-between;transform:translate3d(calc(var(--scene-x)*9px),0,-12px)}
+.stageColumns{position:absolute;inset:7% 2% 17% 39%;display:flex;justify-content:space-between;transform:translate3d(var(--scene-shift-x,0px),0,-12px)}
 .stageColumns i{width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(252,223,167,.3),rgba(255,230,176,.08),transparent);box-shadow:0 0 14px rgba(252,218,140,.22)}
-.stageFloor{position:absolute;left:-30%;right:-30%;bottom:-29%;height:62%;background:repeating-linear-gradient(90deg,transparent 0 11.5%,rgba(244,209,140,.16) 11.55% 11.65%,transparent 11.7% 23%),linear-gradient(0deg,rgba(216,153,75,.25),transparent 56%);transform-origin:bottom center;transform:rotateX(73deg) translate3d(calc(var(--scene-x)*12px),0,0);mask-image:linear-gradient(0deg,black,transparent 89%);opacity:.55}
+.stageFloor{position:absolute;left:-30%;right:-30%;bottom:-29%;height:62%;background:repeating-linear-gradient(90deg,transparent 0 11.5%,rgba(244,209,140,.16) 11.55% 11.65%,transparent 11.7% 23%),linear-gradient(0deg,rgba(216,153,75,.25),transparent 56%);transform-origin:bottom center;transform:rotateX(73deg) translate3d(var(--scene-shift-x,0px),0,0);mask-image:linear-gradient(0deg,black,transparent 89%);opacity:.55}
 .stageLight{position:absolute;top:-25%;width:21%;height:130%;background:linear-gradient(180deg,rgba(255,228,157,.32),rgba(255,210,135,.035) 67%,transparent);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);filter:blur(20px);mix-blend-mode:screen;animation:beamDrift 12s ease-in-out infinite alternate}
 .lightLeft{left:24%;transform:rotate(-18deg)}.lightRight{right:-4%;transform:rotate(14deg);animation-delay:-5s}
-.stageTitleGhost{position:absolute;right:2vw;top:22%;font:300 clamp(80px,15vw,240px) Georgia,serif;letter-spacing:.19em;color:rgba(255,230,183,.035);white-space:nowrap;transform:rotateY(-12deg) translate3d(calc(var(--scene-x)*-15px),0,0)}
-.queen{transform:translate3d(calc(var(--scene-x)*-19px),calc(-50% + var(--scene-y)*-10px),64px);will-change:transform}
-.heroCopy{transform:translate3d(calc(var(--scene-x)*11px),calc(var(--scene-y)*7px),82px);will-change:transform}
+.stageTitleGhost{position:absolute;right:2vw;top:22%;font:300 clamp(80px,15vw,240px) Georgia,serif;letter-spacing:.19em;color:rgba(255,230,183,.035);white-space:nowrap;transform:rotateY(-12deg) translate3d(calc(var(--scene-shift-x) * -1.5),0,0)}
+.queen{transform:translate3d(calc(var(--scene-shift-x) * -1.9),calc(-50% - var(--scene-shift-y,0px)),64px);will-change:transform}
+.heroCopy{transform:translate3d(var(--scene-shift-x,0px),var(--scene-shift-y,0px),82px);will-change:transform}
 .heroEditorialIndex{position:absolute;left:2.6vw;top:24%;display:flex;align-items:center;gap:12px;writing-mode:vertical-rl;font:700 9px Inter,sans-serif;letter-spacing:.32em;color:rgba(250,228,188,.72)}
 .heroEditorialIndex i{height:46px;width:1px;background:linear-gradient(#f4d995,transparent)}
 .heroScrollCue{position:absolute;z-index:8;left:50%;bottom:85px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;font:700 9px Inter,sans-serif;letter-spacing:.26em;color:rgba(255,237,202,.65);pointer-events:none}
