@@ -110,7 +110,7 @@ body:before{content:"FOBI / FACE OF BEAUTY INTERNATIONAL / 2026";position:fixed;
 @media(prefers-reduced-motion:reduce){.nav a:before,.lang:before,.login:before,.menu:before,.cardButton:before,.tier a:before,.exposureLinks a:before{animation:none!important}}
 
 /* FOBI 2026 — spatial atelier. CSS 3D depth with GPU-friendly compositor transforms */
-.hero{--scene-x:0;--scene-y:0;isolation:isolate;perspective:1300px}
+.hero{--scene-x:0;--scene-y:0;--scene-shift-x:0px;--scene-shift-y:0px;isolation:isolate;perspective:1300px}
 .heroBg{transform:translate3d(calc(var(--scene-shift-x) * -0.9),calc(var(--scene-shift-y) * -0.86),-40px) scale(1.055);will-change:transform}
 .stageScene{position:absolute;inset:0;z-index:2;pointer-events:none;transform-style:preserve-3d;perspective:950px;overflow:hidden}
 .stageHalo{position:absolute;left:44%;top:1%;width:60vw;height:55vw;max-height:720px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,218,146,.18),rgba(153,22,65,.11) 32%,transparent 68%);filter:blur(20px);transform:translate3d(calc(var(--scene-shift-x) * 1.4),calc(var(--scene-shift-y) * 1.4),0);animation:stageBreathe 9s ease-in-out infinite}
