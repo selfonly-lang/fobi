@@ -29,10 +29,8 @@ h1{font:44px Georgia;margin:54px 0 10px}.muted{color:var(--mut);line-height:1.7}
 <div class="row"><span>國家</span><b id="country">—</b></div>
 <div class="row"><span>After Party</span><b id="after">—</b></div>
 <div class="row"><span>狀態</span><b id="status">—</b></div>
-<div class="code" id="code">—</div>
-</section>
-</div>
-<script>
+<div id="qr" style="margin:24px auto 10px;width:220px;max-width:100%;aspect-ratio:1;background:#fff;border-radius:18px;padding:14px;display:grid;place-items:center"></div><p class="muted" style="text-align:center;margin:8px 0 0">現場請出示 QR Code</p><div class="code" id="code" style="font-size:10px;opacity:.58">—</div>
+</section>\n</div>\n<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>\n<script>
 const API='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-public';
 const token=new URLSearchParams(location.search).get('token')||'';
 (async()=>{
@@ -48,7 +46,7 @@ const token=new URLSearchParams(location.search).get('token')||'';
   document.getElementById('country').textContent=t.country_code||'—';
   document.getElementById('after').textContent=t.afterparty_entitlement?'包含':'不包含';
   document.getElementById('status').textContent=t.status==='checked_in'?'已報到':t.status==='void'?'已作廢':'有效';
-  document.getElementById('code').textContent=t.qr_token;
+  document.getElementById('code').textContent=t.qr_token;const q=document.getElementById('qr');if(window.QRCode?.toCanvas){const canvas=document.createElement('canvas');q.innerHTML='';q.appendChild(canvas);QRCode.toCanvas(canvas,t.qr_token,{width:190,margin:1},()=>{})}else{q.textContent=t.ticket_no;}
  }catch(e){document.getElementById('serial').textContent='票券無效或無法載入'}
 })();
 </script>
