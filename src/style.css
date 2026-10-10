@@ -108,3 +108,34 @@ body:before{content:"FOBI / FACE OF BEAUTY INTERNATIONAL / 2026";position:fixed;
 @keyframes crystalSweep{0%,62%{left:-45%}82%,100%{left:135%}}
 @media(max-width:860px){.nav a{border-radius:12px;padding:13px 14px}.heroCopy:before{margin-bottom:10px}.heroCopy:after{text-align:left}}
 @media(prefers-reduced-motion:reduce){.nav a:before,.lang:before,.login:before,.menu:before,.cardButton:before,.tier a:before,.exposureLinks a:before{animation:none!important}}
+
+/* FOBI 2026 — spatial atelier. CSS 3D depth with GPU-friendly compositor transforms */
+.hero{--scene-x:0;--scene-y:0;isolation:isolate;perspective:1300px}
+.heroBg{transform:translate3d(calc(var(--scene-x)*-9px),calc(var(--scene-y)*-6px),-40px) scale(1.055);will-change:transform}
+.stageScene{position:absolute;inset:0;z-index:2;pointer-events:none;transform-style:preserve-3d;perspective:950px;overflow:hidden}
+.stageHalo{position:absolute;left:44%;top:1%;width:60vw;height:55vw;max-height:720px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,218,146,.18),rgba(153,22,65,.11) 32%,transparent 68%);filter:blur(20px);transform:translate3d(calc(var(--scene-x)*14px),calc(var(--scene-y)*10px),0);animation:stageBreathe 9s ease-in-out infinite}
+.stageArch{position:absolute;left:42%;top:-15%;width:56%;height:99%;border:2px solid rgba(247,212,143,.33);border-radius:48% 48% 0 0 / 34% 34% 0 0;box-shadow:inset 0 0 18px rgba(255,231,170,.10),0 0 35px rgba(224,178,90,.10),inset 0 0 0 14px rgba(21,6,13,.08);transform:rotateY(calc(var(--scene-x)*-3deg)) rotateX(calc(var(--scene-y)*2deg)) translate3d(calc(var(--scene-x)*12px),0,24px);opacity:.75}
+.archInner{left:46%;top:-8%;width:48%;height:87%;border-width:1px;opacity:.5;box-shadow:0 0 44px rgba(245,211,144,.09)}
+.stageColumns{position:absolute;inset:7% 2% 17% 39%;display:flex;justify-content:space-between;transform:translate3d(calc(var(--scene-x)*9px),0,-12px)}
+.stageColumns i{width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(252,223,167,.3),rgba(255,230,176,.08),transparent);box-shadow:0 0 14px rgba(252,218,140,.22)}
+.stageFloor{position:absolute;left:-30%;right:-30%;bottom:-29%;height:62%;background:repeating-linear-gradient(90deg,transparent 0 11.5%,rgba(244,209,140,.16) 11.55% 11.65%,transparent 11.7% 23%),linear-gradient(0deg,rgba(216,153,75,.25),transparent 56%);transform-origin:bottom center;transform:rotateX(73deg) translate3d(calc(var(--scene-x)*12px),0,0);mask-image:linear-gradient(0deg,black,transparent 89%);opacity:.55}
+.stageLight{position:absolute;top:-25%;width:21%;height:130%;background:linear-gradient(180deg,rgba(255,228,157,.32),rgba(255,210,135,.035) 67%,transparent);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);filter:blur(20px);mix-blend-mode:screen;animation:beamDrift 12s ease-in-out infinite alternate}
+.lightLeft{left:24%;transform:rotate(-18deg)}.lightRight{right:-4%;transform:rotate(14deg);animation-delay:-5s}
+.stageTitleGhost{position:absolute;right:2vw;top:22%;font:300 clamp(80px,15vw,240px) Georgia,serif;letter-spacing:.19em;color:rgba(255,230,183,.035);white-space:nowrap;transform:rotateY(-12deg) translate3d(calc(var(--scene-x)*-15px),0,0)}
+.queen{transform:translate3d(calc(var(--scene-x)*-19px),calc(-50% + var(--scene-y)*-10px),64px);will-change:transform}
+.heroCopy{transform:translate3d(calc(var(--scene-x)*11px),calc(var(--scene-y)*7px),82px);will-change:transform}
+.heroEditorialIndex{position:absolute;left:2.6vw;top:24%;display:flex;align-items:center;gap:12px;writing-mode:vertical-rl;font:700 9px Inter,sans-serif;letter-spacing:.32em;color:rgba(250,228,188,.72)}
+.heroEditorialIndex i{height:46px;width:1px;background:linear-gradient(#f4d995,transparent)}
+.heroScrollCue{position:absolute;z-index:8;left:50%;bottom:85px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;font:700 9px Inter,sans-serif;letter-spacing:.26em;color:rgba(255,237,202,.65);pointer-events:none}
+.heroScrollCue span{animation:scrollNudge 2.7s ease-in-out infinite}
+.actionCard{transform-style:preserve-3d;isolation:isolate}
+.actionCard:before{content:"";position:absolute;inset:1px;z-index:0;pointer-events:none;background:linear-gradient(122deg,rgba(255,255,255,.11),transparent 24%,rgba(255,225,170,.1) 62%,transparent 80%);border-radius:inherit}
+.actionCard:hover{transform:translate3d(0,-7px,24px) rotateX(1.5deg);box-shadow:0 42px 90px rgba(0,0,0,.55),0 0 34px rgba(245,208,145,.16),inset 0 2px rgba(255,255,255,.25)}
+.cardText{position:relative;z-index:2}
+.actionWrap{perspective:1100px}
+.tierGrid{perspective:1200px}.tier{position:relative;transform-style:preserve-3d}.tier:hover{transform:translateY(-8px) rotateX(2deg)!important;box-shadow:0 30px 65px rgba(0,0,0,.34),0 0 28px rgba(223,173,100,.12)}
+.topbar{box-shadow:inset 0 1px rgba(255,246,224,.07)}
+.nav a,.login{transform-style:preserve-3d}.nav a:hover,.login:hover{transform:translateY(-2px) rotateX(4deg)}
+@keyframes stageBreathe{50%{opacity:.7;transform:scale(1.04)}}@keyframes beamDrift{to{translate:22px 0;opacity:.6}}@keyframes scrollNudge{50%{transform:translateY(6px)}}
+@media(max-width:860px){.stageArch{left:21%;top:0;width:91%;height:56%;opacity:.38}.archInner{left:27%;top:4%;width:77%;height:50%}.stageHalo{left:23%;top:0;width:85vw;height:65vw}.stageColumns{inset:5% 0 45% 18%;opacity:.35}.stageFloor{display:none}.stageTitleGhost{top:10%;font-size:24vw}.stageLight{height:75%}.heroEditorialIndex,.heroScrollCue{display:none}.heroBg,.queen,.heroCopy{will-change:auto;transform:none}.queen{transform:translateY(-50%)}.actionCard:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.stageHalo,.stageLight,.heroScrollCue span{animation:none!important}.heroBg,.queen,.heroCopy,.stageArch,.stageColumns,.stageFloor{transform:none!important;will-change:auto}.actionCard:hover,.tier:hover{transform:none!important}}
