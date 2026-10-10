@@ -139,3 +139,25 @@ body:before{content:"FOBI / FACE OF BEAUTY INTERNATIONAL / 2026";position:fixed;
 @keyframes stageBreathe{50%{opacity:.7;transform:scale(1.04)}}@keyframes beamDrift{to{translate:22px 0;opacity:.6}}@keyframes scrollNudge{50%{transform:translateY(6px)}}
 @media(max-width:860px){.stageArch{left:21%;top:0;width:91%;height:56%;opacity:.38}.archInner{left:27%;top:4%;width:77%;height:50%}.stageHalo{left:23%;top:0;width:85vw;height:65vw}.stageColumns{inset:5% 0 45% 18%;opacity:.35}.stageFloor{display:none}.stageTitleGhost{top:10%;font-size:24vw}.stageLight{height:75%}.heroEditorialIndex,.heroScrollCue{display:none}.heroBg,.queen,.heroCopy{will-change:auto;transform:none}.queen{transform:translateY(-50%)}.actionCard:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.stageHalo,.stageLight,.heroScrollCue span{animation:none!important}.heroBg,.queen,.heroCopy,.stageArch,.stageColumns,.stageFloor{transform:none!important;will-change:auto}.actionCard:hover,.tier:hover{transform:none!important}}
+
+/* FOBI Spatial Atelier v2: dimensional architecture and legible luxury */
+.hero{background:#080408;overflow:hidden}
+.stageScene{z-index:2;transform:translateZ(0);contain:paint}
+.stageArch{background:linear-gradient(90deg,rgba(245,209,143,.045),transparent 14%,transparent 85%,rgba(245,209,143,.06));border:3px ridge rgba(247,216,156,.42);box-shadow:inset 0 0 0 2px rgba(88,41,44,.34),inset 0 0 70px rgba(255,206,127,.06),0 0 18px rgba(251,218,164,.13),0 0 75px rgba(180,75,65,.08)}
+.archOuter:after,.archInner:after{content:"";position:absolute;inset:12px;border:1px solid rgba(255,229,167,.22);border-radius:inherit;pointer-events:none}
+.archInner{transform:translate3d(calc(var(--scene-shift-x) * .5),calc(var(--scene-shift-y) * .25),45px) scale(.96);border-color:rgba(253,223,167,.24)}
+.stageHalo{background:radial-gradient(ellipse,rgba(255,222,151,.2),rgba(175,29,92,.17) 28%,transparent 68%);mix-blend-mode:screen}
+.stageFloor{background:repeating-linear-gradient(90deg,transparent 0 11.5%,rgba(244,209,140,.22) 11.55% 11.68%,transparent 11.72% 23%),repeating-linear-gradient(0deg,transparent 0 25px,rgba(242,202,136,.13) 26px,transparent 27px 55px),linear-gradient(0deg,rgba(194,104,65,.27),transparent 70%)}
+.stageScene:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 70% 47%,transparent 20%,rgba(8,3,8,.15) 66%,rgba(8,3,8,.52) 100%)}
+.heroCopy{position:relative;z-index:5}
+.heroCopy h1{text-shadow:0 18px 44px rgba(0,0,0,.45)}
+.heroEditorialIndex{z-index:5}
+.actionWrap{z-index:15}
+.heroDots{z-index:17}
+.heroScrollCue{left:auto;right:3.5vw;bottom:86px;transform:none}
+.actionCard{transition:filter .35s ease,box-shadow .35s ease,border-color .35s ease}
+.actionCard:focus-visible,.nav a:focus-visible,.login:focus-visible{outline:2px solid #ffe5a4;outline-offset:4px}
+.actionCard .cardButton{box-shadow:inset 0 2px 1px rgba(255,255,255,.46),0 11px 30px rgba(31,6,12,.32),0 0 24px rgba(241,198,111,.16)}
+@media(min-width:861px){.actionWrap{bottom:105px}.heroDots{bottom:85px;left:49%}.heroScrollCue{bottom:90px}}
+@media(max-width:860px){.hero{perspective:none}.stageScene{opacity:.7}.stageArch{border-width:1px}.heroScrollCue{display:none}.heroCopy{transform:none!important}.stageLight{opacity:.28}.actionCard{transform:none!important}}
+@media(prefers-reduced-motion:reduce){.heroBg{transform:none!important}.stageScene{transform:none!important}.stageHalo{filter:none}.actionCard{transition:none!important}}
