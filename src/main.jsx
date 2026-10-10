@@ -69,17 +69,42 @@ function Hero(){
   const [active,setActive]=useState(0);
   useEffect(()=>{fetch(API+'?resource=slides').then(r=>r.json()).then(d=>{if(d.ok&&d.items?.length)setSlides(d.items)}).catch(()=>{})},[]);
   useEffect(()=>{if(slides.length<2)return;const t=setInterval(()=>setActive(v=>(v+1)%slides.length),6000);return()=>clearInterval(t)},[slides.length]);
+  const scene=useRef(null);
+  useEffect(()=>{
+    const el=scene.current;
+    if(!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(pointer: coarse)').matches)return;
+    let frame=0;
+    const move=e=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{
+      const b=el.getBoundingClientRect();
+      const x=Math.max(-1,Math.min(1,((e.clientX-b.left)/b.width-.5)*2));
+      const y=Math.max(-1,Math.min(1,((e.clientY-b.top)/b.height-.5)*2));
+      el.style.setProperty('--scene-x',x.toFixed(3));el.style.setProperty('--scene-y',y.toFixed(3));
+    })};
+    const reset=()=>{el.style.setProperty('--scene-x','0');el.style.setProperty('--scene-y','0')};
+    el.addEventListener('pointermove',move,{passive:true});el.addEventListener('pointerleave',reset);
+    return()=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerleave',reset);cancelAnimationFrame(frame)};
+  },[]);
   const s=slides[active]||slides[0];
-  return <section className="hero" id="top">
+  return <section className="hero" id="top" ref={scene}>
     <motion.div key={s.id||active} className="heroBg" initial={{opacity:.25,scale:1.06}} animate={{opacity:1,scale:1}} transition={{duration:1.1}}>
       <img src={s.image_url||stage} alt={s.title||'FOBI 世界美顏小姐總決賽舞台'}/>
     </motion.div>
     <div className="heroShade"/>
+    <div className="stageScene" aria-hidden="true">
+      <div className="stageHalo"/>
+      <div className="stageArch archOuter"/>
+      <div className="stageArch archInner"/>
+      <div className="stageColumns"><i/><i/></div>
+      <div className="stageFloor"/>
+      <div className="stageLight lightLeft"/>
+      <div className="stageLight lightRight"/>
+      <div className="stageTitleGhost">F O B I</div>
+    </div>
     <div className="particles" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i} style={{left:((i*37)%100)+'%',top:((i*53)%100)+'%',animationDelay:(i*.23)+'s'}}/>)}</div>
     <motion.figure className="queen" initial={{opacity:0,x:50}} animate={{opacity:1,x:0}} transition={{duration:1.05,delay:.12}}>
       <img src={queen} alt="FOBI 國際佳麗形象"/>
     </motion.figure>
-    <div className="heroContent">
+    <div className="heroContent"><div className="heroEditorialIndex" aria-hidden="true"><span>01 / 03</span><i/> <span>THE GRAND FINALE</span></div>
       <motion.div className="heroCopy" initial={{opacity:0,y:32}} animate={{opacity:1,y:0}} transition={{duration:.9,delay:.18}}>
         <p className="year"><span>✦</span>2026<span>✦</span></p>
         <h1><span>FACE OF BEAUTY</span><em>INTERNATIONAL</em></h1>
@@ -89,7 +114,7 @@ function Hero(){
         <p className="scriptLine">Beauty for a Better World</p>
       </motion.div>
     </div>
-    <div className="heroDots" aria-label="Hero 輪播">{slides.map((x,i)=><button key={x.id||i} className={i===active?'active':''} onClick={()=>setActive(i)} aria-label={'第 '+(i+1)+' 張'}/>)}</div>
+    <div className="heroScrollCue" aria-hidden="true">SCROLL TO DISCOVER <span>↓</span></div><div className="heroDots" aria-label="Hero 輪播">{slides.map((x,i)=><button key={x.id||i} className={i===active?'active':''} onClick={()=>setActive(i)} aria-label={'第 '+(i+1)+' 張'}/>)}</div>
     <ActionCards/>
     <EventBar/>
   </section>
