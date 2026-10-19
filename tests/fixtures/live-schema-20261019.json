@@ -1,0 +1,1184 @@
+{
+  "tables": [
+    {
+      "udt_name": "int8",
+      "data_type": "bigint",
+      "table_name": "fobi_admin_audit",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_audit",
+      "column_name": "action",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_audit",
+      "column_name": "section",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "jsonb",
+      "data_type": "jsonb",
+      "table_name": "fobi_admin_audit",
+      "column_name": "detail",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_audit",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "section",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "jsonb",
+      "data_type": "jsonb",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "payload",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "status",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_drafts",
+      "column_name": "published_at",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "token_hash",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "self_user_id",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "self_email",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "expires_at",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_admin_sessions",
+      "column_name": "last_used_at",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_checkins",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_checkins",
+      "column_name": "order_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_checkins",
+      "column_name": "checked_in_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_checkins",
+      "column_name": "gate",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_checkins",
+      "column_name": "staff_note",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_checkins",
+      "column_name": "ticket_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_countries",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "code",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "name_en",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "name_zh",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_countries",
+      "column_name": "table_no",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "status",
+      "is_nullable": "NO",
+      "column_default": "'available'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "contestant_name",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "contestant_photo_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_countries",
+      "column_name": "sponsor_name",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_countries",
+      "column_name": "reserved_until",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_countries",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_countries",
+      "column_name": "reserved_interest_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int8",
+      "data_type": "bigint",
+      "table_name": "fobi_exposure_items",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_exposure_items",
+      "column_name": "title",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_exposure_items",
+      "column_name": "channel",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_exposure_items",
+      "column_name": "description",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_exposure_items",
+      "column_name": "sort_order",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_exposure_items",
+      "column_name": "active",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_exposure_items",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_hero_slides",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_hero_slides",
+      "column_name": "title",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_hero_slides",
+      "column_name": "subtitle",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_hero_slides",
+      "column_name": "image_url",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_hero_slides",
+      "column_name": "link_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_hero_slides",
+      "column_name": "sort_order",
+      "is_nullable": "NO",
+      "column_default": "100"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_hero_slides",
+      "column_name": "active",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_hero_slides",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_hero_slides",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_interests",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "type",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "country_code",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "tier",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_interests",
+      "column_name": "member_count",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "company",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "contact_name",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "phone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "email",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "note",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "source",
+      "is_nullable": "YES",
+      "column_default": "'fobi.self.com.tw'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "status",
+      "is_nullable": "NO",
+      "column_default": "'new'::text"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_interests",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_interests",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_interests",
+      "column_name": "self_member_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_interests",
+      "column_name": "self_member_linked_at",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_interests",
+      "column_name": "member_data_source",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_orders",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "order_no",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_orders",
+      "column_name": "interest_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "type",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_orders",
+      "column_name": "amount",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "currency",
+      "is_nullable": "NO",
+      "column_default": "'TWD'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "payment_provider",
+      "is_nullable": "YES",
+      "column_default": "'ecpay'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "payment_status",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "payment_ref",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_orders",
+      "column_name": "qr_token",
+      "is_nullable": "YES",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_orders",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_orders",
+      "column_name": "paid_at",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "ecpay_trade_no",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "jsonb",
+      "data_type": "jsonb",
+      "table_name": "fobi_orders",
+      "column_name": "payment_meta",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "udt_name": "int8",
+      "data_type": "bigint",
+      "table_name": "fobi_orders",
+      "column_name": "ticket_serial_start",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int8",
+      "data_type": "bigint",
+      "table_name": "fobi_orders",
+      "column_name": "ticket_serial_end",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_orders",
+      "column_name": "ticket_count",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_orders",
+      "column_name": "return_path",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "display_name",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "avatar_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "profile_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "country_code",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "subtitle",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "sort_order",
+      "is_nullable": "NO",
+      "column_default": "100"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "active",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_participant_profiles",
+      "column_name": "source_interest_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "'main'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "event_title",
+      "is_nullable": "NO",
+      "column_default": "'世界美顏小姐選美總決賽'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "event_date",
+      "is_nullable": "NO",
+      "column_default": "'2026.10.30'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "venue",
+      "is_nullable": "NO",
+      "column_default": "'臺北茹曦酒店 2F'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "sponsor_headline",
+      "is_nullable": "NO",
+      "column_default": "'認領一個國家，讓品牌被世界看見。'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_site_config",
+      "column_name": "sponsor_copy",
+      "is_nullable": "NO",
+      "column_default": "'大會國家桌結合己美與醫美版曝光，從現場品牌接待延伸到活動前後的社群內容。'::text"
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_site_config",
+      "column_name": "member_price",
+      "is_nullable": "NO",
+      "column_default": "3000"
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_site_config",
+      "column_name": "vip1_price",
+      "is_nullable": "NO",
+      "column_default": "70000"
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_site_config",
+      "column_name": "vip2_price",
+      "is_nullable": "NO",
+      "column_default": "60000"
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_site_config",
+      "column_name": "vip3_price",
+      "is_nullable": "NO",
+      "column_default": "40000"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_site_config",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "name",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "logo_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "website_url",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "tier",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "description",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "sort_order",
+      "is_nullable": "NO",
+      "column_default": "100"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "active",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_sponsor_profiles",
+      "column_name": "source_interest_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "event_code",
+      "is_nullable": "NO",
+      "column_default": "'FB26-01'::text"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "ticket_type",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "included_count",
+      "is_nullable": "NO",
+      "column_default": "10"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "afterparty_enabled",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "active",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_ticket_settings",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_tickets",
+      "column_name": "id",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_tickets",
+      "column_name": "order_id",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_tickets",
+      "column_name": "interest_id",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "ticket_no",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "int8",
+      "data_type": "bigint",
+      "table_name": "fobi_tickets",
+      "column_name": "serial_no",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "holder_name",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "uuid",
+      "data_type": "uuid",
+      "table_name": "fobi_tickets",
+      "column_name": "qr_token",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "status",
+      "is_nullable": "NO",
+      "column_default": "'valid'::text"
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_tickets",
+      "column_name": "checked_in_at",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_tickets",
+      "column_name": "created_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "ticket_type",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "sponsor_tier",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "company",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "country_code",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "bool",
+      "data_type": "boolean",
+      "table_name": "fobi_tickets",
+      "column_name": "afterparty_entitlement",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "holder_phone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "text",
+      "data_type": "text",
+      "table_name": "fobi_tickets",
+      "column_name": "holder_email",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "int4",
+      "data_type": "integer",
+      "table_name": "fobi_tickets",
+      "column_name": "guest_no",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "udt_name": "timestamptz",
+      "data_type": "timestamp with time zone",
+      "table_name": "fobi_tickets",
+      "column_name": "updated_at",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    }
+  ],
+  "triggers": [
+    "CREATE TRIGGER trg_fobi_issue_tickets BEFORE UPDATE OF payment_status ON public.fobi_orders FOR EACH ROW EXECUTE FUNCTION fobi_issue_tickets_on_paid_order()",
+    "CREATE TRIGGER trg_fobi_paid_order_exposure_draft AFTER UPDATE OF payment_status ON public.fobi_orders FOR EACH ROW EXECUTE FUNCTION fobi_create_exposure_draft_on_paid_order()"
+  ],
+  "functions": [
+    "CREATE OR REPLACE FUNCTION public.fobi_checkin_ticket(p_qr uuid, p_gate text DEFAULT 'MAIN'::text, p_note text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare t public.fobi_tickets%rowtype;\nbegin\n select * into t from public.fobi_tickets where qr_token=p_qr for update;\n if not found then return jsonb_build_object('ok',false,'error','ticket_not_found'); end if;\n if t.status='void' then return jsonb_build_object('ok',false,'error','ticket_void','ticket_no',t.ticket_no); end if;\n if t.status='checked_in' then return jsonb_build_object('ok',false,'error','already_checked_in','ticket_no',t.ticket_no,'checked_in_at',t.checked_in_at); end if;\n update public.fobi_tickets set status='checked_in',checked_in_at=now(),updated_at=now() where id=t.id;\n insert into public.fobi_checkins(order_id,ticket_id,gate,staff_note) values(t.order_id,t.id,left(coalesce(p_gate,'MAIN'),30),left(coalesce(p_note,''),300));\n return jsonb_build_object('ok',true,'ticket_no',t.ticket_no,'holder_name',t.holder_name,'ticket_type',t.ticket_type,'company',t.company,'afterparty',t.afterparty_entitlement);\nend $function$\n",
+    "CREATE OR REPLACE FUNCTION public.fobi_create_exposure_draft_on_paid_order()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  i public.fobi_interests%rowtype;\nbegin\n  if new.payment_status='paid' and (old.payment_status is distinct from 'paid') then\n    select * into i from public.fobi_interests where id=new.interest_id;\n    if found then\n      if new.type='sponsor' then\n        insert into public.fobi_sponsor_profiles\n          (name,tier,description,sort_order,active,source_interest_id)\n        values\n          (coalesce(nullif(i.company,''),i.contact_name),i.tier,'已付款贊助商，待補 Logo／官網與公開確認',100,false,i.id)\n        on conflict(source_interest_id) do nothing;\n      elsif new.type='member' then\n        insert into public.fobi_participant_profiles\n          (display_name,subtitle,sort_order,active,source_interest_id)\n        values\n          (i.contact_name,'FOBI 2026 參與會員',100,false,i.id)\n        on conflict(source_interest_id) do nothing;\n      end if;\n    end if;\n  end if;\n  return new;\nend;\n$function$\n",
+    "CREATE OR REPLACE FUNCTION public.fobi_create_member_order(p_member_count integer, p_contact_name text, p_phone text, p_email text, p_note text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  v_interest_id uuid;\n  v_order_id uuid;\n  v_order_no text;\n  v_count integer := greatest(1, least(coalesce(p_member_count,1),20));\n  v_amount integer;\nbegin\n  v_amount := 3000 * v_count;\n\n  insert into public.fobi_interests(type,member_count,contact_name,phone,email,note,status)\n  values('member',v_count,trim(p_contact_name),trim(p_phone),trim(p_email),p_note,'new')\n  returning id into v_interest_id;\n\n  v_order_no := 'FOBI-M-' || to_char(now(),'YYYYMMDD') || '-' || upper(substr(replace(gen_random_uuid()::text,'-',''),1,8));\n\n  insert into public.fobi_orders(order_no,interest_id,type,amount,payment_status)\n  values(v_order_no,v_interest_id,'member',v_amount,'pending')\n  returning id into v_order_id;\n\n  return jsonb_build_object(\n    'ok',true,\n    'interest_id',v_interest_id,\n    'order_id',v_order_id,\n    'order_no',v_order_no,\n    'amount',v_amount,\n    'member_count',v_count\n  );\nend $function$\n",
+    "CREATE OR REPLACE FUNCTION public.fobi_issue_tickets_on_paid_order()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare i public.fobi_interests%rowtype; n int; s bigint; j int; t text; ap boolean; tt text;\nbegin\n if new.payment_status='paid' and old.payment_status is distinct from 'paid' then\n   select * into i from public.fobi_interests where id=new.interest_id;\n   if found and not exists(select 1 from public.fobi_tickets where order_id=new.id) then\n     if new.type='sponsor' then\n       tt:=upper(coalesce(i.tier,'VIP3'));\n       select included_count,afterparty_enabled into n,ap from public.fobi_ticket_settings where event_code='FB26-01' and ticket_type=tt and active=true;\n       n:=coalesce(n,10); ap:=coalesce(ap,false);\n     elsif new.type='member' then\n       tt:='MEMBER'; n:=greatest(1,least(coalesce(i.member_count,1),20));\n       select afterparty_enabled into ap from public.fobi_ticket_settings where event_code='FB26-01' and ticket_type='MEMBER' and active=true;\n       ap:=coalesce(ap,true);\n     else return new;\n     end if;\n     for j in 1..n loop\n       s:=nextval('public.fobi_ticket_serial_seq');\n       t:='FB26-01-'||lpad(s::text,6,'0');\n       insert into public.fobi_tickets(order_id,interest_id,ticket_no,serial_no,holder_name,ticket_type,sponsor_tier,company,country_code,afterparty_entitlement)\n       values(new.id,new.interest_id,t,s,i.contact_name,tt,case when new.type='sponsor' then tt end,i.company,i.country_code,ap);\n       if j=1 then new.ticket_serial_start:=s; end if; new.ticket_serial_end:=s;\n     end loop;\n     new.ticket_count:=n;\n   end if;\n end if;\n return new;\nend $function$\n",
+    "CREATE OR REPLACE FUNCTION public.fobi_mark_order_paid(p_order_no text, p_ecpay_trade_no text, p_trade_no text, p_paid_at timestamp with time zone, p_payment_type text, p_raw jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  v_order public.fobi_orders%rowtype;\n  v_interest public.fobi_interests%rowtype;\nbegin\n  select * into v_order\n  from public.fobi_orders\n  where order_no = p_order_no\n  for update;\n\n  if not found then\n    raise exception 'order_not_found';\n  end if;\n\n  if v_order.payment_status = 'paid' then\n    return jsonb_build_object('ok',true,'already_paid',true,'order_id',v_order.id);\n  end if;\n\n  if v_order.ecpay_trade_no is not null and v_order.ecpay_trade_no <> p_ecpay_trade_no then\n    raise exception 'ecpay_trade_no_mismatch';\n  end if;\n\n  update public.fobi_orders\n  set payment_status='paid',\n      ecpay_trade_no=p_ecpay_trade_no,\n      payment_ref=p_trade_no,\n      paid_at=coalesce(p_paid_at,now()),\n      payment_meta=coalesce(p_raw,'{}'::jsonb)\n  where id=v_order.id;\n\n  select * into v_interest\n  from public.fobi_interests\n  where id=v_order.interest_id;\n\n  if found then\n    update public.fobi_interests\n    set status='paid', updated_at=now()\n    where id=v_interest.id;\n\n    if v_order.type='sponsor' and v_interest.country_code is not null then\n      update public.fobi_countries\n      set status='sponsored',\n          sponsor_name=coalesce(nullif(v_interest.company,''),v_interest.contact_name),\n          reserved_until=null,\n          reserved_interest_id=v_interest.id,\n          updated_at=now()\n      where code=v_interest.country_code;\n    end if;\n  end if;\n\n  return jsonb_build_object('ok',true,'already_paid',false,'order_id',v_order.id);\nend $function$\n",
+    "CREATE OR REPLACE FUNCTION public.fobi_reserve_country(p_code text, p_tier text, p_company text, p_contact_name text, p_phone text, p_email text, p_note text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  v_interest_id uuid;\n  v_order_id uuid;\n  v_order_no text;\n  v_amount integer;\n  v_reserved_until timestamptz := now() + interval '15 minutes';\n  v_row public.fobi_countries%rowtype;\nbegin\n  if p_tier not in ('VIP 1','VIP 2','VIP 3') then\n    raise exception 'invalid_tier';\n  end if;\n  v_amount := case p_tier when 'VIP 1' then 70000 when 'VIP 2' then 60000 else 40000 end;\n\n  update public.fobi_countries\n  set status='available', reserved_until=null, reserved_interest_id=null\n  where code=p_code and status='reserved' and reserved_until < now();\n\n  select * into v_row from public.fobi_countries where code=p_code for update;\n  if not found then raise exception 'country_not_found'; end if;\n  if v_row.status <> 'available' then raise exception 'country_unavailable'; end if;\n\n  insert into public.fobi_interests(type,country_code,tier,company,contact_name,phone,email,note,status)\n  values('sponsor',p_code,p_tier,nullif(trim(p_company),''),trim(p_contact_name),trim(p_phone),trim(p_email),p_note,'reserved')\n  returning id into v_interest_id;\n\n  update public.fobi_countries\n  set status='reserved', reserved_until=v_reserved_until, reserved_interest_id=v_interest_id, updated_at=now()\n  where code=p_code;\n\n  v_order_no := 'FOBI-' || to_char(now(),'YYYYMMDD') || '-' || upper(substr(replace(gen_random_uuid()::text,'-',''),1,8));\n\n  insert into public.fobi_orders(order_no,interest_id,type,amount,payment_status)\n  values(v_order_no,v_interest_id,'sponsor',v_amount,'pending')\n  returning id into v_order_id;\n\n  return jsonb_build_object(\n    'ok',true,\n    'interest_id',v_interest_id,\n    'order_id',v_order_id,\n    'order_no',v_order_no,\n    'amount',v_amount,\n    'reserved_until',v_reserved_until\n  );\nend $function$\n"
+  ]
+}

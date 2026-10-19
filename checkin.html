@@ -20,28 +20,14 @@ button{width:100%;height:56px;border:0;border-radius:999px;background:linear-gra
 <div class="wrap">
 <div class="top"><b>FOBI CHECK-IN</b><a href="/admin.html" style="color:var(--gold)">管理後台</a></div>
 <h1>現場報到</h1>
-<p class="muted">工作人員專用。每張票只可核銷一次；重複掃描會顯示已報到。</p>
+<p class="muted">工作人員專用。總決賽入場與慶功宴分別核銷。無網路時不可確認報到成功，請恢復網路或交由人工備援台處理。</p>
 <p class="muted">2026.10.30 · 總決賽場地：臺北新板希爾頓酒店</p>
 <div class="panel">
-<label>票券 QR Token<input id="token" placeholder="掃描後貼上 token"></label>
+<button id="scan" type="button">開啟相機掃描 QR</button><button id="stopScan" type="button" hidden>停止掃描</button><video id="camera" muted playsinline style="width:100%" hidden></video><p id="scanStatus" role="status"></p><label>票券 QR Token<input id="token" placeholder="掃描後貼上 token"></label>
 <label>報到入口<select id="gate"><option value="MAIN">MAIN</option><option value="VIP">VIP</option><option value="AFTERPARTY">AFTER PARTY</option></select></label>
 <button id="go">確認報到</button>
 <div id="result"></div>
 </div>
 </div>
-<script>
-const ADMIN='https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-admin';
-const q=new URLSearchParams(location.search);document.getElementById('token').value=q.get('token')||'';
-function adminToken(){return sessionStorage.getItem('fobi_admin_token')||localStorage.getItem('fobi_admin_token')||''}
-document.getElementById('go').onclick=async()=>{
- const box=document.getElementById('result');box.className='';box.classList.add('show');
- const key=adminToken();if(!key){box.classList.add('bad');box.innerHTML='<b>需要管理員登入</b><p>請先從 FOBI 後台完成管理員登入。</p>';return}
- try{
-  const r=await fetch(ADMIN,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({action:'ticket_checkin',qr_token:document.getElementById('token').value.trim(),gate:document.getElementById('gate').value})});
-  const d=await r.json();
-  box.classList.add(d.ok?'ok':'bad');
-  box.innerHTML=d.ok?'<b>報到成功</b><p>'+d.ticket_no+' · '+(d.holder_name||'未命名')+'</p>':'<b>'+(d.error==='already_checked_in'?'已經報到':'無法報到')+'</b><p>'+(d.ticket_no||'請確認票券')+'</p>';
- }catch(e){box.classList.add('bad');box.innerHTML='<b>連線失敗</b>'}
-};
-</script>
+<script type="module" src="/checkin.js"></script>
 </body></html>
