@@ -12,6 +12,7 @@ for(const [name,cols] of tables) {
  if(['fobi_sponsor_profiles','fobi_participant_profiles'].includes(name))definitions.push('unique(source_interest_id)');
  await db.exec('create table public.'+name+'('+definitions.join(',')+')');
 }
+await db.exec("create unique index fobi_checkins_ticket_once on public.fobi_checkins(ticket_id) where ticket_id is not null");
 for(const sql of fixture.functions)await db.exec(sql);
 for(const sql of fixture.triggers)await db.exec(sql);
 await db.exec(await readFile(new URL('../supabase/migrations/20261019101045_event_readiness.sql',import.meta.url),'utf8'));

@@ -1,3 +1,16 @@
+# 2026-10-19 18:41 授權後執行結果（最新狀態）
+
+- 已取得明確推送與正式 SQL 套用授權，PR #6：https://github.com/selfonly-lang/fobi/pull/6 。前端仍為隔離 preview，未合併 main。
+- 正式資料庫已套用核銷／票權／RPC 權限／ticket_settings RLS 修正並讀回。正式回歸發現舊 fobi_checkins_ticket_once 唯一索引仍限制每票只能核銷一次，已在同一修正範圍改為每票、每權益唯一索引。
+- 正式回滾測試：MEMBER 不得走 VIP；MAIN 與 AFTERPARTY 各成功一次，各自重複皆拒絕。VIP1/2/3 每桌均發 10 張；VIP1/2 可參加慶功宴，VIP3 拒絕；VIP 與 MAIN 互斥。全部交易回滾，不保留測試訂單。sequence 仍會遞增，不能將流水號當售票數。
+- 2026-10-19 已透過 Gmail 實寄測試信至使用者明確確認的 selfonly@gmail.com。message id：1a153c4e21f64323；Gmail 回傳 SENT、INBOX、UNREAD。信件標示非有效票券，沒有寄給客戶。這證明單封寄送及收件匣到達，不代表付款自動通知已完成。
+- Make Gmail 模組查無既有連線。已建立安全授權請求 157332f1-742b-4689-96ca-d87d8d121b60，等待使用者在 Make 完成 OAuth。未索取密碼，未啟用自動寄送，也未套用通知 outbox migration。
+- LINE 尚無已確認測試者 verified userId，未寄送。
+- 自動審核拒絕持久新增已付款 QA 訂單做跨連線競態測試，理由是會影響正式營收／票券狀態；該 insert 未執行。維持回滾驗證，跨裝置真實並發尚未驗收。
+- 最新正式核銷修正已生效；QR／相機修正在 PR preview，須合併部署後才會出現在正式前端。綠界官方 UI 完整 callback E2E、手機相機／飛航模式、Make 自動寄送與 LINE 實寄仍未完成。
+
+---
+
 # FOBI 2026 活動驗證與操作手冊
 
 驗證日期：2026-10-19，台灣時間。基準 main：5052757。活動：2026-10-30 14:00，臺北新板希爾頓酒店；晚上另有慶功宴，未推定慶功宴地點。保留 PR #5，不修改場地資料。

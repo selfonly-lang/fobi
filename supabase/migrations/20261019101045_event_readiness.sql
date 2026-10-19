@@ -65,3 +65,9 @@ end $function$
 alter table public.fobi_ticket_settings enable row level security;
 revoke all on public.fobi_ticket_settings from anon,authenticated;
 grant all on public.fobi_ticket_settings to service_role;
+
+-- Replace legacy one-checkin-per-ticket index with one-checkin-per-entitlement.
+drop index if exists public.fobi_checkins_ticket_once;
+create unique index if not exists fobi_checkins_ticket_gate_once on public.fobi_checkins
+(ticket_id,(case when gate='AFTERPARTY' then 'AFTERPARTY' else 'ADMISSION' end))
+where ticket_id is not null;
