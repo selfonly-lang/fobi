@@ -20,7 +20,7 @@ function Navbar(){
       <a href="/sponsors.html">立即認桌</a>
       <a href="/tickets.html">總決賽入席</a>
       <a href="/partners.html">合作夥伴</a>
-      <a href="/event.html">活動資訊</a>
+      <a href="/event.html">活動資訊</a><a href="/schedule.html">全臺流程</a>
     </nav>
     <div className="navTools">
       <button className="lang"><Globe2 size={16}/>繁中<ChevronDown size={14}/></button>
@@ -155,11 +155,13 @@ function Sponsor(){
 }
 
 function Footer(){
-  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">嘉賓名錄</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a></div><span>2026.10.30 · 臺北新板希爾頓酒店</span></footer>
+  return <footer id="footer"><div><b>FOBI 2026</b><small>FACE OF BEAUTY INTERNATIONAL · TAIPEI</small></div><div className="footerLinks"><a href="/contestants.html">40國佳麗</a><a href="/sponsors.html">品牌合作</a><a href="/partners.html">合作夥伴</a><a href="/guests.html">嘉賓名錄</a><a href="/tickets.html">總決賽入席</a><a href="/event.html">活動資訊</a><a href="/schedule.html">全臺流程</a></div><span>2026.10.30 · 臺北新板希爾頓酒店</span></footer>
 }
 
+function TourJourney(){return (<section className="tour-teaser" id="tour"><div className="tour-teaser-inner"><div><span className="tour-kicker">FOBI 2026 · TAIWAN EVENT JOURNEY</span><h2>全臺活動流程<br/>讓精彩，一路登場。</h2><p>10/23 歡迎會 · 10/25 全球國服賽<br/>10/26 全球才藝賽 · 10/28 泳裝＆禮服賽<br/>10/30 全球總決賽</p><p className="tour-mini">逐日流程依海報整理，未公布日期保留待定；各場次入場方式依主辦公告。</p><div className="tour-actions"><a className="tour-btn primary" href="/schedule.html">查看十天流程與地圖</a><a className="tour-btn" href="https://www.self.com.tw/fobi/assets/post-tour-2026.jpg" target="_blank" rel="noopener">新版海報原圖 ↗</a></div></div><a href="/schedule.html"><img className="tour-poster" src="https://www.self.com.tw/fobi/assets/post-tour-2026.jpg" width="1024" height="1536" loading="lazy" alt="FOBI 2026 全臺五場活動流程海報"/></a></div></section>)}
+
 function App(){
-  return <><Navbar/><main><Hero/><Highlights/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯全球佳麗、企業贊助與國際貴賓，以精品時尚的數位體驗完成認桌、入席與活動互動。</p></section><Sponsor/><ExposureDirectory/></main><Footer/></>
+  return <><Navbar/><main><Hero/><Highlights/><TourJourney/><section className="about" id="about"><p className="sectionEyebrow">BEAUTY FOR A BETTER WORLD</p><h2>一個舞台，四十個國家。<br/>一場屬於臺北的國際盛會。</h2><p>FOBI 2026 串聯全球佳麗、企業贊助與國際貴賓，以精品時尚的數位體驗完成認桌、入席與活動互動。</p></section><Sponsor/><ExposureDirectory/></main><Footer/></>
 }
 
 createRoot(document.getElementById('root')).render(<App/>);

@@ -13,6 +13,7 @@ export default defineConfig({
         sponsors:resolve(__dirname,'sponsors.html'),
         tickets:resolve(__dirname,'tickets.html'),
         event:resolve(__dirname,'event.html'),
+        schedule:resolve(__dirname,'schedule.html'),
         partners:resolve(__dirname,'partners.html'),
         guests:resolve(__dirname,'guests.html'),
         checkout:resolve(__dirname,'checkout.html'),
