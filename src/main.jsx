@@ -55,7 +55,7 @@ function ActionCards(){
     <motion.a href="/tickets.html" id="final" className="actionCard ticketCard" initial={{opacity:0,x:40}} animate={seen?{opacity:1,x:0}:{}} transition={{duration:.55,delay:.08}}>
       <div className="cardText">
         <div className="cardTitle"><Ticket/><div><h2>我要參加總決賽</h2><span>JOIN THE GRAND FINAL</span></div></div>
-        <p><strong>NT$3,000</strong> / 人</p>
+        <p><strong>NT$4,000</strong> / 人</p>
         <small>總決賽 × 國際晚宴 × OPERA 慶功宴</small>
         <span className="cardButton pink">立即購票 <ArrowRight/></span>
       </div>
