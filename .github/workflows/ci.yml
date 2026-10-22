@@ -1,27 +1,58 @@
-name: Deploy FOBI
+name: FOBI CI and production verification
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: pages
+  group: fobi-ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          path: .
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run existing tests
+        run: node --test tests/*.test.js
+      - name: Build website
+        run: npm run build
+      - name: Verify built pages and local assets
+        run: |
+          node --input-type=module <<'JS'
+          import {readFileSync, existsSync} from 'node:fs';
+          import {resolve} from 'node:path';
+          for (const page of ['index.html','event.html','tickets.html','checkout.html','payment-result.html','ticket.html','checkin.html']) {
+            const html = readFileSync('dist/' + page, 'utf8');
+            if (!html.includes('<html')) throw Error('Invalid HTML: ' + page);
+            for (const [,url] of html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)[^" ]*"/g)) {
+              if (!existsSync(resolve('dist', '.' + url))) throw Error('Missing asset: ' + url);
+            }
+          }
+          JS
+  production-smoke:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read-only production page availability
+        run: |
+          set -euo pipefail
+          # Vercel Git integration owns releases. This checks availability only;
+          # an HTTP 200 is not proof that this commit has been deployed.
+          for page in / /event.html /tickets.html /checkout.html /payment-result.html /ticket.html /checkin.html; do
+            curl --fail --silent --show-error --retry 3 --retry-delay 3 --connect-timeout 10 --max-time 30 "https://fobi.self.com.tw$page" -o /tmp/fobi-page.html
+            test -s /tmp/fobi-page.html
+            printf 'PASS %s\n' "$page"
+          done
