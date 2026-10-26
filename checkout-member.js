@@ -37,6 +37,7 @@ async function beforeOrder() { return true; }
 
 window.fobiMember = { beforeOrder, clearDraft, restoreCountry };
 restoreDraft();
+window.dispatchEvent(new Event('fobi:draft-restored'));
 restoreCountry();
 
 async function initialize() {
@@ -47,7 +48,7 @@ async function initialize() {
     available = response.ok && data.available === true;
   } catch {}
   buttons.forEach(button => { button.disabled = !available; });
-  status.textContent = available ? '可選擇登入快速帶入資料，也可以直接填表。' : '快速帶入目前尚未開通，請直接填表建立訂單。';
+  status.textContent = available ? '選擇登入方式，快速帶入聯絡資料。' : '會員快速登入暫未開放，可直接填表購票。';
   if (params.has('member_result')) {
     const result = params.get('member_result');
     params.delete('member_result');
@@ -85,3 +86,5 @@ buttons.forEach(button => button.addEventListener('click', async () => {
 }));
 
 initialize();
+
+document.querySelectorAll("[data-member-join]").forEach(link => link.addEventListener("click", saveDraft));
