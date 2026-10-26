@@ -1,3 +1,4 @@
+import {wantsPaymentAfterLogin} from './payment-flow-model.js';
 const status = document.getElementById('memberStatus');
 const buttons = [...document.querySelectorAll('[data-provider]')];
 const params = new URLSearchParams(location.search);
@@ -8,10 +9,11 @@ let authenticated = false;
 let asked = false;
 let prompting = false;
 let restoredCountry = '';
+let continueToPayment = false;
 
-function saveDraft() {
+function saveDraft(options = {}) {
   try {
-    sessionStorage.setItem(key, JSON.stringify({ type, exp: Date.now() + 600000, fields: Object.fromEntries(fields.map(id => [id, document.getElementById(id).value])) }));
+    sessionStorage.setItem(key, JSON.stringify({ type, continueToPayment: options.continueToPayment === true, exp: Date.now() + 600000, fields: Object.fromEntries(fields.map(id => [id, document.getElementById(id).value])) }));
   } catch { /* Storage is optional; purchasing must still work. */ }
 }
 function clearDraft() { try { sessionStorage.removeItem(key); } catch {} }
@@ -20,6 +22,7 @@ function restoreDraft() {
     const saved = JSON.parse(sessionStorage.getItem(key) || 'null');
     clearDraft();
     if (!saved || saved.exp <= Date.now() || saved.type !== type) return;
+    continueToPayment = wantsPaymentAfterLogin(saved, type);
     for (const id of fields) {
       if (typeof saved.fields?.[id] === 'string') {
         if (id === 'country') restoredCountry = saved.fields[id];
@@ -48,7 +51,7 @@ async function initialize() {
     available = response.ok && data.available === true;
   } catch {}
   buttons.forEach(button => { button.disabled = !available; });
-  status.textContent = available ? '選擇登入方式，快速帶入聯絡資料。' : '會員快速登入暫未開放，可直接填表購票。';
+  status.textContent = available ? '登入後將依所選張數直接前往綠界付款。' : '會員快速登入暫未開放，可直接填表購票。';
   if (params.has('member_result')) {
     const result = params.get('member_result');
     params.delete('member_result');
@@ -62,14 +65,15 @@ async function initialize() {
           if (typeof data.contact[id] === 'string' && data.contact[id]) document.getElementById(id).value = data.contact[id];
         }
         authenticated = true;
-        status.textContent = '已帶入基本聯絡資料。請確認姓名、手機、Email，補齊缺少欄位後建立訂單。';
+        status.textContent = '已帶入聯絡資料。';
+        if (continueToPayment && type === 'ticket') { continueToPayment = false; window.fobiCheckout?.continueAfterLogin(); }
       } catch { status.textContent = '會員資料帶入未完成，請重新登入或直接填表。請確認下方填表內容。'; }
     } else status.textContent = '會員登入未完成，請重試或直接填表。請確認下方填表內容。';
   }
 }
 
 buttons.forEach(button => button.addEventListener('click', async () => {
-  saveDraft();
+  saveDraft({ continueToPayment: type === 'ticket' });
   buttons.forEach(item => { item.disabled = true; });
   status.textContent = '正在前往安全登入…';
   try {
