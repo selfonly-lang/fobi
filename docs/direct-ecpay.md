@@ -9,3 +9,16 @@ Manual ticket and sponsor submissions also move directly to ECPay. The receipt i
 On 2026-10-26 the live status reports `mode: stage`, `ready: true`. This is a test cashier, not formal collection. Production requires securely configured `ECPAY_MODE=production`, `ECPAY_MERCHANT_ID`, `ECPAY_HASH_KEY` and `ECPAY_HASH_IV`, followed by an authorized real transaction/callback validation. Never place these values in source, chat or frontend code.
 
 Validation: existing member tests plus payment destination/amount/intent unit tests, Vite build, and browser tests with intercepted order/payment requests for login-to-cashier, missing data, cancel/refresh, retry and sponsor flows. No real orders or deductions are created by these tests.
+
+## Formal collection activation — checked 2026-10-27
+
+The live read-only status now also returns `production_ready` and `missing_production_settings`, containing variable names only. Inspection found all three formal merchant variables absent in the payment runtime, and no ECPay variable names configured in the FOBI Vercel project. No credential values were read or exposed.
+
+Set these values through the project's Edge Function Secrets interface at https://supabase.com/dashboard/project/tlpsqaywjcgowprhauod/functions/secrets:
+
+- `ECPAY_MERCHANT_ID`: the actual production merchant ID supplied by ECPay.
+- `ECPAY_HASH_KEY`: the production signing key supplied by ECPay.
+- `ECPAY_HASH_IV`: the production signing IV supplied by ECPay.
+- `ECPAY_MODE`: `production`.
+
+After configuration, verify `GET https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-payment?action=status` reports `mode=production`, `production_ready=true`, `ready=true` and `payment_host=payment.ecpay.com.tw`. Credentials being present is not proof of a successful transaction; verify an authorized real transaction and signed callback separately. Do not place merchant credentials in this repository or conversations.

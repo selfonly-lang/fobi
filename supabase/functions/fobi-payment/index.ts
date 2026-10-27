@@ -59,7 +59,8 @@ Deno.serve(async(req:Request)=>{
 
   // Read-only public payment readiness; never returns merchant identifiers or signing keys.
   if(req.method==="GET" && url.searchParams.get("action")==="status"){
-    return json({ok:true,provider:"ecpay",mode,ready:!isProd||Boolean(merchantId&&hashKey&&hashIV),payment_host:new URL(payUrl).hostname});
+    const missingProductionSettings = ["ECPAY_MERCHANT_ID","ECPAY_HASH_KEY","ECPAY_HASH_IV"].filter(name => !(Deno.env.get(name)||"").trim());
+    return json({ok:true,provider:"ecpay",mode,ready:!isProd||Boolean(merchantId&&hashKey&&hashIV),payment_host:new URL(payUrl).hostname,production_ready:missingProductionSettings.length===0,missing_production_settings:missingProductionSettings});
   }
 
   if(isProd && (!merchantId||!hashKey||!hashIV)) return json({ok:false,error:"production_credentials_missing"},503);
