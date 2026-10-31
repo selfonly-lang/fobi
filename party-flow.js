@@ -5,13 +5,13 @@ const buttons=[...document.querySelectorAll('[data-provider]')];
 const fields=['name','phone','email','quantity'];
 let ready=false,busy=false,key=crypto.randomUUID(),orderNo='';
 const money=n=>'NT$'+n.toLocaleString('en-US');
-function updateTotal(){document.getElementById('total').textContent=money(Number(form.quantity.value)*2500);}
+function updateTotal(){document.getElementById('total').textContent=money(Number(form.quantity.value)*2000);}
 form.quantity.addEventListener('change',updateTotal);
 function draft(intent=false){try{sessionStorage.setItem('fobi_party_draft',JSON.stringify({exp:Date.now()+600000,key,intent,values:Object.fromEntries(fields.map(id=>[id,document.getElementById(id).value]))}));}catch{}}
 let autoPay=false;
 try{const saved=JSON.parse(sessionStorage.getItem('fobi_party_draft'));if(saved?.exp>Date.now()){for(const id of fields)if(typeof saved.values?.[id]==='string')document.getElementById(id).value=saved.values[id];key=saved.key||key;autoPay=saved.intent===true;}sessionStorage.removeItem('fobi_party_draft');}catch{}
 updateTotal();
-async function getStatus(){try{const response=await fetch(API+'?action=status',{cache:'no-store',signal:AbortSignal.timeout(10000)}),data=await response.json();ready=response.ok&&data.ready===true&&data.mode==='production'&&data.sales_open===true&&data.price===2500;pay.disabled=!ready;notice.textContent=ready?'綠界安全付款｜每人 NT$2,500':data.sales_open===false?'本次派對已結束，線上報名已關閉。':'線上付款準備中，報名請洽 Arthur Lin：0935-523-001。';}catch{ready=false;pay.disabled=true;notice.textContent='暫時無法確認付款狀態，請稍後重試或聯絡活動窗口。';}}
+async function getStatus(){try{const response=await fetch(API+'?action=status',{cache:'no-store',signal:AbortSignal.timeout(10000)}),data=await response.json();ready=response.ok&&data.ready===true&&data.mode==='production'&&data.sales_open===true&&data.price===2000;pay.disabled=!ready;notice.textContent=ready?'綠界安全付款｜每人 NT$2,000':data.sales_open===false?'本次派對已結束，線上報名已關閉。':'線上付款準備中，報名請洽 Arthur Lin：0935-523-001。';}catch{ready=false;pay.disabled=true;notice.textContent='暫時無法確認付款狀態，請稍後重試或聯絡活動窗口。';}}
 async function openPayment(){
  if(busy||!ready||!form.reportValidity())return;
  busy=true;pay.disabled=true;status.textContent='正在準備安全付款…';draft(false);
@@ -19,7 +19,7 @@ async function openPayment(){
   const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'start',idempotency_key:key,...Object.fromEntries(fields.map(id=>[id,id==='quantity'?Number(document.getElementById(id).value):document.getElementById(id).value.trim()]))}),signal:AbortSignal.timeout(18000)}),data=await response.json();
   if(!response.ok||!data.ok){if(data.error==='already_paid'){orderNo=data.order_no;await showOrder(orderNo);return;}if(data.error==='order_changed'){key=crypto.randomUUID();draft(false);throw new Error('資料已變更，請確認後再按一次付款。');}throw new Error(data.error==='payment_unavailable'?'付款尚未開放，請聯絡活動窗口。':'目前無法準備付款，請稍後重試。');}
   orderNo=data.order_no;
-  if(data.mode!=='production'||data.payment_url!=='https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5'||!validatePaymentFields(data,orderNo,Number(form.quantity.value)*2500))throw new Error('付款驗證未完成，請聯絡活動窗口。');
+  if(data.mode!=='production'||data.payment_url!=='https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5'||!validatePaymentFields(data,orderNo,Number(form.quantity.value)*2000))throw new Error('付款驗證未完成，請聯絡活動窗口。');
   const target=document.createElement('form');target.method='POST';target.action=data.payment_url;target.hidden=true;
   for(const [name,value]of Object.entries(data.fields)){const input=document.createElement('input');input.type='hidden';input.name=name;input.value=String(value);target.append(input);}
   document.body.append(target);status.textContent='即將前往綠界安全付款…';target.submit();

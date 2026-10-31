@@ -48,7 +48,7 @@ Deno.serve(async(req:Request)=>{
  const hashKey=(Deno.env.get("ECPAY_HASH_KEY")||"").trim();
  const hashIV=(Deno.env.get("ECPAY_HASH_IV")||"").trim();
  const ready=production&&Boolean(merchantId&&hashKey&&hashIV);
- if(req.method==="GET"&&action==="status")return json({ok:true,ready,mode:production?"production":"stage",price:2500,currency:"TWD",event_id:"halloween-20261031",sales_open:Date.now()<END,payment_host:ready?"payment.ecpay.com.tw":null});
+ if(req.method==="GET"&&action==="status")return json({ok:true,ready,mode:production?"production":"stage",price:2000,currency:"TWD",event_id:"halloween-20261031",sales_open:Date.now()<END,payment_host:ready?"payment.ecpay.com.tw":null});
  const db=createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,{auth:{persistSession:false}});
  try{
   if(action==="callback"&&req.method==="POST"){
@@ -84,13 +84,14 @@ Deno.serve(async(req:Request)=>{
   const name=String(body.name||"").trim(),phone=String(body.phone||"").trim(),email=String(body.email||"").trim(),qty=Number(body.quantity),key=String(body.idempotency_key||"");
   if(!name||name.length>120||!/^\+?[0-9 ()-]{7,30}$/.test(phone)||!/^\S+@\S+\.\S+$/.test(email)||email.length>180||!Number.isInteger(qty)||qty<1||qty>10||!/^[a-f0-9-]{36}$/i.test(key))return json({ok:false,error:"invalid_input"},400);
   const uuid=crypto.randomUUID().replaceAll("-","");
-  const payload={order_no:"FP"+uuid,idempotency_key:key,contact_name:name,phone,email,quantity:qty,amount:qty*2500,ecpay_trade_no:"FP"+uuid.slice(0,18)};
+  const payload={order_no:"FP"+uuid,idempotency_key:key,contact_name:name,phone,email,quantity:qty,amount:qty*2000,ecpay_trade_no:"FP"+uuid.slice(0,18)};
   const {error:insertError}=await db.from("fobi_party_orders").upsert(payload,{onConflict:"idempotency_key",ignoreDuplicates:true});
   if(insertError)throw insertError;
   const {data:order,error}=await db.from("fobi_party_orders").select("order_no,quantity,amount,payment_status,ecpay_trade_no,contact_name,phone,email").eq("idempotency_key",key).single();
   if(error)throw error;
   if(order.quantity!==qty||order.contact_name!==name||order.phone!==phone||order.email!==email)return json({ok:false,error:"order_changed"},409);
   if(order.payment_status==="paid")return json({ok:false,error:"already_paid",order_no:order.order_no},409);
+  if(order.amount!==qty*2000)return json({ok:false,error:"order_changed"},409);
   const fields:Record<string,string>={MerchantID:merchantId,MerchantTradeNo:order.ecpay_trade_no,MerchantTradeDate:twTradeDate(),PaymentType:"aio",TotalAmount:String(order.amount),TradeDesc:"FOBI Halloween Party 2026",ItemName:"FOBI 萬聖節佳麗慶功宴生日派對 "+qty+"人",ChoosePayment:"Credit",EncryptType:"1",ReturnURL:"https://tlpsqaywjcgowprhauod.supabase.co/functions/v1/fobi-party?action=callback",ClientBackURL:origin+"/party?order="+encodeURIComponent(order.order_no)};
   fields.CheckMacValue=await checkMac(fields,hashKey,hashIV);
   return json({ok:true,mode:"production",order_no:order.order_no,amount:order.amount,payment_url:"https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5",fields});
