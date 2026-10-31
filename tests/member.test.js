@@ -98,3 +98,10 @@ test('valid callback exchanges server-side and provides a filtered contact cooki
     assert.equal(profile.headers['Cache-Control'], 'no-store');
   } finally { globalThis.fetch = original; }
 });
+
+test('party returns only to the exact public party path and strips query data', () => {
+ assert.equal(checkoutPath('/party?email=private&redirect=https://evil.test'), '/party');
+ assert.equal(checkoutPath('/party/'), '/party');
+ assert.throws(() => checkoutPath('https://evil.test/party'));
+ assert.throws(() => checkoutPath('/party/admin'));
+});

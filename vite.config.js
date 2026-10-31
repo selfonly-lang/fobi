@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions:{
       input:{
         main:resolve(__dirname,'index.html'),
+        party:resolve(__dirname,'party.html'),
         contestants:resolve(__dirname,'contestants.html'),
         sponsors:resolve(__dirname,'sponsors.html'),
         tickets:resolve(__dirname,'tickets.html'),

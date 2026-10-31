@@ -1,1 +1,13 @@
-{"cleanUrls":false}
+{
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/party",
+      "destination": "/party.html"
+    },
+    {
+      "source": "/party/",
+      "destination": "/party.html"
+    }
+  ]
+}

@@ -14,7 +14,8 @@ export function contactOnly(data) {
 
 export function checkoutPath(value) {
   const url = new URL(value || '/checkout.html', ORIGIN);
-  if (url.origin !== ORIGIN || url.pathname !== '/checkout.html') throw new Error('invalid_return');
+  if (url.origin !== ORIGIN || !['/checkout.html', '/party', '/party/'].includes(url.pathname)) throw new Error('invalid_return');
+  if (url.pathname === '/party' || url.pathname === '/party/') return '/party';
   const clean = new URL('/checkout.html', ORIGIN);
   clean.searchParams.set('type', url.searchParams.get('type') === 'sponsor' ? 'sponsor' : 'ticket');
   const tier = url.searchParams.get('tier');
