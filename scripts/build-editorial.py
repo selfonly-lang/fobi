@@ -29,12 +29,12 @@ def card(n):
  return f'<article class="card" data-news-card data-category="{n["category"]}" data-search="{H(n["title"]+n["partner"]+n.get("topic",""),quote=True)}"><a href="/news/{n["slug"]}"><img class="card-image" data-photo-kind="{n["photos"][0].get("kind","photo")}" src="{cover(n)}" alt="{H(n["partner"]+"｜"+label,quote=True)}" loading="lazy" width="1200" height="800"><div class="image-label">{label}</div><div class="meta">{n["date"]} · {n.get("topic",n["category"])}</div><h3>{H(n["title"])}</h3><p>{H(n["subtitle"])}</p><span class="text-link">閱讀專題 ↗</span></a></article>'
 def paras(values):return ''.join('<p>'+H(x)+'</p>' for x in values)
 def fulltext(n):
- parts=[n['title'],n['subtitle'],n.get('byline','FOBI專案編輯室'),n['date'],n.get('format_label','賽事結案'),n.get('disclosure',n['note'])]
+ parts=[n['title'],n['subtitle'],n.get('byline','FOBI專案編輯室'),n['date'],n.get('format_label','賽事結案')]
  if n['facts']:parts.extend(['\n活動紀錄',*n['facts']])
  for s in n.get('sections',[]):parts.extend(['\n'+s['heading'],*s['paragraphs']])
  for q in n.get('interview',[]):parts.extend(['問：'+q['question'],'答：'+q['answer']])
  parts.extend(n.get('closing',[]));parts.extend(n.get('perspective',[]))
- parts.extend(['\n編輯說明',n['note'],'\n圖片與圖說'])
+ parts.append('\n圖片與圖說')
  if n.get('illustration'):parts.extend([n['illustration']['caption'],absolute(n['illustration']['url']),n['illustration']['credit']])
  for photo_ in n['photos']:parts.extend([photo_['caption'],absolute(photo_['url'])])
  parts.extend(['\n來源',*[s['title']+' '+absolute(s['url']) for s in n['sources']],'\n合作聯絡｜醫見傳媒有限公司 Arthur Lin','0935-523-001｜LINE ID beautiself'])
@@ -78,7 +78,7 @@ for n in news:
   body+=paras(n.get('closing',[]))
  else:
   body+=photo(n['photos'][0])+paras(n['facts'])+paras(n.get('perspective',[]))+''.join(photo(x) for x in n['photos'][1:])
- body+='<aside class="disclosure"><b>編輯與合作說明</b><p>'+H(n.get('disclosure',n['note']))+'</p><p>'+H(n['note'])+'</p></aside><div class="sources"><b>資料與圖片來源</b><ul>'+''.join('<li><a href="'+H(x['url'],quote=True)+'" target="_blank" rel="noopener">'+H(x['title'])+'</a></li>' for x in n['sources'])+'</ul></div>'
+ body+='<div class="sources"><b>資料與圖片來源</b><ul>'+''.join('<li><a href="'+H(x['url'],quote=True)+'" target="_blank" rel="noopener">'+H(x['title'])+'</a></li>' for x in n['sources'])+'</ul></div>'
  body+='<div class="article-tools"><button type="button" data-copy-article>複製新聞文字</button><button type="button" data-share-article>分享文章</button><button type="button" data-print>列印／儲存PDF</button><a class="text-link" href="/news/copy/'+n['slug']+'.txt" download>下載本文 ↓</a></div><p class="small" data-copy-status role="status"></p><div class="support">合作聯絡｜醫見傳媒有限公司 Arthur Lin<br><a href="tel:+886935523001">0935-523-001</a> · LINE ID beautiself<br><a class="text-link" href="/platform/media">洽詢活動媒體與新聞合作 ↗</a></div></article>'
  schema={'@context':'https://schema.org','@type':'Article','headline':n['title'],'description':n['subtitle'],'datePublished':n['date']+'T10:00:00+08:00','dateModified':datetime.now(timezone.utc).isoformat(),'image':list(dict.fromkeys([absolute(cover(n))]+[absolute(x['url']) for x in n['photos']])),'author':{'@type':'Organization','name':n.get('byline','FOBI專案編輯室')},'publisher':{'@type':'Organization','name':'FOBI・SELF PAGEANT'},'mainEntityOfPage':'https://fobi.self.com.tw/news/'+n['slug'],'articleSection':n['category']}
  write('/news/'+n['slug'],shell(n['title']+'｜FOBI新聞',body,'/news/'+n['slug'],desc=n['subtitle'],image=absolute(cover(n)),schema=schema))

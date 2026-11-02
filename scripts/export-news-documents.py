@@ -9,7 +9,7 @@ def setup(title,subtitle):
  d=Document();d.add_heading(title,0);d.add_paragraph(subtitle);d.styles['Normal'].font.name='Microsoft JhengHei';d.styles['Normal'].font.size=Pt(11)
  for s in d.sections:s.header.paragraphs[0].text='FOBI 2026｜醫美版 × 己美 SELF'
  return d
-all_doc=setup('FOBI 2026｜22篇完整文字稿','21篇獨立人物與品牌專題，加上結案總報導。合作篇正文均逾700個中文字；人物身分與圖片依來源標示。')
+all_doc=setup('FOBI 2026｜22篇完整文字稿','21篇人物與品牌專題，加上賽事結案總報導。')
 texts=[]
 for i,n in enumerate(news,1):
  t=(r/'public/news/copy'/f'{n["slug"]}.txt').read_text();texts.append(t);all_doc.add_heading(f'{i:02d}｜'+n['title'],1)
@@ -24,7 +24,7 @@ def picture_bytes(ph):
   b=io.BytesIO();im.convert('RGB').save(b,format='JPEG',quality=92);raw=b.getvalue()
  return raw,w,h
 def illustrated(items,title,filename):
- d=setup(title,'各篇使用不同切入與不同配圖。除註明的供稿問答外，採人物側寫、品牌紀實或編輯觀察；照片保留原始來源與情境。')
+ d=setup(title,'FOBI 2026｜人物、品牌與活動影像。')
  for i,n in enumerate(items,1):
   d.add_heading(f'{i:02d}｜'+n['title'],1);d.add_paragraph(n['subtitle']);d.add_paragraph(n.get('format_label','')+'｜正文'+str(n['word_count'])+'個中文字')
   for para in n['facts']:d.add_paragraph(para)
@@ -38,7 +38,7 @@ def illustrated(items,title,filename):
   d.add_heading('配圖與來源',2)
   for ph in n['photos']:
    raw,w,h=picture_bytes(ph);width=min(6.0,3.8*w/h);d.add_picture(io.BytesIO(raw),width=Inches(width));d.add_paragraph(ph['caption']);d.add_paragraph('圖片來源：'+absolute(ph['source']))
-  d.add_heading('資料與編輯說明',2);d.add_paragraph(n['disclosure']);d.add_paragraph(n['note'])
+  d.add_heading('資料來源',2)
   for x in n['sources']:d.add_paragraph(x['title']+'｜'+absolute(x['url']))
   if i<len(items):d.add_page_break()
  d.save(out/filename)
@@ -49,5 +49,5 @@ legacy={'medical-opinion','weimei','origin-capital','yoho','chenyao','medical-me
 selected=[n for n in partners if n['slug'].removesuffix('-fobi-2026') in legacy]
 illustrated(selected,'FOBI 2026｜10篇重點人物與品牌圖文稿（更新版）','FOBI-expanded-10-illustrated.docx')
 (out/'FOBI-expanded-10-articles.txt').write_text(('\n\n'+'='*40+'\n\n').join((r/'public/news/copy'/f'{n["slug"]}.txt').read_text() for n in selected))
-(out/'photo-source-index.json').write_text(json.dumps([{'slug':n['slug'],'title':n['title'],'format':n.get('format_label'),'photos':n['photos'],'note':n['note']} for n in partners],ensure_ascii=False,indent=2))
+(out/'photo-source-index.json').write_text(json.dumps([{'slug':n['slug'],'title':n['title'],'format':n.get('format_label'),'photos':n['photos']} for n in partners],ensure_ascii=False,indent=2))
 print('Exported 22 texts, 21 illustrated profiles in 3 volumes, CEO portrait and updated legacy downloads.')
