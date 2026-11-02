@@ -2,6 +2,22 @@
   "cleanUrls": false,
   "rewrites": [
     {
+      "source": "/Fobi/records",
+      "destination": "/Fobi/records/index.html"
+    },
+    {
+      "source": "/Fobi/records/",
+      "destination": "/Fobi/records/index.html"
+    },
+    {
+      "source": "/news/downloads",
+      "destination": "/news/downloads/index.html"
+    },
+    {
+      "source": "/news/downloads/",
+      "destination": "/news/downloads/index.html"
+    },
+    {
       "source": "/Fobi",
       "destination": "/Fobi/index.html"
     },
