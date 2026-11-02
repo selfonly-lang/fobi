@@ -4,3 +4,6 @@
 
 [hidden]{display:none!important}
 .hero-photo img{height:auto;aspect-ratio:auto}.article figure img{height:auto}
+
+/* enterprise features */
+.image-label{font-size:11px;letter-spacing:.07em;color:#766657;margin-top:8px}.byline{font-size:14px;color:#766657}.interview{padding:28px;background:#f2ede6;border-left:2px solid #b29a7a}.interview h3{font-size:19px;line-height:1.7;margin-top:28px}.interview p{margin-bottom:24px}.editorial-illustration figcaption{font-size:12px;line-height:1.8}.article .disclosure p{font-size:13px;line-height:1.9}.article h2{line-height:1.65;font-size:25px}.article-tools{flex-wrap:wrap}@media(max-width:600px){.article h2{font-size:22px}.interview{padding:20px}}
