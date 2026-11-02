@@ -2,20 +2,6 @@
   "cleanUrls": false,
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "pageant.self.com.tw"
-        }
-      ],
-      "destination": "/platform/index.html"
-    },
-    {
-      "source": "/",
-      "destination": "/Fobi/index.html"
-    },
-    {
       "source": "/Fobi",
       "destination": "/Fobi/index.html"
     },
@@ -101,6 +87,22 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "pageant.self.com.tw"
+        }
+      ],
+      "destination": "/platform",
+      "statusCode": 307
+    },
+    {
+      "source": "/",
+      "destination": "/Fobi",
+      "statusCode": 307
+    },
     {
       "source": "/checkout.html",
       "destination": "/Fobi?notice=event-ended",
