@@ -2,12 +2,139 @@
   "cleanUrls": false,
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "pageant.self.com.tw"
+        }
+      ],
+      "destination": "/platform/index.html"
+    },
+    {
+      "source": "/",
+      "destination": "/Fobi/index.html"
+    },
+    {
+      "source": "/Fobi",
+      "destination": "/Fobi/index.html"
+    },
+    {
+      "source": "/Fobi/",
+      "destination": "/Fobi/index.html"
+    },
+    {
+      "source": "/fobi",
+      "destination": "/Fobi/index.html"
+    },
+    {
+      "source": "/news",
+      "destination": "/news/index.html"
+    },
+    {
+      "source": "/news/",
+      "destination": "/news/index.html"
+    },
+    {
+      "source": "/news/:slug([a-z0-9-]+)",
+      "destination": "/news/:slug/index.html"
+    },
+    {
+      "source": "/news/:slug([a-z0-9-]+)/",
+      "destination": "/news/:slug/index.html"
+    },
+    {
+      "source": "/platform",
+      "destination": "/platform/index.html"
+    },
+    {
+      "source": "/platform/organizers",
+      "destination": "/platform/organizers/index.html"
+    },
+    {
+      "source": "/platform/sponsors",
+      "destination": "/platform/sponsors/index.html"
+    },
+    {
+      "source": "/platform/media",
+      "destination": "/platform/media/index.html"
+    },
+    {
+      "source": "/platform/tickets",
+      "destination": "/platform/tickets/index.html"
+    },
+    {
+      "source": "/platform/recruitment",
+      "destination": "/platform/recruitment/index.html"
+    },
+    {
+      "source": "/platform/training",
+      "destination": "/platform/training/index.html"
+    },
+    {
+      "source": "/platform/member",
+      "destination": "/platform/member/index.html"
+    },
+    {
+      "source": "/platform/admin",
+      "destination": "/platform/admin/index.html"
+    },
+    {
+      "source": "/platform/training/stage",
+      "destination": "/platform/training/stage/index.html"
+    },
+    {
+      "source": "/platform/training/camera",
+      "destination": "/platform/training/camera/index.html"
+    },
+    {
+      "source": "/platform/training/media",
+      "destination": "/platform/training/media/index.html"
+    },
+    {
       "source": "/party",
       "destination": "/party.html"
     },
     {
       "source": "/party/",
       "destination": "/party.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/checkout.html",
+      "destination": "/Fobi?notice=event-ended",
+      "statusCode": 307
+    },
+    {
+      "source": "/tickets.html",
+      "destination": "/Fobi?notice=event-ended",
+      "statusCode": 307
+    },
+    {
+      "source": "/sponsors.html",
+      "destination": "/Fobi?notice=event-ended",
+      "statusCode": 307
+    },
+    {
+      "source": "/event.html",
+      "destination": "/Fobi?notice=event-ended",
+      "statusCode": 307
+    },
+    {
+      "source": "/pageants.html",
+      "destination": "/platform/recruitment",
+      "statusCode": 307
+    },
+    {
+      "source": "/Fobi/news",
+      "destination": "/news",
+      "statusCode": 307
+    },
+    {
+      "source": "/Fobi/news/:slug",
+      "destination": "/news/:slug",
+      "statusCode": 307
     }
   ]
 }

@@ -103,7 +103,9 @@ Deno.serve(async(req:Request)=>{
 
     if(req.method!=="POST") return json({ok:false,error:"method_not_allowed"},405);
     const body=await req.json().catch(()=>({}));
-    if(body?.action!=="start") return json({ok:false,error:"unsupported_action"},400);
+if(body?.action!=="start") return json({ok:false,error:"unsupported_action"},400);
+    const gate=await db.from("pageant_events").select("status").eq("slug","fobi-2026").maybeSingle();
+    if(gate.error||!gate.data||!["open","live"].includes(gate.data.status))return json({ok:false,error:"event_closed",archive_url:"https://fobi.self.com.tw/Fobi"},410);
     const orderNo=String(body.order_no||"").trim();
     if(!orderNo) return json({ok:false,error:"missing_order_no"},400);
 

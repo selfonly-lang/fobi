@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /platform/admin
+Disallow: /payment-result.html
+Disallow: /ticket.html
+Disallow: /contestant-center.html
+Sitemap: https://fobi.self.com.tw/closeout-sitemap.xml

@@ -105,3 +105,6 @@ test('party returns only to the exact public party path and strips query data', 
  assert.throws(() => checkoutPath('https://evil.test/party'));
  assert.throws(() => checkoutPath('/party/admin'));
 });
+
+
+test('platform member return uses only the fixed trusted path',()=>{assert.equal(checkoutPath('/platform/member?email=private&redirect=bad'),'/platform/member');assert.throws(()=>checkoutPath('https://evil.test/platform/member'));assert.throws(()=>checkoutPath('/platform/admin'));});
