@@ -42,12 +42,12 @@
   {
     "slug": "medical-opinion-fobi-2026",
     "category": "合作夥伴專題",
-    "partner": "醫見傳媒・醫美整形保養交流討論版",
-    "title": "讓世界看見台灣，也讓報導留下脈絡　醫見傳媒攜手醫美版連結 FOBI 國際選美",
-    "subtitle": "從社群、人物到結案網站，讓國際活動與台灣品牌的故事持續被閱讀。",
+    "partner": "醫美版・醫美整形保養交流討論版",
+    "title": "從女性社群走進國際舞台　醫美版支持FOBI，讓台灣品牌與多元自信被世界看見",
+    "subtitle": "以創版人林弘修的公開經歷，閱讀醫美版從資訊交流到跨域合作的品牌故事。",
     "date": "2026-11-02",
-    "cover": "/editorial/partners/medical-opinion-fobi-2026.jpg",
-    "illustration": true
+    "cover": "/editorial/report-photos/arthur-forum.jpg",
+    "illustration": false
   },
   {
     "slug": "beautiself-fobi-2026",
@@ -62,12 +62,12 @@
   {
     "slug": "weimei-fobi-2026",
     "category": "合作夥伴專題",
-    "partner": "唯美平台股份有限公司",
-    "title": "從一場選美到長期內容入口　唯美平台以 FOBI 合作連結台灣品牌與國際受眾",
-    "subtitle": "數位平台的價值，在於讓活動、人物與合作資訊在落幕後仍然可以被找到。",
+    "partner": "唯美平台股份有限公司・林弘修",
+    "title": "從社群信任到國際品牌入口　唯美平台林弘修支持世界美顏小姐，連結台灣專業與世界",
+    "subtitle": "以720度整合服務的公開理念，閱讀企業、內容與使用者體驗如何形成合作關係。",
     "date": "2026-11-02",
-    "cover": "/editorial/partners/weimei-fobi-2026.jpg",
-    "illustration": true
+    "cover": "/editorial/report-photos/arthur-forum.jpg",
+    "illustration": false
   },
   {
     "slug": "chuang-fobi-2026",
@@ -102,32 +102,32 @@
   {
     "slug": "origin-capital-fobi-2026",
     "category": "合作夥伴專題",
-    "partner": "源自資本",
-    "title": "從短期曝光走向長期關係　源自資本支持 FOBI，連結台灣文化與企業交流",
-    "subtitle": "以專案治理、合作信任與內容累積，閱讀企業參與國際賽事的經營意義。",
+    "partner": "源自資本・林弘修",
+    "title": "以長期合作連結台灣與世界　源自資本林弘修支持世界美顏小姐，延伸企業跨域交流",
+    "subtitle": "從經營者背景、策略資源到品牌故事，閱讀國際活動之外的長期合作視角。",
     "date": "2026-11-02",
-    "cover": "/editorial/partners/origin-capital-fobi-2026.jpg",
-    "illustration": true
+    "cover": "/editorial/report-photos/arthur-forum.jpg",
+    "illustration": false
   },
   {
     "slug": "yoho-fobi-2026",
     "category": "合作夥伴專題",
-    "partner": "曜和實業",
-    "title": "國際舞台背後的企業協作　曜和實業參與 FOBI，讓台灣專案經驗被看見",
-    "subtitle": "從跨業連結到長期合作，企業支持如何延伸為清楚的品牌紀錄。",
+    "partner": "曜和實業・YOHO Global",
+    "title": "從醫療科技走向國際合作　曜和實業支持世界美顏小姐，展現台灣健康產業整合視野",
+    "subtitle": "以YOHO Global公開事業架構為脈絡，從陳湧仁博士的跨域願景，看台灣品牌如何與世界對話。",
     "date": "2026-11-02",
-    "cover": "/editorial/partners/yoho-fobi-2026.jpg",
-    "illustration": true
+    "cover": "/editorial/report-photos/chen-yongren.jpg",
+    "illustration": false
   },
   {
     "slug": "chenyao-fobi-2026",
     "category": "合作夥伴專題",
-    "partner": "宸曜醫療",
-    "title": "讓專業被理解，讓交流有溫度　宸曜醫療以 FOBI 參與連結國際健康溝通",
-    "subtitle": "從多語資訊與服務信任切入，看台灣醫療相關品牌如何與世界對話。",
+    "partner": "宸曜國際醫療體系・陳湧仁博士",
+    "title": "把台灣醫療經驗帶向世界　宸曜醫療陳湧仁博士支持FOBI，以整合照護開展國際對話",
+    "subtitle": "從創辦人的臨床背景、品牌故事到既有海外交流，讓世界認識台灣健康服務。",
     "date": "2026-11-02",
-    "cover": "/editorial/partners/chenyao-fobi-2026.jpg",
-    "illustration": true
+    "cover": "/editorial/report-photos/chen-yongren.jpg",
+    "illustration": false
   },
   {
     "slug": "shhealthy-fobi-2026",
@@ -168,5 +168,55 @@
     "date": "2026-11-02",
     "cover": "/editorial/partners/trendsoho-fobi-2026.jpg",
     "illustration": true
+  },
+  {
+    "slug": "medical-media-mao-fobi-2026",
+    "category": "合作夥伴專題",
+    "partner": "醫見傳媒有限公司・毛彩又執行長",
+    "title": "讓台灣品牌故事走向國際　醫見傳媒毛彩又執行長支持FOBI，延續女性與企業的影響力",
+    "subtitle": "以媒體內容、人物理解與合作紀錄，將國際選美的交流轉成可以持續閱讀的故事。",
+    "date": "2026-11-02",
+    "cover": "https://storage.googleapis.com/wownews-images/posts/135247996571848_1421362313437498_0.webp",
+    "illustration": false
+  },
+  {
+    "slug": "lin-chunpin-fobi-2026",
+    "category": "合作夥伴專題",
+    "partner": "臺大牙醫專業學院林俊彬特聘教授",
+    "title": "從口腔研究到國際視野　臺大林俊彬教授支持世界美顏小姐，讓台灣學術專業被看見",
+    "subtitle": "以牙科、生物材料與國際學術經驗，為美麗、自信及台灣專業開啟不同角度。",
+    "date": "2026-11-02",
+    "cover": "/editorial/report-photos/lin-chunpin.jpg",
+    "illustration": false
+  },
+  {
+    "slug": "lavisage-fobi-2026",
+    "category": "合作夥伴專題",
+    "partner": "采新整形外科診所・陳子瑾醫師",
+    "title": "以專業與同理心連結多元美　采新創辦人陳子瑾醫師支持FOBI，開啟台灣品牌國際對話",
+    "subtitle": "從品牌起點、整體照護理念到跨文化理解，讓世界看見台灣醫療相關服務的故事。",
+    "date": "2026-11-02",
+    "cover": "/editorial/report-photos/chen-zijin-archive.jpg",
+    "illustration": false
+  },
+  {
+    "slug": "hongda-fobi-2026",
+    "category": "合作夥伴專題",
+    "partner": "弘達國際汽車・謝瑞益",
+    "title": "從汽車服務到國際文化交流　弘達汽車謝老闆支持世界美顏小姐，讓台灣服務精神被看見",
+    "subtitle": "依弘達國際汽車公開資料整理謝瑞益與團隊的品牌故事，延伸誠信、數位內容及跨域合作。",
+    "date": "2026-11-02",
+    "cover": "/editorial/report-photos/hongda-interview.jpg",
+    "illustration": false
+  },
+  {
+    "slug": "wang-yijie-fobi-2026",
+    "category": "合作夥伴專題",
+    "partner": "Jacques Sport・王藝傑教練",
+    "title": "從賽道專業到世界舞台　王藝傑教練支持FOBI，讓台灣運動教育與國際交流相遇",
+    "subtitle": "以Jacques Sport的公開培訓背景，閱讀安全、紀律與跨文化合作的品牌故事。",
+    "date": "2026-11-02",
+    "cover": "/editorial/report-photos/wang-yijie.jpg",
+    "illustration": false
   }
 ]
