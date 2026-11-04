@@ -2,6 +2,14 @@
   "cleanUrls": false,
   "rewrites": [
     {
+      "source": "/news/downloads",
+      "destination": "/news/downloads/index.html"
+    },
+    {
+      "source": "/news/downloads/",
+      "destination": "/news/downloads/index.html"
+    },
+    {
       "source": "/backoffice",
       "destination": "/backoffice.html"
     },
@@ -40,14 +48,6 @@
     {
       "source": "/Fobi/records/",
       "destination": "/Fobi/records/index.html"
-    },
-    {
-      "source": "/news/downloads",
-      "destination": "/news/downloads/index.html"
-    },
-    {
-      "source": "/news/downloads/",
-      "destination": "/news/downloads/index.html"
     },
     {
       "source": "/Fobi",

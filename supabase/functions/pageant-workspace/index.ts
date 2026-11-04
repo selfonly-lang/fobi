@@ -1,5 +1,5 @@
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2.118.0';
-import {STAGES,KINDS,validateContent,checkTransition,workflow,effectivePublication} from './model.js';
+import {STAGES,KINDS,validateContent,checkTransition,workflow,effectivePublication,validArticleSlug} from './model.js';
 const db=createClient(Deno.env.get('SUPABASE_URL')!,Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,{auth:{persistSession:false,autoRefreshToken:false}});
 const ORIGINS=['https://fobi.self.com.tw','https://pageant.self.com.tw'];
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -119,7 +119,7 @@ Deno.serve(async(req)=>{
    const project=id(body.project_id);permit(project,writable);
    const content=validateContent(body.content);await validateAssets(content,project);
    let existing=null;if(body.id){existing=await result(db.from('pageant_articles').select('*').eq('id',id(body.id)).eq('project_id',project).maybeSingle());if(!existing)fail('新聞不存在',404);}
-   const slug=existing?.slug||body.slug;if(!/^[a-z0-9][a-z0-9-]{1,119}$/.test(slug||''))fail('新聞網址格式錯誤');
+   const slug=existing?.slug||body.slug;if(!validArticleSlug(slug))fail('新聞網址格式錯誤或為系統保留名稱，請更換代稱');
    const data={project_id:project,slug,title:content.title,content,status:'draft',updated_by:uid,...currentPublication(existing)};
    // Saving a draft never changes the previously published snapshot.
    const article=existing?await result(db.from('pageant_articles').update(data).eq('id',existing.id).eq('version',body.version).select().maybeSingle()):await result(db.from('pageant_articles').insert({...data,created_by:uid}).select().single());
