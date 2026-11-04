@@ -18,7 +18,8 @@ function currentPublication(a:any){
 async function publicArticles(slug:string|null,project:string|null){
  let q=db.from('pageant_articles').select('id,project_id,slug,publication,publish_at,scheduled_publication,scheduled_at,updated_at').or('publication.not.is.null,scheduled_publication.not.is.null').order('updated_at',{ascending:false}).limit(250);
  if(slug)q=q.eq('slug',slug);if(project)q=q.eq('project_id',id(project));
- return (await result(q)).map(exposedArticle).filter((a:any)=>a.content&&a.publish_at&&Date.parse(a.publish_at)<=Date.now()).sort((a:any,b:any)=>Date.parse(b.publish_at)-Date.parse(a.publish_at));
+ const visible=new Set((await result(db.from('pageant_projects').select('id').eq('public',true).eq('review_status','approved'))).map((p:any)=>p.id));
+ return (await result(q)).map(exposedArticle).filter((a:any)=>(!a.project_id||visible.has(a.project_id))&&a.content&&a.publish_at&&Date.parse(a.publish_at)<=Date.now()).sort((a:any,b:any)=>Date.parse(b.publish_at)-Date.parse(a.publish_at));
 }
 async function validateAssets(content:any,project:string,publishing=false){
  for(const photo of content.photos||[]){
@@ -40,7 +41,7 @@ Deno.serve(async(req)=>{
   if(origin&&!ORIGINS.includes(origin))fail('來源不允許',403);
   const url=new URL(req.url), action=url.searchParams.get('action')||'';
   if(req.method==='GET'&&action==='public-news')return json(200,{ok:true,articles:await publicArticles(url.searchParams.get('slug'),url.searchParams.get('project'))});
-  if(req.method==='GET'&&action==='public-projects')return json(200,{ok:true,projects:await result(db.from('pageant_projects').select('id,slug,title,status,event_date,venue,domain,summary').eq('public',true).order('created_at'))});
+  if(req.method==='GET'&&action==='public-projects')return json(200,{ok:true,projects:await result(db.from('pageant_projects').select('id,slug,title,status,event_date,venue,domain,summary').eq('public',true).eq('review_status','approved').order('created_at'))});
   // Uploaded files stay private until referenced by an effective publication.
   if(req.method==='GET'&&action==='image'){
    const path=url.searchParams.get('path')||'';if(!/^[a-f0-9-]+\/[a-f0-9-]+\.(jpg|png|webp)$/.test(path))fail('圖片不存在',404);
@@ -78,6 +79,7 @@ Deno.serve(async(req)=>{
    if(body.event_date&&!/^\d{4}-\d{2}-\d{2}$/.test(body.event_date))fail('日期格式錯誤');
    const data={slug:body.slug,title:clean(body.title),status:body.status,event_date:body.event_date||null,venue:clean(body.venue||'',500),domain:clean(body.domain||'',500),summary:clean(body.summary||'',3000),public:body.public===true};if(!data.title)fail('請填專案名稱');
    if(data.domain&&!/^https:\/\/[a-z0-9.-]+\/?$/.test(data.domain))fail('專案網域必須是HTTPS網址');
+   if(body.id){const prev=await result(db.from('pageant_projects').select('slug,status,domain,public').eq('id',id(body.id)).single());if(prev.slug==='fobi-2026'&&data.status!=='archived')fail('FOBI 2026 已封存，後續年度請另建專案');if(!owner){data.slug=prev.slug;data.domain=prev.domain;data.public=prev.public;}}
    const project=body.id?await result(db.from('pageant_projects').update(data).eq('id',id(body.id)).eq('version',body.version).select().maybeSingle()):await result(db.rpc('pageant_create_project',{p_data:data,p_actor:uid,p_tasks:workflow('00000000-0000-4000-8000-000000000000')}));
    if(!project)fail('內容已被其他人更新，請重新載入',409);
    await audit(uid,'project_saved',project.id,project.id);return json(200,{ok:true,project});
