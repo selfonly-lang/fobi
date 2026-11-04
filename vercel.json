@@ -2,6 +2,38 @@
   "cleanUrls": false,
   "rewrites": [
     {
+      "source": "/backoffice",
+      "destination": "/backoffice.html"
+    },
+    {
+      "source": "/backoffice/",
+      "destination": "/backoffice.html"
+    },
+    {
+      "source": "/platform/admin",
+      "destination": "/backoffice.html"
+    },
+    {
+      "source": "/platform/admin/",
+      "destination": "/backoffice.html"
+    },
+    {
+      "source": "/news",
+      "destination": "/api/news"
+    },
+    {
+      "source": "/news/",
+      "destination": "/api/news"
+    },
+    {
+      "source": "/news/:slug([a-z0-9-]+)",
+      "destination": "/api/news?slug=:slug"
+    },
+    {
+      "source": "/news/:slug([a-z0-9-]+)/",
+      "destination": "/api/news?slug=:slug"
+    },
+    {
       "source": "/Fobi/records",
       "destination": "/Fobi/records/index.html"
     },
@@ -28,22 +60,6 @@
     {
       "source": "/fobi",
       "destination": "/Fobi/index.html"
-    },
-    {
-      "source": "/news",
-      "destination": "/news/index.html"
-    },
-    {
-      "source": "/news/",
-      "destination": "/news/index.html"
-    },
-    {
-      "source": "/news/:slug([a-z0-9-]+)",
-      "destination": "/news/:slug/index.html"
-    },
-    {
-      "source": "/news/:slug([a-z0-9-]+)/",
-      "destination": "/news/:slug/index.html"
     },
     {
       "source": "/platform",
@@ -76,10 +92,6 @@
     {
       "source": "/platform/member",
       "destination": "/platform/member/index.html"
-    },
-    {
-      "source": "/platform/admin",
-      "destination": "/platform/admin/index.html"
     },
     {
       "source": "/platform/training/stage",
@@ -153,6 +165,47 @@
       "source": "/Fobi/news/:slug",
       "destination": "/news/:slug",
       "statusCode": 307
+    },
+    {
+      "source": "/news/index.html",
+      "destination": "/news",
+      "statusCode": 308
+    },
+    {
+      "source": "/news/:slug/index.html",
+      "destination": "/news/:slug",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/admin/index.html",
+      "destination": "/backoffice",
+      "statusCode": 307
+    },
+    {
+      "source": "/admin.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "pageant.self.com.tw"
+        }
+      ],
+      "destination": "/backoffice",
+      "statusCode": 307
+    }
+  ],
+  "headers": [
+    {
+      "source": "/backoffice(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }
