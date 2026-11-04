@@ -13,7 +13,7 @@ Vercel 設定：rootDirectory `apps/pageant`、framework nextjs、install `npm c
 - 前台：`/news`、`/events`、`/tv`、`/publications`。新聞與會刊採公開快照，修改草稿不影響既有公開版本。
 - 會員：`/login`、`/account`、`/create`、`/checkout?activity={id}`。僅 HttpOnly／Secure host-only Cookie，中央會員不使用跨子網域 Cookie。
 - 後台：`/studio`，五組工作區、平台設定、團隊角色及一次性邀請。FOBI2026 為第一個結案專案；2027 台灣小姐為第二個籌備專案。
-- FOBI 舊路徑：`/Fobi`、`/Fobi/records`、`/news/downloads`、原新聞 slug、原素材及影片保持可讀；舊售票與派對頁轉至結案官網。原 Supabase 金流 callback 不變。
+- FOBI 舊路徑：`/Fobi`、`/Fobi/records`、`/news/downloads`、原新聞 slug、原素材及影片保持可讀；舊售票與派對頁轉至結案官網。舊 ticket.html、payment-result.html 與原 Supabase 金流 callback 不變。
 
 ## 服務與權限
 
@@ -43,6 +43,6 @@ SELF 主會員專案 `llyjfsxpdylaejqlcyac` 目前無管理權限。FOBI 既有 
 
 ## 驗證與回復
 
-已有私人 QA 帳號測試56項API、13項資料庫交易（rollback）及5項安全單元測試；QA資料需在部署驗收後移除。正式退款／真實扣款／外部推播沒有作為測試執行。用瀏覽器另外驗證桌機、390px手機、後台儲存、新聞圖片及41頁中文PDF下載。
+已有私人 QA 帳號測試56項API、13項資料庫交易（rollback）及5項安全單元測試；另通過26項瀏覽器流程及4項私有素材測試。QA資料需在部署驗收後移除。正式退款／真實扣款／外部推播沒有作為測試執行。用瀏覽器另外驗證桌機、390px手機、後台儲存、新聞圖片及41頁中文PDF下載。
 
 切換前保留舊 Vercel project 設定與正式 deployment ID；新 app preview 確認後才變更 production domain/root。回復時將舊 deployment 重新指派原網域；新增資料表不影響舊系統，避免對歷史FOBI訂單作破壞性遷移。

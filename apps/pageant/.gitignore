@@ -9,3 +9,7 @@ public/Fobi/
 public/media/
 
 !.env.example
+
+/public/ticket.html
+/public/payment-result.html
+/public/subpages.css
