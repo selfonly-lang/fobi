@@ -92,7 +92,7 @@ export function safeReturn(value: string | null) {
     const u = new URL(value, PLATFORM);
     if (
       u.origin !== PLATFORM ||
-      !/^\/(account|studio|create|checkout|events|activities|invite)(\/|\?|$)/.test(
+      !/^\/(account|studio|create|checkout|events|activities|invite|partners)(\/|\?|$)/.test(
         u.pathname + u.search,
       )
     )

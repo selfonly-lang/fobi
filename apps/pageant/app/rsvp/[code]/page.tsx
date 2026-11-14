@@ -1,0 +1,1 @@
+import{RsvpCard}from'@/components/rsvp';export const metadata={title:'私人活動邀請',robots:{index:false,follow:false}};export default async function Page({params}:{params:Promise<{code:string}>}){return <RsvpCard code={(await params).code}/>}

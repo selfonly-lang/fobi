@@ -1,3 +1,4 @@
+import {operationsPublic,operationsMember,publicOperationActions} from './operations.ts';
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.118.0";
 import {
   workflow,
@@ -368,6 +369,7 @@ Deno.serve(async (req) => {
         fail("資料格式錯誤");
       }
     }
+    if(publicOperationActions.includes(action)){const out=await operationsPublic(action,req.method,u,body,{db,result,fail,id,str,integer});return json(200,out);}
     if (req.method === "GET" && action === "catalog") {
       const [
         brands,
@@ -869,6 +871,7 @@ Deno.serve(async (req) => {
       return value;
     };
 
+    if(action.startsWith('ops-')){const out=await operationsMember(action,req.method,u,body,{db,result,fail,id,str,integer,uid,permit,role,owner,normalizeImage,audit});if(out)return json(200,out);}
     if (action === "me" && req.method === "GET") {
       const [profile, identity, bookmarks, notifications, organizations] =
         await Promise.all([

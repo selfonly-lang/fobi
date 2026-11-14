@@ -295,7 +295,7 @@ export function MagazineHome({ data }: { data: Catalog }) {
         </Reveal>
         <div className="hero-edge">MORE THAN A CROWN. A WORLD OF STORIES.</div>
       </section>
-      <div className="editorial-strip">
+      <section className="wrap ops-entry-grid" aria-label="選擇妳想開始的旅程">{[['/events','我是參賽者','探索賽事與招募'],['/events?type=course','我想上課','培訓與舞台練習'],['/partners','我是品牌方','合作與贊助機會'],['/create','我要辦活動','建立完整賽事專案']].map(([href,title,caption])=><Link key={href} href={href}><span>{caption}</span><b>{title}</b><ArrowUpRight size={19}/></Link>)}</section><div className="editorial-strip">
         <div className="wrap">
           <span>GLOBAL PAGEANTS</span>
           <i>✦</i>
@@ -692,7 +692,7 @@ export function BrandHome({
         ) : (
           <div className="brand-partner-callout">
             <p>品牌合作、人才培育、媒體與國際交流，歡迎共同規劃。</p>
-            <a href={PLATFORM + "/create"} className="button outline">
+            <a href={PLATFORM + "/partners"} className="button outline">
               前往平台提出合作 <ArrowUpRight size={15} />
             </a>
           </div>

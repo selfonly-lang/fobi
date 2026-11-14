@@ -29,6 +29,7 @@ import { AssetLibrary } from "./assets";
 import { TeamDialog } from "./team";
 import { DocumentDialog } from "./document";
 import { AdminPanel } from "./admin";
+import {OperationsPanel,AssistantDialog,NextSteps} from "./operations";
 const modules = [
   ["overview", "專案總覽與流程", LayoutDashboard],
   ["people", "活動與人員", Users],
@@ -46,6 +47,7 @@ export function Studio() {
     [module, setModule] = useState("overview"),
     [tab, setTab] = useState("news"),
     [stage, setStage] = useState("all"),
+    [peopleMode,setPeopleMode]=useState("people"),[assistant,setAssistant]=useState(false),
     [modal, setModal] = useState<Doc | null>(null),
     [team, setTeam] = useState(false),
     [mobile, setMobile] = useState(false),
@@ -122,6 +124,8 @@ export function Studio() {
     canManage = ["owner", "manager"].includes(role),
     canReview = ["owner", "manager", "reviewer"].includes(role),
     owner = member.role === "owner";
+  const navigateOps=(section:string)=>{if(['training','invitation','competition'].includes(section)){setModule('people');setPeopleMode(({training:'training',invitation:'guests',competition:'rundown'} as Record<string,string>)[section]);}else if(section==='sponsor')setModule('proposals');else if(section==='promotion'){setModule('media');setTab('campaigns');}else setModule('overview');setMobile(false);};
+  const opsProps={projectId,role,onProjectSaved:load,activities:workspace?.activities||[],articles:workspace?.articles||[],assets:workspace?.assets||[],media:workspace?.media||[]};
   const items: Doc[] = workspace?.items || [],
     done = items.filter((i) => i.status === "done").length,
     percent = items.length ? Math.round((done / items.length) * 100) : 0;
@@ -284,6 +288,7 @@ export function Studio() {
               </p>
             </div>
             <div className="studio-toolbar">
+              {project&&canEdit&&<button className="button dark ops-assist-button" onClick={()=>setAssistant(true)}>✦ 活動助理</button>}
               {project && (
                 <Badge
                   status={
@@ -344,6 +349,7 @@ export function Studio() {
             <>
               {module === "overview" && (
                 <>
+                  <NextSteps project={project} workspace={workspace} onNavigate={navigateOps} onAssist={()=>setAssistant(true)}/>
                   <section className="studio-summary">
                     <div>
                       <span className="eyebrow">PROJECT JOURNEY</span>
@@ -508,19 +514,10 @@ export function Studio() {
                   </section>
                 </>
               )}
-              {module === "people" && (
-                <PeoplePanel
-                  key={projectId}
-                  projectId={projectId}
-                  role={role}
-                  workspace={workspace}
-                  people={people}
-                  currentUser={member.user}
-                  onSaved={load}
-                />
-              )}
+              {module==="people"&&<>{!['judge','checkin'].includes(role)&&<nav className="ops-hub-tabs" aria-label="活動執行分類">{[['people','招募與比賽'],['training','培訓與上課'],['guests','嘉賓邀請'],['rundown','當日執行']].map(([k,l])=><button key={k} className={peopleMode===k?'active':''} onClick={()=>setPeopleMode(k)}>{l}</button>)}</nav>}{peopleMode==='people'||['judge','checkin'].includes(role)?<PeoplePanel key={projectId} projectId={projectId} role={role} workspace={workspace} people={people} currentUser={member.user} onSaved={load}/>:<OperationsPanel key={projectId+peopleMode} {...opsProps} section={peopleMode as 'training'|'guests'|'rundown'}/>}</>}
               {module === "proposals" && (
                 <>
+                  <OperationsPanel key={projectId+"sponsors"} {...opsProps} section="sponsors"/>
                   <section className="panel">
                     <div className="panel-top">
                       <h2>提案、合作與結案文件</h2>
@@ -628,6 +625,7 @@ export function Studio() {
                   <nav className="workspace-tabs">
                     {[
                       ["news", "專案新聞"],
+                      ["campaigns","宣傳排程"],
                       ...(owner || ["editor", "reviewer"].includes(member.role)
                         ? [["global", "全球選美誌"]]
                         : []),
@@ -647,6 +645,7 @@ export function Studio() {
                       </button>
                     ))}
                   </nav>
+                  {tab==="campaigns"&&<OperationsPanel key={projectId+"promotion"} {...opsProps} section="promotion"/>}
                   {["news", "global"].includes(tab) && (
                     <section className="panel">
                       <div className="panel-top">
@@ -930,6 +929,8 @@ export function Studio() {
           )}
         </div>
       </div>
+      {assistant&&project&&<AssistantDialog project={project} canSave={canEdit} onSaved={load} onClose={()=>setAssistant(false)} onNavigate={navigateOps}/>}
+      {!["judge","checkin","finance"].includes(role)&&<nav className="ops-mobile-nav" aria-label="手機工作室導覽">{modules.filter(([id])=>id!=="finance"||canManage).map(([id,label,Icon])=><button key={id} className={module===id?"active":""} aria-current={module===id?"page":undefined} onClick={()=>setModule(id)}><Icon size={18}/><span>{({overview:"總覽",people:"活動",proposals:"合作",media:"宣傳",finance:"帳務"} as Record<string,string>)[id]}</span></button>)}</nav>}
       {team && (
         <TeamDialog
           projectId={projectId}

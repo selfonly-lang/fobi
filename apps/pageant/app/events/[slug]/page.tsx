@@ -1,3 +1,4 @@
+import{PublicAgenda}from'@/components/programme';
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -199,7 +200,7 @@ export default async function Event({
           </section>
         ))}
       </section>
-      <div className="wrap">
+      <div className="wrap"><PublicAgenda projectId={p.id}/></div><div className="wrap">
         <ShareTools
           id={p.id}
           type="project"

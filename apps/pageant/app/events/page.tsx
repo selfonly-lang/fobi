@@ -4,7 +4,8 @@ import { getCatalog } from "@/lib/catalog";
 import { resolveSite } from "@/lib/site";
 import { EventExplorer } from "@/components/explorers";
 export const metadata: Metadata = { title: "探索賽事、活動與培訓課程" };
-export default async function Events() {
+export default async function Events({searchParams}:{searchParams:Promise<{type?:string}>}) {
+ const query=await searchParams;
   const data = await getCatalog(),
     site = await resolveSite((await headers()).get("host") || "");
   const brand = data.brands.find((b) => b.slug === site?.slug),
@@ -26,6 +27,7 @@ export default async function Events() {
       </div>
       <EventExplorer
         projects={projects}
+        initialTab={query.type==='course'?'course':'all'}
         activities={data.activities.filter((a) => ids.has(a.project_id))}
       />
     </section>

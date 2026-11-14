@@ -1,4 +1,5 @@
 "use client";
+import{LearningJourney}from"./learning";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
@@ -355,7 +356,7 @@ export function Account({ initialTab = "profile" }: { initialTab?: string }) {
           </>
         )}
         {tab === "registrations" && (
-          <section className="panel">
+          <><section className="panel">
             <h2>我的報名與課程</h2>
             {wallet?.registrations?.length ? (
               wallet.registrations.map((r: Record<string, any>) => (
@@ -383,7 +384,7 @@ export function Account({ initialTab = "profile" }: { initialTab?: string }) {
             ) : (
               <p>目前沒有報名紀錄。</p>
             )}
-          </section>
+          </section><LearningJourney/></>
         )}
         {tab === "saved" && (
           <>

@@ -103,12 +103,14 @@ export function NewsExplorer({
 export function EventExplorer({
   projects,
   activities,
+  initialTab='all',
 }: {
   projects: Project[];
   activities: Activity[];
+  initialTab?:string;
 }) {
   const [q, setQ] = useState(""),
-    [tab, setTab] = useState("all");
+    [tab, setTab] = useState(initialTab);
   const rows = projects.filter(
     (p) =>
       (p.title + " " + p.summary).includes(q) &&

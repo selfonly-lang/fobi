@@ -1,3 +1,4 @@
+import{PublicCourse}from'@/components/programme';
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CalendarDays, MapPin } from "lucide-react";
@@ -47,6 +48,7 @@ export default async function ActivityPage({
         </span>
       </div>
       <p className="activity-description">{a.description}</p>
+      {['course','training'].includes(a.kind)&&<PublicCourse projectId={a.project_id} activityId={a.id}/>}
       <Registration activity={a} />
       <section className="panel">
         <h2>活動條款</h2>
