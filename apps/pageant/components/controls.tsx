@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { Children, cloneElement, isValidElement, useEffect, useId, useRef } from "react";
 import { X } from "lucide-react";
 import { statusLabel } from "@/lib/domain";
 export function Field({
@@ -11,10 +11,11 @@ export function Field({
   children: React.ReactNode;
   wide?: boolean;
 }) {
+  const labelId = useId();
   return (
     <label className={"field " + (wide ? "wide" : "")}>
-      <span>{label}</span>
-      {children}
+      <span id={labelId}>{label}</span>
+      {Children.map(children, child => isValidElement<Record<string, unknown>>(child) && typeof child.type === "string" && ["input", "textarea", "select"].includes(child.type) ? cloneElement(child, { "aria-labelledby": labelId }) : child)}
     </label>
   );
 }
