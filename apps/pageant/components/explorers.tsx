@@ -1,4 +1,5 @@
 "use client";
+import { isTaiwanInterest } from "@/lib/miss-taiwan";
 import { useState } from "react";
 import Link from "next/link";
 import { Search, ArrowUpRight, CalendarDays, MapPin, Play } from "lucide-react";
@@ -103,11 +104,11 @@ export function NewsExplorer({
 export function EventExplorer({
   projects,
   activities,
-  initialTab='all',
+  initialTab = "all",
 }: {
   projects: Project[];
   activities: Activity[];
-  initialTab?:string;
+  initialTab?: string;
 }) {
   const [q, setQ] = useState(""),
     [tab, setTab] = useState(initialTab);
@@ -266,7 +267,13 @@ export function EventExplorer({
               {a.venue || "地點待公告"}
             </div>
             <div className="activity-bottom">
-              <span>{a.amount ? money(a.amount) : "免費報名"}</span>
+              <span>
+                {a.amount
+                  ? money(a.amount)
+                  : isTaiwanInterest(a.id)
+                    ? "免費意願登記"
+                    : "免費報名"}
+              </span>
               <span>
                 {statusLabel[a.status]} <ArrowUpRight size={15} />
               </span>

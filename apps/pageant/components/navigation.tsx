@@ -7,19 +7,27 @@ import { PLATFORM } from "@/lib/domain";
 export function Navigation({ site }: { site: Site }) {
   const [open, setOpen] = useState(false);
   const brand = site.kind === "brand";
-  const links = brand
-    ? [
-        ["/#about", "賽事介紹"],
-        ["/#stories", "新聞影音"],
-        ["/#partners", "合作夥伴"],
-        ["/#archive", "成果與會刊"],
-      ]
-    : [
-        ["/news", "選美誌"],
-        ["/events", "賽事與課程"],
-        ["/tv", "BeautyTV"],
-        ["/publications", "電子會刊"],
-      ];
+  const links =
+    site.slug === "miss-taiwan"
+      ? [
+          ["/#journey", "五場賽事"],
+          ["/#training", "培訓計畫"],
+          ["/#join", "我要參賽"],
+          ["/#partners", "品牌合作"],
+        ]
+      : brand
+        ? [
+            ["/#about", "賽事介紹"],
+            ["/#stories", "新聞影音"],
+            ["/#partners", "合作夥伴"],
+            ["/#archive", "成果與會刊"],
+          ]
+        : [
+            ["/news", "選美誌"],
+            ["/events", "賽事與課程"],
+            ["/tv", "BeautyTV"],
+            ["/publications", "電子會刊"],
+          ];
   return (
     <>
       <div className="topline">

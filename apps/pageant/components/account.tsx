@@ -1,5 +1,6 @@
 "use client";
-import{LearningJourney}from"./learning";
+import { isTaiwanInterest } from "@/lib/miss-taiwan";
+import { LearningJourney } from "./learning";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
@@ -356,35 +357,42 @@ export function Account({ initialTab = "profile" }: { initialTab?: string }) {
           </>
         )}
         {tab === "registrations" && (
-          <><section className="panel">
-            <h2>我的報名與課程</h2>
-            {wallet?.registrations?.length ? (
-              wallet.registrations.map((r: Record<string, any>) => (
-                <div className="list-row" key={r.id}>
-                  <div>
-                    <h3>{r.activity?.title}</h3>
-                    <p>
-                      {r.activity?.starts_at
-                        ? new Date(r.activity.starts_at).toLocaleString("zh-TW")
-                        : "時間待公告"}{" "}
-                      · {r.activity?.venue}
-                    </p>
+          <>
+            <section className="panel">
+              <h2>我的報名與課程</h2>
+              {wallet?.registrations?.length ? (
+                wallet.registrations.map((r: Record<string, any>) => (
+                  <div className="list-row" key={r.id}>
+                    <div>
+                      <h3>{r.activity?.title}</h3>
+                      <p>
+                        {isTaiwanInterest(r.activity_id)
+                          ? "意願登記紀錄（非正式參賽或席次確認）"
+                          : r.activity?.starts_at
+                            ? new Date(r.activity.starts_at).toLocaleString(
+                                "zh-TW",
+                              )
+                            : "時間待公告"}{" "}
+                        · {r.activity?.venue}
+                      </p>
+                    </div>
+                    <span className={"badge " + r.status}>
+                      {statusLabel[r.status] || r.status}
+                    </span>
+                    <Link
+                      className="small-button"
+                      href={"/activities/" + r.activity_id}
+                    >
+                      活動內容
+                    </Link>
                   </div>
-                  <span className={"badge " + r.status}>
-                    {statusLabel[r.status] || r.status}
-                  </span>
-                  <Link
-                    className="small-button"
-                    href={"/activities/" + r.activity_id}
-                  >
-                    活動內容
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p>目前沒有報名紀錄。</p>
-            )}
-          </section><LearningJourney/></>
+                ))
+              ) : (
+                <p>目前沒有報名紀錄。</p>
+              )}
+            </section>
+            <LearningJourney />
+          </>
         )}
         {tab === "saved" && (
           <>

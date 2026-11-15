@@ -1,3 +1,4 @@
+import { MissTaiwanHome } from "@/components/miss-taiwan";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -19,6 +20,16 @@ export async function generateMetadata(): Promise<Metadata> {
           ? "SELF PAGEANT｜讓美，走向世界"
           : site.name + "官方網站",
       url: site.origin,
+      ...(site.slug === "miss-taiwan"
+        ? {
+            images: [
+              {
+                url: "https://pageant.self.com.tw/miss-taiwan-2027/campaign.webp",
+                alt: "AI 招募形象示意，非本屆參賽者",
+              },
+            ],
+          }
+        : {}),
     },
   };
 }
@@ -30,5 +41,9 @@ export default async function Home() {
   const brand = data.brands.find((b) => b.slug === site.slug),
     project = data.projects.find((p) => p.id === brand?.primary_project_id);
   if (!project) notFound();
-  return <BrandHome data={data} site={site} project={project} />;
+  return site.slug === "miss-taiwan" && project.year === 2027 ? (
+    <MissTaiwanHome data={data} project={project} />
+  ) : (
+    <BrandHome data={data} site={site} project={project} />
+  );
 }

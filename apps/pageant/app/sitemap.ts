@@ -20,7 +20,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       site.kind === "brand"
         ? d.publications.filter((b) => ids.has(b.project_id))
         : d.publications;
-  return ["", "/news", "/events", "/tv", "/publications"]
+  return [
+    "",
+    "/news",
+    "/events",
+    "/tv",
+    "/publications",
+    ...(site.kind === "platform" ? ["/miss-taiwan"] : []),
+  ]
     .map((path) => ({ url: site.origin + path }))
     .concat(
       articles.map((a) => ({

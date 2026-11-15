@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { api } from "@/lib/client-api";
+import { MISS_TAIWAN, isTaiwanInterest } from "@/lib/miss-taiwan";
 import type { Activity } from "@/lib/types";
 import { money, PLATFORM } from "@/lib/domain";
 export function Registration({ activity }: { activity: Activity }) {
@@ -9,6 +9,29 @@ export function Registration({ activity }: { activity: Activity }) {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [done, setDone] = useState(false);
+  const interest = isTaiwanInterest(activity.id);
+  const checkLogin = async () => {
+    if (open) {
+      setOpen(false);
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await api("me");
+      setOpen(true);
+    } catch (err) {
+      if ((err as { status?: number }).status === 401)
+        location.assign(
+          PLATFORM +
+            "/login?returnTo=" +
+            encodeURIComponent("/activities/" + activity.id),
+        );
+      else setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
   if (activity.status !== "open")
     return <div className="notice">此活動目前未開放報名或購票。</div>;
   if (activity.amount)
@@ -26,11 +49,34 @@ export function Registration({ activity }: { activity: Activity }) {
   return (
     <div className="panel">
       <div className="panel-top">
-        <h2>免費報名</h2>
-        <button className="button dark" onClick={() => setOpen(!open)}>
-          {open ? "收合表單" : "填寫報名資料"}
+        <h2>{interest ? "免費意願登記" : "免費報名"}</h2>
+        <button className="button dark" disabled={busy} onClick={checkLogin}>
+          {busy
+            ? "確認登入中…"
+            : open
+              ? "收合表單"
+              : interest
+                ? "登入會員填寫意願"
+                : "登入會員填寫報名"}
         </button>
       </div>
+      {interest && (
+        <p>
+          這是免費意願登記，不是正式參賽報名、入選通知或記者會席次確認。資料僅供本屆招募及聯繫；正式資格、賽程及費用另行公告。
+        </p>
+      )}
+      {interest && (
+        <p>
+          <a
+            className="text-link"
+            href={MISS_TAIWAN.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            首次接觸賽事？向官方粉專詢問招募 ↗
+          </a>
+        </p>
+      )}
       {error && (
         <div className="alert" role="alert">
           {error}
@@ -38,8 +84,10 @@ export function Registration({ activity }: { activity: Activity }) {
       )}
       {done ? (
         <div className="notice">
-          報名資料已送出，可至會員中心查看審核進度。
-          <Link href="/account?tab=registrations">查看我的報名 ↗</Link>
+          {interest
+            ? "意願資料已送出，可至會員中心查看登記紀錄。"
+            : "報名資料已送出，可至會員中心查看審核進度。"}
+          <a href={PLATFORM + "/account?tab=registrations"}>查看我的登記 ↗</a>
         </div>
       ) : (
         open && (
@@ -92,10 +140,12 @@ export function Registration({ activity }: { activity: Activity }) {
             </div>
             <label className="checkbox-field">
               <input type="checkbox" name="consent" required />
-              我同意本活動報名資料使用、活動條款及取消規則。
+              {interest
+                ? "我同意將以上資料提供本屆活動主辦作招募及聯繫使用，並已閱讀本頁意願登記條款。"
+                : "我同意本活動報名資料使用、活動條款及取消規則。"}
             </label>
             <button className="button dark" disabled={busy}>
-              {busy ? "正在送出…" : "登入會員並送出報名"}
+              {busy ? "正在送出…" : interest ? "送出意願登記" : "送出報名"}
             </button>
           </form>
         )

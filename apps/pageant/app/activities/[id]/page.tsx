@@ -1,4 +1,5 @@
-import{PublicCourse}from'@/components/programme';
+import { isTaiwanInterest } from "@/lib/miss-taiwan";
+import { PublicCourse } from "@/components/programme";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CalendarDays, MapPin } from "lucide-react";
@@ -26,6 +27,7 @@ export default async function ActivityPage({
     d = await getCatalog(),
     a = d.activities.find((a) => a.id === id);
   if (!a) notFound();
+  const interest = isTaiwanInterest(a.id);
   return (
     <article className="activity-detail">
       <span className="eyebrow">
@@ -35,20 +37,26 @@ export default async function ActivityPage({
       <div className="event-detail-info">
         <span>
           <CalendarDays size={16} />
-          {a.starts_at
-            ? new Date(a.starts_at).toLocaleString("zh-TW", {
-                timeZone: a.timezone,
-              })
-            : "日期待公告"}
+          {interest
+            ? "意願登記已開放（非比賽日期）"
+            : a.starts_at
+              ? new Date(a.starts_at).toLocaleString("zh-TW", {
+                  timeZone: a.timezone,
+                })
+              : "日期待公告"}
           （{a.timezone}）
         </span>
         <span>
           <MapPin size={16} />
-          {a.venue || "地點待公告"}
+          {interest
+            ? "線上意願登記；實體活動場地另行公告"
+            : a.venue || "地點待公告"}
         </span>
       </div>
       <p className="activity-description">{a.description}</p>
-      {['course','training'].includes(a.kind)&&<PublicCourse projectId={a.project_id} activityId={a.id}/>}
+      {["course", "training"].includes(a.kind) && (
+        <PublicCourse projectId={a.project_id} activityId={a.id} />
+      )}
       <Registration activity={a} />
       <section className="panel">
         <h2>活動條款</h2>

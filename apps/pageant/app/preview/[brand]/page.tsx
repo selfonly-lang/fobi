@@ -1,3 +1,4 @@
+import { MissTaiwanHome } from "@/components/miss-taiwan";
 import { notFound } from "next/navigation";
 import { getCatalog } from "@/lib/catalog";
 import { resolveSite } from "@/lib/site";
@@ -24,7 +25,11 @@ export default async function Preview({
         賽事官網預覽 · 正式網址 {b.domain}{" "}
         {b.domain_status === "verified" ? "已啟用" : "設定中"}
       </div>
-      <BrandHome data={d} site={s} project={p} />
+      {b.slug === "miss-taiwan" && p.year === 2027 ? (
+        <MissTaiwanHome data={d} project={p} />
+      ) : (
+        <BrandHome data={d} site={s} project={p} />
+      )}
     </>
   );
 }

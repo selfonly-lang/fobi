@@ -6,6 +6,7 @@ import { Footer } from "@/components/public";
 import { resolveSite } from "@/lib/site";
 import "./globals.css";
 import "./operations.css";
+import "./miss-taiwan.css";
 export const metadata: Metadata = {
   title: {
     default: "SELF PAGEANT｜全球選美・時尚・人物・活動平台",

@@ -1,0 +1,171 @@
+{
+  "project_id": "d2acc4c7-3412-4df2-8c2d-0df2020245d5",
+  "brand_id": "b18bcb86-ac02-4651-a442-656294a04dda",
+  "year": 2027,
+  "slug": "miss-taiwan-2027",
+  "facebook": "https://www.facebook.com/Taiwanpageant/",
+  "press_id": "f5d47ab1-d5f6-508b-812a-19213313539e",
+  "interest_id": "2218dddc-9f96-53b9-bc08-5fcfcfa7b3f3",
+  "media_interest_id": "37b21910-cfa9-5bde-9db1-c6e2d18dedf5",
+  "rounds": [
+    {
+      "key": "audition",
+      "id": "2efda9d4-75ff-5a01-a773-8e9174e6ee9d",
+      "task_id": "28bdb382-2122-520a-b8d3-19830ea06995",
+      "order": 1,
+      "title": "海選",
+      "en": "AUDITION",
+      "headline": "讓世界先認識妳",
+      "description": "自我介紹、參賽動機與個人故事，從真誠的表達開始。",
+      "focus": [
+        "自我介紹與參賽動機",
+        "個人資料與作品確認",
+        "面談與基本儀態"
+      ],
+      "checklist": [
+        "確認正式簡章與報名截止日",
+        "審查參賽資格與個資同意",
+        "分組面談與評審迴避",
+        "通知錄取及候補名單"
+      ],
+      "kind": "pageant",
+      "planned_period": "2027｜日期與場地待公告",
+      "previous_id": null
+    },
+    {
+      "key": "talent",
+      "id": "7bb0e2cc-8eab-5b04-b831-52119f8f0838",
+      "task_id": "0b189bf5-924b-58d7-9df7-de649b03e710",
+      "order": 2,
+      "title": "初賽（才藝）",
+      "en": "TALENT",
+      "headline": "把熱愛，變成舞台上的光",
+      "description": "用音樂、舞蹈、藝術或創作，說出屬於自己的故事。",
+      "focus": [
+        "才藝作品與表演企劃",
+        "音樂、器材與舞台需求",
+        "現場表現與訪談"
+      ],
+      "checklist": [
+        "收齊音樂檔與演出授權",
+        "確認器材、用電與安全需求",
+        "安排逐位彩排與計時",
+        "確認評分、同分與晉級規則"
+      ],
+      "kind": "segment",
+      "planned_period": "2027｜日期與場地待公告",
+      "previous_id": "2efda9d4-75ff-5a01-a773-8e9174e6ee9d"
+    },
+    {
+      "key": "runway",
+      "id": "359e3c6f-9d05-5fa2-9193-e1c98f25eca7",
+      "task_id": "98d6c9cc-283e-5312-b1d4-723a286123a7",
+      "order": 3,
+      "title": "泳裝 & 禮服賽",
+      "en": "RUNWAY",
+      "headline": "自在的姿態，就是風格",
+      "description": "以自信、儀態及服裝呈現，在兩種舞台語言中展現自己。",
+      "focus": [
+        "台步與舞台定點",
+        "泳裝及禮服造型",
+        "自信表達與臨場應對"
+      ],
+      "checklist": [
+        "確認泳裝及禮服規範與更衣隱私",
+        "核對音樂、走位與鞋服安全",
+        "落實攝影、肖像及媒體拍攝範圍",
+        "完成兩段展示評分與名單核對"
+      ],
+      "kind": "segment",
+      "planned_period": "2027｜日期與場地待公告",
+      "previous_id": "7bb0e2cc-8eab-5b04-b831-52119f8f0838"
+    },
+    {
+      "key": "national-costume",
+      "id": "4f4d3c74-4236-54a2-bfaa-11c3e23683e5",
+      "task_id": "117f1ba2-594f-564c-83a5-81457e2f52d0",
+      "order": 4,
+      "title": "國服賽",
+      "en": "NATIONAL COSTUME",
+      "headline": "讓台灣的故事，被世界看見",
+      "description": "從土地、工藝與文化找到靈感，以服裝與敘事傳遞台灣之美。",
+      "focus": [
+        "國服概念與文化故事",
+        "設計與創作授權",
+        "造型展示與口語敘事"
+      ],
+      "checklist": [
+        "收齊設計理念與創作授權",
+        "確認文化引用與服裝重量安全",
+        "安排展示動線、換裝及翻譯",
+        "核對文化敘事與評分紀錄"
+      ],
+      "kind": "segment",
+      "planned_period": "2027｜日期與場地待公告",
+      "previous_id": "359e3c6f-9d05-5fa2-9193-e1c98f25eca7"
+    },
+    {
+      "key": "final",
+      "id": "0d58caf3-c5a0-52d5-a026-7eea8aa18ee7",
+      "task_id": "1ac75be6-0b1d-5349-8132-bd87709d2821",
+      "order": 5,
+      "title": "總決賽",
+      "en": "GRAND FINAL",
+      "headline": "走上屬於妳的時刻",
+      "description": "集結舞台表現、機智問答與個人主張，迎接年度最重要的時刻。",
+      "focus": [
+        "開場與綜合舞台展示",
+        "機智問答與理念表達",
+        "頒獎、媒體及賽後紀錄"
+      ],
+      "checklist": [
+        "完成全體彩排、座位與無障礙安排",
+        "鎖定評審名單與計分覆核",
+        "確認票券、核銷、醫護與緊急應變",
+        "主辦核准正式成績與公開名單",
+        "完成頒獎、採訪與品牌交付"
+      ],
+      "kind": "final",
+      "planned_period": "2027｜日期與場地待公告",
+      "previous_id": "4f4d3c74-4236-54a2-bfaa-11c3e23683e5"
+    }
+  ],
+  "training": [
+    {
+      "key": "presence",
+      "id": "9c86cbc1-be28-5807-9431-f750bba091cd",
+      "title": "儀態與鏡頭表達",
+      "description": "台步、姿態與自我介紹，讓第一次站上舞台也有準備。",
+      "units": [
+        "站姿、轉身與上下台安全",
+        "鏡頭定點與一分鐘自我介紹",
+        "模擬訪談與個人回饋"
+      ]
+    },
+    {
+      "key": "performance",
+      "id": "f7bda7d3-02e0-59ee-9f9a-791d13fb2c09",
+      "title": "才藝與舞台實作",
+      "description": "整理表演想法、音樂及器材，把熱愛轉成完整的演出。",
+      "units": [
+        "才藝企劃與演出時間控制",
+        "音樂檔、器材與創作授權",
+        "走位、彩排與上台準備"
+      ]
+    },
+    {
+      "key": "culture",
+      "id": "95b44f7f-d232-5f0e-99e8-bd4543053152",
+      "title": "文化敘事與國際禮儀",
+      "description": "以台灣文化與自己的觀點，練習與不同背景的人交流。",
+      "units": [
+        "國服靈感與台灣文化故事",
+        "中英文表達與國際禮儀",
+        "社群、媒體與品牌合作界線"
+      ]
+    }
+  ],
+  "launch_period": "2026 年 12 月中（預定）",
+  "hero": "/miss-taiwan-2027/campaign.webp",
+  "training_image": "/miss-taiwan-2027/training.webp"
+}

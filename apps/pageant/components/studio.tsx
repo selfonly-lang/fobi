@@ -1,4 +1,5 @@
 "use client";
+import {SeasonWorkflow} from "./season-workflow";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import {
@@ -349,6 +350,7 @@ export function Studio() {
             <>
               {module === "overview" && (
                 <>
+                  <SeasonWorkflow project={project} workspace={workspace} canEdit={canEdit} onEdit={a=>edit("activity",a)} onTask={i=>edit("item",i)} onNavigate={navigateOps}/>
                   <NextSteps project={project} workspace={workspace} onNavigate={navigateOps} onAssist={()=>setAssistant(true)}/>
                   <section className="studio-summary">
                     <div>

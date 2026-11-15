@@ -1,4 +1,5 @@
-import{PublicAgenda}from'@/components/programme';
+import { isTaiwanInterest } from "@/lib/miss-taiwan";
+import { PublicAgenda } from "@/components/programme";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -71,7 +72,7 @@ export default async function Event({
                 p.official_ready
                   ? p.domain
                   : p.slug === "miss-taiwan-2027"
-                    ? "/preview/miss-taiwan"
+                    ? "/miss-taiwan"
                     : "#programme"
               }
               className="button dark"
@@ -80,7 +81,14 @@ export default async function Event({
               <ArrowUpRight size={17} />
             </a>
           </div>
-          {fobi ? (
+          {p.slug === "miss-taiwan-2027" ? (
+            <img
+              src="/miss-taiwan-2027/campaign.webp"
+              alt="2027台灣小姐 AI 形象示意，非本屆參賽者"
+              width={1672}
+              height={941}
+            />
+          ) : fobi ? (
             <img
               src={defaultCover}
               alt="FOBI活動資料照"
@@ -133,7 +141,13 @@ export default async function Event({
                       ? new Date(a.starts_at).toLocaleDateString("zh-TW")
                       : "日期待公告"}
                   </span>
-                  <span>{a.amount ? money(a.amount) : "免費報名"}</span>
+                  <span>
+                    {a.amount
+                      ? money(a.amount)
+                      : isTaiwanInterest(a.id)
+                        ? "免費意願登記"
+                        : "免費報名"}
+                  </span>
                 </div>
               </Link>
             ))}
@@ -200,7 +214,10 @@ export default async function Event({
           </section>
         ))}
       </section>
-      <div className="wrap"><PublicAgenda projectId={p.id}/></div><div className="wrap">
+      <div className="wrap">
+        <PublicAgenda projectId={p.id} />
+      </div>
+      <div className="wrap">
         <ShareTools
           id={p.id}
           type="project"
