@@ -28,7 +28,7 @@ export function SeasonWorkflow({
           <h2>2027 五場選拔執行台</h2>
         </div>
         <a
-          href="/miss-taiwan"
+          href="/misstaiwan"
           target="_blank"
           rel="noopener noreferrer"
           className="small-button"

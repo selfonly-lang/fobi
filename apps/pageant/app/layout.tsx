@@ -37,6 +37,22 @@ export default async function RootLayout({
   const h = await headers(),
     site = await resolveSite(h.get("host") || "");
   if (!site) notFound();
+  const path = h.get("x-pageant-path") || "";
+  const displaySite =
+    site.kind === "platform" &&
+    ["/misstaiwan", "/misstaiwan/", "/miss-taiwan", "/miss-taiwan/"].includes(
+      path,
+    )
+      ? {
+          ...site,
+          kind: "brand" as const,
+          slug: "miss-taiwan",
+          name: "台灣小姐",
+          wordmark: "MISS TAIWAN",
+          origin: "https://pageant.self.com.tw/misstaiwan",
+          homePath: "/misstaiwan",
+        }
+      : site;
   const privatePage = /^\/(studio|account|login|create|checkout)/.test(
     h.get("x-pageant-path") || "",
   );
@@ -46,9 +62,9 @@ export default async function RootLayout({
         <a className="skip-link" href="#main-content">
           跳至主要內容
         </a>
-        {!privatePage && <Navigation site={site} />}
+        {!privatePage && <Navigation site={displaySite} />}
         <main id="main-content">{children}</main>
-        {!privatePage && <Footer site={site} />}
+        {!privatePage && <Footer site={displaySite} />}
       </body>
     </html>
   );

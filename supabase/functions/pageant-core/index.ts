@@ -1,3 +1,4 @@
+import {websiteImageReferences} from './website.ts';
 import {operationsPublic,operationsMember,publicOperationActions} from './operations.ts';
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.118.0";
 import {
@@ -530,17 +531,8 @@ Deno.serve(async (req) => {
             .eq("public_consent", true),
         ),
       ]);
-      const projects = new Set(
-        (
-          await result(
-            db
-              .from("pageant_projects")
-              .select("id")
-              .eq("public", true)
-              .eq("review_status", "approved"),
-          )
-        ).map((p: any) => p.id),
-      );
+      const siteProjects=await result(db.from("pageant_projects").select("id,config").eq("public",true).eq("review_status","approved"));
+      const projects = new Set(siteProjects.map((p:any)=>p.id));
       if (
         !news.some((a: any) =>
           a.content.photos?.some((p: any) => p.url === target),
@@ -557,7 +549,7 @@ Deno.serve(async (req) => {
         ) &&
         !people.some(
           (p: any) => projects.has(p.project_id) && p.photo === target,
-        )
+        ) && !siteProjects.some((p:any)=>websiteImageReferences(p.config?.website?.published).includes(target))
       )
         fail("圖片尚未公開", 404);
       const r = await db.storage
@@ -2967,6 +2959,9 @@ Deno.serve(async (req) => {
         people.length
       )
         fail("此素材已被內容版本或帳務引用，請保留原始檔");
+      const siteProject=await result(db.from("pageant_projects").select("config").eq("id",a.project_id).single());
+      const website=siteProject.config?.website;
+      if([website?.draft,website?.published,website?.previous_published].some(content=>websiteImageReferences(content).includes(target)))fail("此照片已被官網草稿或發布版本引用，請先更換照片再移除原檔");
       const removed = await db.storage
         .from("pageant-editorial")
         .remove([a.object_path]);

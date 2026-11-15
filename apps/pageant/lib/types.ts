@@ -118,6 +118,7 @@ export type Catalog = {
   results?: Record<string, any>[];
 };
 export type Site = {
+  homePath?: string;
   kind: "platform" | "brand";
   host: string;
   slug: string;

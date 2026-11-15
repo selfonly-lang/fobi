@@ -72,7 +72,7 @@ export default async function Event({
                 p.official_ready
                   ? p.domain
                   : p.slug === "miss-taiwan-2027"
-                    ? "/miss-taiwan"
+                    ? "/misstaiwan"
                     : "#programme"
               }
               className="button dark"

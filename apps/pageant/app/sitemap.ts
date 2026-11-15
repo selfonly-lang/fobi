@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/events",
     "/tv",
     "/publications",
-    ...(site.kind === "platform" ? ["/miss-taiwan"] : []),
+    ...(site.kind === "platform" ? ["/misstaiwan"] : []),
   ]
     .map((path) => ({ url: site.origin + path }))
     .concat(

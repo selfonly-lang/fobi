@@ -1,0 +1,99 @@
+{
+  "brand_name": "台灣小姐選拔",
+  "headline": "妳的光，\n值得被世界\n看見。",
+  "intro": "不只是一個舞台。\n是妳勇敢走向自己的開始。",
+  "about_heading": "下一段旅程，\n從一次勇敢開始。",
+  "about_body": "2027 台灣小姐選拔計畫，將串連招募、舞台培訓、五場選拔與媒體故事，讓自信、才華及文化表達都有被看見的機會。",
+  "training_heading": "妳不必一開始，\n就知道怎麼發光。",
+  "training_body": "從歷屆佳麗的舞台經驗，到下一次勇敢的練習。培訓規劃涵蓋姿態、鏡頭表達與文化敘事，陪妳準備每一個舞台。",
+  "partner_heading": "與妳的品牌一起，\n讓台灣走向世界。",
+  "partner_body": "從服裝與美妝、舞台與場地，到媒體、文化與生活風格。一起討論適合品牌的參與方式，讓支持成為可被記錄的故事。",
+  "gallery_heading": "得獎的光芒，\n來自真實的她們。",
+  "gallery_intro": "優先收錄歷屆得獎佳麗、才藝表現與舞台紀錄，保留原始年份及來源。2027年參賽名單將另行公告。",
+  "hero_photo": {
+    "id": "official-2025",
+    "url": "/miss-taiwan-2027/real/official-2025.webp",
+    "alt": "2025年台灣小姐佳麗舞台合影，官方粉專公開照片",
+    "caption": "2025年台灣小姐歷屆佳麗合影。照片取自官方粉專公開頭像。",
+    "source_label": "台灣小姐 Miss Taiwan 官方粉專",
+    "source_url": "https://www.facebook.com/Taiwanpageant/",
+    "kind": "real",
+    "year": 2025,
+    "focal_x": 50,
+    "focal_y": 38
+  },
+  "training_photo": {
+    "id": "talent-2023",
+    "url": "/miss-taiwan-2027/real/talent-2023.webp",
+    "alt": "2023年第12屆台灣小姐佳麗於才藝賽彈唱吉他",
+    "caption": "2023年第12屆台灣小姐複選才藝賽：佳麗自彈自唱。",
+    "source_label": "台灣小姐選拔大會提供／Newtalk報導",
+    "source_url": "https://newtalk.tw/news/view/2023-09-25/889740",
+    "kind": "real",
+    "year": 2023,
+    "focal_x": 50,
+    "focal_y": 50
+  },
+  "gallery": [
+    {
+      "id": "official-2025",
+      "url": "/miss-taiwan-2027/real/official-2025.webp",
+      "alt": "2025年台灣小姐佳麗舞台合影，官方粉專公開照片",
+      "caption": "2025年台灣小姐歷屆佳麗合影。照片取自官方粉專公開頭像。",
+      "source_label": "台灣小姐 Miss Taiwan 官方粉專",
+      "source_url": "https://www.facebook.com/Taiwanpageant/",
+      "kind": "real",
+      "year": 2025,
+      "focal_x": 50,
+      "focal_y": 38
+    },
+    {
+      "id": "awards2025",
+      "url": "/miss-taiwan-2027/real/awards2025.webp",
+      "alt": "2025年第13屆台灣小姐才藝賽得獎佳麗合影",
+      "caption": "2025年第13屆台灣小姐才藝賽前三名合影；原報導記載陳薪卉、黃韻霏與羅嵐分獲前三名。",
+      "source_label": "台灣小姐選拔大會提供／三星傳媒報導",
+      "source_url": "https://www.tristarnews.com.tw/news_ii.html?ID=30535",
+      "kind": "real",
+      "year": 2025,
+      "focal_x": 50,
+      "focal_y": 35
+    },
+    {
+      "id": "winner2025",
+      "url": "/miss-taiwan-2027/real/winner2025.webp",
+      "alt": "羅嵐於2025年第13屆台灣小姐總決賽的舞台紀錄",
+      "caption": "羅嵐｜2025年第13屆台灣小姐第六名、最佳人緣獎，並獲本屆才藝賽第三名。",
+      "source_label": "原圖：中華海峽兩岸新聞報／張永漢報導",
+      "source_url": "https://csn.ikh.tw/?id=vh606ah2au5h&pn=vw",
+      "kind": "real",
+      "year": 2025,
+      "focal_x": 50,
+      "focal_y": 35
+    },
+    {
+      "id": "talent-2023",
+      "url": "/miss-taiwan-2027/real/talent-2023.webp",
+      "alt": "2023年第12屆台灣小姐佳麗於才藝賽彈唱吉他",
+      "caption": "2023年第12屆台灣小姐複選才藝賽：佳麗自彈自唱。",
+      "source_label": "台灣小姐選拔大會提供／Newtalk報導",
+      "source_url": "https://newtalk.tw/news/view/2023-09-25/889740",
+      "kind": "real",
+      "year": 2023,
+      "focal_x": 50,
+      "focal_y": 50
+    },
+    {
+      "id": "dance-2023",
+      "url": "/miss-taiwan-2027/real/dance-2023.webp",
+      "alt": "2023年第12屆台灣小姐佳麗於才藝賽表演扇舞",
+      "caption": "2023年第12屆台灣小姐複選才藝賽：佳麗展現舞蹈才藝。",
+      "source_label": "台灣小姐選拔大會提供／Newtalk報導",
+      "source_url": "https://newtalk.tw/news/view/2023-09-25/889740",
+      "kind": "real",
+      "year": 2023,
+      "focal_x": 50,
+      "focal_y": 50
+    }
+  ]
+}

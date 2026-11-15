@@ -1,8 +1,9 @@
+import {websitePublic,websiteMember} from './website.ts';
 // Operational workflows are scoped to a verified member and the existing project roles.
 import { safeUrl, effectivePublication } from './model.js';
 type C=Record<string,any>;
 const writable=['owner','manager','editor'],review=['owner','manager'],read=['owner','manager','editor','reviewer','viewer'];
-export const publicOperationActions=['ops-rsvp','ops-offers','ops-agenda','ops-course'];
+export const publicOperationActions=['ops-rsvp','ops-offers','ops-agenda','ops-course','ops-site'];
 const tokenHash=async(v:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)))).map(x=>x.toString(16).padStart(2,'0')).join('');
 const rawToken=()=>crypto.randomUUID().replaceAll('-','')+crypto.randomUUID().replaceAll('-','');
 async function visible(c:C,project:string,active=false){const p=await c.result(c.db.from('pageant_projects').select('id,title,status,event_date,venue,summary,review_status,public,year').eq('id',project).maybeSingle());if(!p||!p.public||p.review_status!=='approved'||active&&['closed','archived'].includes(p.status))c.fail('此專案目前未開放此項服務',404);return p;}
@@ -15,6 +16,7 @@ function materials(c:C,rows:any){if(!Array.isArray(rows)||rows.length>30)c.fail(
 async function save(c:C,table:string,project:string,b:C,data:C){let row;if(b.id)row=await c.result(c.db.from(table).update({...data,updated_at:new Date().toISOString()}).eq('id',c.id(b.id)).eq('project_id',project).eq('version',c.integer(b.version,1)).select().maybeSingle());else row=await c.result(c.db.from(table).insert({...data,project_id:project,created_by:c.uid}).select().single());if(!row)c.fail('資料已被其他人更新，請重新整理',409);await c.audit(c.uid,table+'_saved',project,row.id);return row;}
 async function sameArticle(c:C,id:string|undefined,project:string,published=false){if(!id)return null;const a=await c.result(c.db.from('pageant_articles').select('*').eq('id',c.id(id)).eq('project_id',project).maybeSingle());if(!a)c.fail('新聞須屬於同一專案');if(published){const p=effectivePublication(a);if(!p.content||!p.publish_at||Date.parse(p.publish_at)>Date.now())c.fail('請先將連結新聞發布至官網');}return a;}
 export async function operationsPublic(action:string,method:string,u:URL,b:C,c:C){
+ if(action==='ops-site')return websitePublic(action,method,u,c);
  if(action==='ops-rsvp'){
   const code=method==='GET'?u.searchParams.get('code'):b.code;if(typeof code!=='string'||!/^\w{64}$/.test(code))c.fail('邀請連結不存在或已失效',404);const hash=await tokenHash(code);const inv=await c.result(c.db.from('pageant_guest_invites').select('*').eq('token_hash',hash).maybeSingle());if(!inv||inv.revoked_at||!inv.expires_at||Date.parse(inv.expires_at)<=Date.now())c.fail('邀請連結不存在或已失效',404);const p=await visible(c,inv.project_id,true);const a=inv.activity_id?await activity(c,inv.activity_id,inv.project_id):null;if(a&&['closed','cancelled','archived'].includes(a.status))c.fail('此邀請活動已結束或取消',409);
   if(method==='POST'){const result=await c.result(c.db.rpc('pageant_ops_respond_invite',{p_hash:hash,p_status:b.status,p_size:c.integer(b.party_size||1,1,inv.max_party_size),p_note:text(c,b.note,2000)}));return{ok:true,result};}
@@ -30,6 +32,7 @@ export async function operationsPublic(action:string,method:string,u:URL,b:C,c:C
  c.fail('功能不存在',404);
 }
 export async function operationsMember(action:string,method:string,u:URL,b:C,c:C){
+ if(['ops-site-draft','ops-site-save','ops-site-publish'].includes(action))return websiteMember(action,method,u,b,c);
  if(!action.startsWith('ops-'))return null;
  if(action==='ops-my-learning'&&method==='GET'){
   const [regs,orders,leads]=await Promise.all([c.result(c.db.from('pageant_registrations').select('activity_id').eq('user_id',c.uid).in('status',['approved','attended'])),c.result(c.db.from('pageant_commerce_orders').select('activity_id').eq('user_id',c.uid).in('status',['paid','partially_refunded'])),c.result(c.db.from('pageant_sponsor_leads').select('id,project_id,company,status,member_message,updated_at').eq('user_id',c.uid))]);const candidates=[...new Set([...regs,...orders].map((r:C)=>r.activity_id))];const ids=[];for(const id of candidates)if(await enrolled(c,c.uid,id))ids.push(id);

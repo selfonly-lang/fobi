@@ -1,3 +1,6 @@
+import { Fragment } from "react";
+import { getWebsite } from "@/lib/website";
+import { photoLabel } from "@/lib/website-types";
 import {
   ArrowUpRight,
   ArrowDown,
@@ -11,13 +14,21 @@ import { PLATFORM } from "@/lib/domain";
 import { Reveal } from "./motion";
 import { StoryCard } from "./public";
 const registration = (id: string) => PLATFORM + "/activities/" + id;
-export function MissTaiwanHome({
+export async function MissTaiwanHome({
   data,
   project,
 }: {
   data: Catalog;
   project: Project;
 }) {
+  const content = await getWebsite(project.id);
+  const lines = (text: string) =>
+    text.split("\n").map((line, i) => (
+      <Fragment key={i}>
+        {i > 0 && <br />}
+        {line}
+      </Fragment>
+    ));
   const interest = data.activities.find(
     (a) => a.id === season.interest_id && a.status === "open" && a.amount === 0,
   );
@@ -31,30 +42,29 @@ export function MissTaiwanHome({
   const stories = data.articles.filter((a) => a.project_id === project.id);
   return (
     <div className="mt-site">
-      <section className="mt-hero" aria-labelledby="mt-title">
+      <section
+        className={
+          "mt-hero " +
+          (content.hero_photo.kind === "real" ? "mt-real-hero" : "")
+        }
+        aria-labelledby="mt-title"
+      >
         <img
           className="mt-hero-image"
-          src={season.hero}
-          alt="三位虛構成人模特兒穿著訂製禮服的 AI 招募形象示意"
+          src={content.hero_photo.url}
+          alt={content.hero_photo.alt}
+          style={{
+            objectPosition: `${content.hero_photo.focal_x}% ${content.hero_photo.focal_y}%`,
+          }}
           width={1672}
           height={941}
           fetchPriority="high"
         />
         <div className="mt-hero-copy">
           <span className="mt-kicker">MISS TAIWAN · 2027</span>
-          <p className="mt-overline">台灣小姐選拔</p>
-          <h1 id="mt-title">
-            妳的光，
-            <br />
-            值得被<i>世界</i>
-            <br />
-            看見。
-          </h1>
-          <p className="mt-hero-intro">
-            不只是一個舞台。
-            <br />
-            是妳勇敢走向自己的開始。
-          </p>
+          <p className="mt-overline">{content.brand_name}</p>
+          <h1 id="mt-title">{lines(content.headline)}</h1>
+          <p className="mt-hero-intro">{lines(content.intro)}</p>
           <div className="mt-actions">
             <a
               href={interest ? registration(interest.id) : "#join"}
@@ -73,7 +83,14 @@ export function MissTaiwanHome({
               : "招募資訊依正式公告"}
           </span>
         </div>
-        <span className="mt-image-credit">AI 形象示意｜非本屆參賽者</span>
+        <a
+          className="mt-image-credit"
+          href={content.hero_photo.source_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {photoLabel(content.hero_photo)}｜{content.hero_photo.source_label} ↗
+        </a>
         <span className="mt-hero-edition" aria-hidden="true">
           THE NEXT CHAPTER
           <br />
@@ -84,6 +101,7 @@ export function MissTaiwanHome({
         <a href="#launch">年度啟動</a>
         <a href="#journey">五場賽事</a>
         <a href="#training">培訓計畫</a>
+        <a href="#moments">人物與活動</a>
         <a href="#join">我要參賽</a>
         <a href="#partners">品牌合作</a>
         <a href="#stories">最新消息</a>
@@ -91,15 +109,8 @@ export function MissTaiwanHome({
       <section id="launch" className="mt-section mt-launch">
         <Reveal>
           <span className="mt-kicker">THE YEAR BEGINS HERE</span>
-          <h2>
-            下一段旅程，
-            <br />
-            從一次勇敢開始。
-          </h2>
-          <p>
-            2027
-            台灣小姐選拔計畫，將串連招募、舞台培訓、五場選拔與媒體故事，讓自信、才華及文化表達都有被看見的機會。
-          </p>
+          <h2>{lines(content.about_heading)}</h2>
+          <p>{content.about_body}</p>
           <a
             href={season.facebook}
             target="_blank"
@@ -230,26 +241,36 @@ export function MissTaiwanHome({
         </div>
       </section>
       <section id="training" className="mt-section mt-training">
-        <figure>
-          <img
-            src={season.training_image}
-            alt="AI 形象示意：虛構成人模特兒練習儀態與文化表達，非實際上課紀錄"
-            width={1672}
-            height={941}
-            loading="lazy"
-          />
-          <figcaption>AI 培訓形象示意｜非實際講師或課程紀錄</figcaption>
-        </figure>
+        {content.training_photo && (
+          <figure>
+            <img
+              src={content.training_photo.url}
+              alt={content.training_photo.alt}
+              style={{
+                objectPosition: `${content.training_photo.focal_x}% ${content.training_photo.focal_y}%`,
+              }}
+              width={1672}
+              height={941}
+              loading="lazy"
+            />
+            <figcaption>
+              {photoLabel(content.training_photo)}｜
+              {content.training_photo.caption}
+              <br />
+              <a
+                href={content.training_photo.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {content.training_photo.source_label} ↗
+              </a>
+            </figcaption>
+          </figure>
+        )}
         <Reveal>
           <span className="mt-kicker">GROW INTO YOUR OWN</span>
-          <h2>
-            妳不必一開始，
-            <br />
-            就知道怎麼發光。
-          </h2>
-          <p>
-            讓每一次練習，都成為妳的底氣。培訓規劃從姿態、表達到文化敘事，陪妳準備每一個舞台。
-          </p>
+          <h2>{lines(content.training_heading)}</h2>
+          <p>{content.training_body}</p>
           <div className="mt-course-list">
             {season.training.map((t, i) => {
               const course = data.activities.find((a) => a.id === t.id);
@@ -344,14 +365,8 @@ export function MissTaiwanHome({
       <section id="partners" className="mt-section mt-partners">
         <div>
           <span className="mt-kicker">A BEAUTIFUL COLLABORATION</span>
-          <h2>
-            與妳的品牌一起，
-            <br />
-            讓台灣走向世界。
-          </h2>
-          <p>
-            從服裝與美妝、舞台與場地，到媒體、文化與生活風格。一起討論適合品牌的參與方式，讓支持成為可被記錄的故事。
-          </p>
+          <h2>{lines(content.partner_heading)}</h2>
+          <p>{content.partner_body}</p>
         </div>
         <div className="mt-partner-options">
           <span>品牌與物資合作</span>
@@ -367,6 +382,46 @@ export function MissTaiwanHome({
           <small>合作內容、報價與權益依雙方確認；尚未列示已簽約贊助商。</small>
         </div>
       </section>
+      {content.gallery.length > 0 && (
+        <section id="moments" className="mt-section mt-moments">
+          <div className="mt-section-heading">
+            <div>
+              <span className="mt-kicker">REAL PEOPLE. REAL MOMENTS.</span>
+              <h2>{lines(content.gallery_heading)}</h2>
+            </div>
+            <p>{content.gallery_intro}</p>
+          </div>
+          <div className="mt-photo-grid">
+            {content.gallery.map((photo, i) => (
+              <figure key={photo.id + String(i)}>
+                <a href={photo.url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={photo.url}
+                    alt={photo.alt}
+                    width={800}
+                    height={800}
+                    loading="lazy"
+                    style={{
+                      objectPosition: `${photo.focal_x}% ${photo.focal_y}%`,
+                    }}
+                  />
+                </a>
+                <figcaption>
+                  <span>{photoLabel(photo)}</span>
+                  <p>{photo.caption}</p>
+                  <a
+                    href={photo.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {photo.source_label} ↗
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
       <section id="stories" className="mt-section mt-stories">
         <div className="mt-section-heading">
           <div>

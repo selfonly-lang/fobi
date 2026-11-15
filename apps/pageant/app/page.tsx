@@ -1,3 +1,4 @@
+import {taiwanMetadata} from "@/lib/website";
 import { MissTaiwanHome } from "@/components/miss-taiwan";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
@@ -8,6 +9,7 @@ import { MagazineHome, BrandHome } from "@/components/public";
 export async function generateMetadata(): Promise<Metadata> {
   const site = await resolveSite((await headers()).get("host") || "");
   if (!site) return {};
+  if(site.slug === "miss-taiwan")return taiwanMetadata();
   return {
     title:
       site.kind === "platform"

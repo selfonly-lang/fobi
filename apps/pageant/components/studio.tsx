@@ -1,4 +1,5 @@
 "use client";
+import {SiteEditor} from "./site-editor";
 import {SeasonWorkflow} from "./season-workflow";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
@@ -307,6 +308,7 @@ export function Studio() {
               >
                 <RefreshCw size={17} />
               </button>
+              {project?.slug==="miss-taiwan-2027"&&!["judge","finance","checkin"].includes(role)&&<button className="small-button" onClick={()=>setModal({type:"website"})}>官網內容與照片</button>}
               {canManage && project && (
                 <button className="small-button" onClick={() => setTeam(true)}>
                   團隊
@@ -940,7 +942,7 @@ export function Studio() {
           onClose={() => setTeam(false)}
         />
       )}
-      {modal && modal.type === "news" ? (
+      {modal?.type === "website" ? (<SiteEditor projectId={projectId} assets={workspace?.assets||[]} onSaved={refresh} onClose={()=>setModal(null)}/>) : modal && modal.type === "news" ? (
         <NewsEditor
           initial={modal.initial}
           projectId={modal.global ? null : projectId}

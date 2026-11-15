@@ -7,6 +7,7 @@ import { PLATFORM } from "@/lib/domain";
 export function Navigation({ site }: { site: Site }) {
   const [open, setOpen] = useState(false);
   const brand = site.kind === "brand";
+  const home = site.homePath || "/";
   const links =
     site.slug === "miss-taiwan"
       ? [
@@ -44,7 +45,7 @@ export function Navigation({ site }: { site: Site }) {
       <header className="masthead">
         <div className="nav-inner">
           <Link
-            href="/"
+            href={home}
             className={"wordmark " + (brand ? "brand-wordmark" : "")}
             aria-label={site.name + "首頁"}
           >
@@ -72,7 +73,11 @@ export function Navigation({ site }: { site: Site }) {
             aria-label="主要導覽"
           >
             {links.map(([href, label]) => (
-              <Link key={href} href={href} onClick={() => setOpen(false)}>
+              <Link
+                key={href}
+                href={href.startsWith("/#") ? home + href.slice(1) : href}
+                onClick={() => setOpen(false)}
+              >
                 {label}
               </Link>
             ))}

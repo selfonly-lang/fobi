@@ -42,7 +42,7 @@ export function AssetLibrary({
           <span className="muted">圖片與憑證 · 12MB以內</span>
         </div>
         <p>
-          上傳後先保持私人；圖片被已發布新聞或會刊引用後，才可由公開頁讀取。帳務憑證不會自動公開。
+          上傳後先保持私人；圖片被已發布新聞、會刊或官網引用後，才可由公開頁讀取。帳務憑證不會自動公開。
         </p>
         {error && (
           <div className="alert" role="alert">
