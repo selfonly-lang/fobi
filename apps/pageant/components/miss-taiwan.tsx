@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowUpRight,
   ArrowDown,
@@ -20,11 +19,15 @@ export function MissTaiwanHome({
   project: Project;
 }) {
   const interest = data.activities.find(
-    (a) => a.id === season.interest_id && a.status === "open",
+    (a) => a.id === season.interest_id && a.status === "open" && a.amount === 0,
   );
   const media = data.activities.find(
-    (a) => a.id === season.media_interest_id && a.status === "open",
+    (a) =>
+      a.id === season.media_interest_id &&
+      a.status === "open" &&
+      a.amount === 0,
   );
+  const press = data.activities.find((a) => a.id === season.press_id);
   const stories = data.articles.filter((a) => a.project_id === project.id);
   return (
     <div className="mt-site">
@@ -65,7 +68,9 @@ export function MissTaiwanHome({
             </a>
           </div>
           <span className="mt-hero-note">
-            招募意願登記中 · 正式簡章另行公告
+            {interest
+              ? "招募意願登記中 · 正式簡章另行公告"
+              : "招募資訊依正式公告"}
           </span>
         </div>
         <span className="mt-image-credit">AI 形象示意｜非本屆參賽者</span>
@@ -107,17 +112,43 @@ export function MissTaiwanHome({
         <Reveal className="mt-date-card" delay={0.1}>
           <span className="mt-kicker">2027 SEASON LAUNCH</span>
           <span className="mt-date">
-            DEC<span>2026</span>
+            {press?.starts_at
+              ? new Date(press.starts_at)
+                  .toLocaleString("en-US", {
+                    month: "short",
+                    timeZone: "Asia/Taipei",
+                  })
+                  .toUpperCase()
+              : "DEC"}
+            <span>
+              {press?.starts_at
+                ? new Date(press.starts_at).toLocaleString("en-US", {
+                    year: "numeric",
+                    timeZone: "Asia/Taipei",
+                  })
+                : "2026"}
+            </span>
           </span>
           <h3>年度計畫啟動記者會</h3>
           <p>
             <CalendarDays size={17} />
-            2026 年 12 月中 · 預定
+            {press?.starts_at
+              ? new Date(press.starts_at).toLocaleString("zh-TW", {
+                  timeZone: "Asia/Taipei",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "2026 年 12 月中 · 預定"}
           </p>
           <p>
-            將公布 2027
-            選拔計畫與後續招募安排。確切日期、時間、場地及出席方式確認後公告。
+            {press?.starts_at
+              ? "將說明2027選拔計畫與後續招募安排，出席方式以主辦確認為準。"
+              : "將公布2027選拔計畫與後續招募安排。確切日期、時間、場地及出席方式確認後公告。"}
           </p>
+          {press?.venue && <p>場地：{press.venue}</p>}
           {media && (
             <a href={registration(media.id)} className="button dark">
               媒體採訪意願登記 <ArrowUpRight size={16} />
@@ -220,24 +251,32 @@ export function MissTaiwanHome({
             讓每一次練習，都成為妳的底氣。培訓規劃從姿態、表達到文化敘事，陪妳準備每一個舞台。
           </p>
           <div className="mt-course-list">
-            {season.training.map((t, i) => (
-              <details key={t.key}>
-                <summary>
-                  <span>0{i + 1}</span>
-                  <h3>{t.title}</h3>
-                  <b aria-hidden="true">＋</b>
-                </summary>
-                <p>{t.description}</p>
-                <ul>
-                  {t.units.map((u) => (
-                    <li key={u}>{u}</li>
-                  ))}
-                </ul>
-              </details>
-            ))}
+            {season.training.map((t, i) => {
+              const course = data.activities.find((a) => a.id === t.id);
+              return (
+                <details key={t.key}>
+                  <summary>
+                    <span>0{i + 1}</span>
+                    <h3>{t.title}</h3>
+                    <b aria-hidden="true">＋</b>
+                  </summary>
+                  <p>{course?.description || t.description}</p>
+                  <ul>
+                    {t.units.map((u) => (
+                      <li key={u}>{u}</li>
+                    ))}
+                  </ul>
+                  {course?.status === "open" && (
+                    <a className="mt-text-link" href={registration(course.id)}>
+                      查看課程與報名 <ArrowUpRight size={16} />
+                    </a>
+                  )}
+                </details>
+              );
+            })}
           </div>
           <small>
-            以上為培訓規劃方向。講師、課表、名額、費用及是否包含於參賽方案，將於正式簡章確認。
+            以上為培訓規劃方向。實際講師、課表、名額、費用及是否包含於參賽方案，請以各課程頁與正式簡章為準。
           </small>
         </Reveal>
       </section>
@@ -271,7 +310,7 @@ export function MissTaiwanHome({
                 免費登記參賽意願 <ArrowUpRight size={17} />
               </a>
             ) : (
-              <p>登記入口準備中，請先追蹤官方粉專。</p>
+              <p>本階段未開放意願登記，請留意官方粉專公告。</p>
             )}
             <div className="mt-faq">
               <details>
