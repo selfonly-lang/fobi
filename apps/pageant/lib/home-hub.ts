@@ -5,6 +5,7 @@ export const SELF_AI_URL = "https://www.self.com.tw/self-ai";
 export const SELF_AI_ASSISTANT_URL = "https://www.self.com.tw/self-ai/assistant";
 export const PAGEANT_CONTACT = { line: "beautiself", phone: "0935-523-001", tel: "+886935523001" };
 const MISS_TAIWAN_INTEREST = "2218dddc-9f96-53b9-bc08-5fcfcfa7b3f3";
+const MISS_TAIWAN_MEDIA_INTEREST = "37b21910-cfa9-5bde-9db1-c6e2d18dedf5";
 const activitiesOrder = (a: Activity, b: Activity) =>
   (a.starts_at || "9999").localeCompare(b.starts_at || "9999");
 export const isCourse = (kind: string) => ["course", "training"].includes(kind);
@@ -23,13 +24,22 @@ export function pageantHomeCatalog(data: Catalog, now: number = Date.now()) {
     isRegistrationOpen(activity, now) && activity.amount === 0 &&
     (!activity.starts_at || Date.parse(activity.starts_at) <= now),
   );
+  const isCurrent = (activity: Activity) => {
+    const ongoingIntake = projects.get(activity.project_id)?.slug === "miss-taiwan-2027" &&
+      (activity.id === MISS_TAIWAN_INTEREST || activity.id === MISS_TAIWAN_MEDIA_INTEREST);
+    const starts = activity.starts_at ? Date.parse(activity.starts_at) : null;
+    if (ongoingIntake)
+      return isRegistrationOpen(activity, now) && (starts === null || starts <= now);
+    if (activity.ends_at) return Date.parse(activity.ends_at) > now;
+    return starts === null || starts >= now;
+  };
   const courses = publicActivities
-    .filter((activity) => isCourse(activity.kind) && isRegistrationOpen(activity, now))
+    .filter((activity) => isCourse(activity.kind) && isRegistrationOpen(activity, now) && isCurrent(activity))
     .sort(activitiesOrder);
   const events = publicActivities
     .filter((activity) =>
       !isCourse(activity.kind) && activity.id !== interest?.id &&
-      (isRegistrationOpen(activity, now) || (activity.status === "active" && (!activity.ends_at || Date.parse(activity.ends_at) > now))),
+      (activity.status === "open" || activity.status === "active") && isCurrent(activity),
     )
     .sort(activitiesOrder);
   return { interest, courses, events };

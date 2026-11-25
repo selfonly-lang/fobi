@@ -10,7 +10,7 @@ const project = (id: string, slug: string, status: string) => ({
 });
 const activity = (id: string, project_id: string, patch: Partial<Activity> = {}): Activity => ({
   id, project_id, kind: "course", title: id, description: "", status: "open",
-  starts_at: "2026-11-14T16:00:00Z", ends_at: null, timezone: "Asia/Taipei",
+  starts_at: "2026-11-26T16:00:00Z", ends_at: null, timezone: "Asia/Taipei",
   venue: "", capacity: 0, amount: 0, currency: "TWD", terms: "", refund_policy: "", ...patch,
 });
 const catalog = (activities: Activity[]): Catalog => ({
@@ -22,7 +22,7 @@ const catalog = (activities: Activity[]): Catalog => ({
 
 test("only the known, free, currently open Miss Taiwan interest activity is promoted", () => {
   const id = "2218dddc-9f96-53b9-bc08-5fcfcfa7b3f3";
-  const actual = activity(id, "taiwan", {kind: "pageant"});
+  const actual = activity(id, "taiwan", {kind: "pageant", starts_at:"2026-11-14T16:00:00Z"});
   assert.equal(pageantHomeCatalog(catalog([actual]), now).interest?.id, id);
   assert.deepEqual(pageantHomeCatalog(catalog([actual]), now).events, []);
   for (const changed of [
@@ -37,13 +37,17 @@ test("only the known, free, currently open Miss Taiwan interest activity is prom
 test("live activities and classes are separated; ended, unknown project and archive records do not leak", () => {
   const data = catalog([
     activity("class", "taiwan"), activity("class-later", "taiwan", { starts_at: "2026-12-30T00:00:00Z" }),
-    activity("media", "taiwan", { kind: "press" }), activity("archive", "old"),
+    activity("37b21910-cfa9-5bde-9db1-c6e2d18dedf5", "taiwan", { kind: "press", starts_at:"2026-11-14T16:00:00Z" }),
+    activity("stale-media", "taiwan", { kind: "press", starts_at:"2026-11-14T16:00:00Z" }),
+    activity("stale-course", "taiwan", { starts_at:"2026-11-14T16:00:00Z" }),
+    activity("still-running", "taiwan", { kind: "final", status:"active", starts_at:"2026-11-14T16:00:00Z", ends_at:"2026-11-26T00:00:00Z" }),
+    activity("archive", "old"),
     activity("unknown", "other"), activity("closed", "taiwan", {status: "closed"}),
     activity("ended", "taiwan", {ends_at: "2026-11-24T00:00:00Z"}),
   ]);
   const { courses, events } = pageantHomeCatalog(data, now);
   assert.deepEqual(courses.map((row) => row.id), ["class", "class-later"]);
-  assert.deepEqual(events.map((row) => row.id), ["media"]);
+  assert.deepEqual(events.map((row) => row.id), ["37b21910-cfa9-5bde-9db1-c6e2d18dedf5","still-running"]);
 });
 
 test("draft templates are distinct and cross-site links contain no query or private data", () => {
