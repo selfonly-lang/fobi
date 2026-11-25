@@ -1,0 +1,74 @@
+/* Pageant platform homepage only; brand homes use the original layouts. */
+[id^="pageant-"] { scroll-margin-top: 96px; }
+.hub-section { padding-block: clamp(48px, 7vw, 85px); }
+.hub-jumps {
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px;
+  margin-block: 0 40px; background: var(--line); border: 1px solid var(--line);
+}
+.hub-jumps a {
+  color: var(--ink); background: var(--paper); min-height: 48px; padding: 12px;
+  font-size: .88rem; font-weight: 600; display: flex; align-items: center;
+  justify-content: center; gap: 7px; text-align: center;
+}
+.hub-jumps a:hover { background: var(--soft); }
+.hub-jumps svg, .hub-actions svg, .hub-activity-list svg { flex: none; }
+.hub-interest {
+  display: grid; grid-template-columns: 20px minmax(0,1fr); column-gap: 10px; row-gap: 10px;
+  padding: 16px; border: 1px solid #cab78e; background: #f4efe2; margin: 24px 0 0;
+}
+.hub-interest > svg { color: #765322; margin-top: 3px; }
+.hub-interest span { font-size: .8rem; color: #765322; }
+.hub-interest strong { display: block; margin-block: 5px; }
+.hero-intro .hub-interest p { margin: 0; font-size: .84rem; line-height: 1.65; }
+.hub-interest .button { grid-column: 2; justify-self: start; min-height: 44px; }
+.hub-heading .eyebrow { color: #765322; margin-bottom: 9px; }
+.hub-heading h2 { font-size: clamp(1.7rem, 3.6vw, 2.8rem); line-height: 1.25; margin-bottom: 13px; }
+.hub-heading p, .hub-card p, .hub-panel p { color: #59534a; }
+.hub-guide-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.hub-resource-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; align-items: start; }
+.hub-card, .hub-panel { border: 1px solid var(--line); padding: clamp(18px, 3vw, 36px); min-width: 0; }
+.hub-card { background: #fffdf9; display: flex; flex-direction: column; }
+.hub-card .text-link { margin-top: auto; align-self: flex-start; }
+.hub-card h3, .hub-panel h3 { font-weight: 600; line-height: 1.55; margin-bottom: 11px; }
+.hub-card-mark { color: #765322; margin-bottom: 10px; font-size: .8rem; letter-spacing: .13em; }
+.hub-panel > svg { display: block; color: #765322; margin-bottom: 12px; }
+.hub-panel-market { background: #f4eee3; }
+.hub-panel-course { background: #fffdf9; }
+.hub-panel-she { background: #f5ebe9; }
+.hub-panel-ai { background: #f7f0e3; }
+.hub-panel > .eyebrow { color: #765322; margin-bottom: 8px; }
+.hub-ecosystem { background: #ebe2d3; }
+.hub-tags { padding: 0; margin: 0 0 14px; display: flex; gap: 7px; flex-wrap: wrap; list-style: none; }
+.hub-tags li { border: 1px solid #c9bda6; padding: 5px 10px; font-size: .84rem; }
+.hub-inquiry { padding: 8px 0 0; border-top: 1px solid #c9bda6; margin-top: 14px; }
+.hub-inquiry summary { cursor: pointer; font-weight: 600; padding: 8px 0; min-height: 44px; display: list-item; }
+.hub-inquiry summary svg { display: inline-block; vertical-align: middle; margin: 0 7px; }
+.hub-inquiry summary:focus-visible { outline: 2px solid #765322; outline-offset: 3px; }
+.hub-inquiry p { font-size: .9rem; }
+.hub-field { display: grid; gap: 6px; margin: 0 0 12px; font-size: .92rem; font-weight: 500; }
+.hub-field select, .hub-field textarea { width: 100%; min-height: 44px; background: #fffdf9; color: var(--ink); border: 1px solid #c4b99f; padding: 10px; font-size: 1rem; }
+.hub-field textarea { resize: vertical; }
+.hub-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.hub-actions .button { min-height: 44px; }
+.hub-form-status { min-height: 1.5em; margin: 5px 0 0; font-size: .8rem; }
+.hub-empty { margin-block: 16px 0; color: #59534a; }
+.hub-activity-list { display: grid; padding: 0; margin: 16px 0 0; list-style: none; }
+.hub-activity-list a {
+  display: grid; align-items: center; grid-template-columns: 18px minmax(0,1fr) 17px; gap: 10px;
+  border-block-start: 1px solid var(--line); padding: 12px 8px; min-height: 48px;
+}
+.hub-activity-list a:hover { background: var(--soft); }
+.hub-activity-list small { display: block; color: #59534a; margin-top: 4px; }
+@media (max-width: 900px) {
+  .hub-jumps { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .hub-guide-grid, .hub-resource-grid { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 390px) {
+  .hub-jumps { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .hub-interest .button { padding-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.hub-jumps) { scroll-behavior: auto; }
+}

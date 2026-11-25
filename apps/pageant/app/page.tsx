@@ -3,7 +3,7 @@ import { MissTaiwanHome } from "@/components/miss-taiwan";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getCatalog, defaultCover } from "@/lib/catalog";
+import { getCatalog } from "@/lib/catalog";
 import { resolveSite } from "@/lib/site";
 import { MagazineHome, BrandHome } from "@/components/public";
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       site.kind === "platform"
-        ? "SELF PAGEANT｜全球選美・時尚・人物・活動平台"
+        ? "SELF PAGEANT｜選美新聞、賽事、才藝課程與二手舞台用品"
         : site.name + "官方網站",
     alternates: { canonical: site.origin },
     openGraph: {

@@ -288,10 +288,21 @@ export function EventExplorer({
               ? "課程確認後將在這裡公告"
               : "目前沒有符合條件的活動"}
           </h3>
-          <p>您也可以加入會員，建立自己的賽事或課程專案。</p>
-          <Link href="/create" className="text-link">
-            建立活動 <ArrowUpRight size={15} />
-          </Link>
+          {tab === "course" ? (
+            <>
+              <p>想上課，或有才藝教學資源？可先透過選美平台洽詢。</p>
+              <a href="https://pageant.self.com.tw/#pageant-courses" className="text-link">
+                前往才藝課程專區 <ArrowUpRight size={15} />
+              </a>
+            </>
+          ) : (
+            <>
+              <p>您也可以加入會員，建立自己的賽事或課程專案。</p>
+              <Link href="/create" className="text-link">
+                建立活動 <ArrowUpRight size={15} />
+              </Link>
+            </>
+          )}
         </div>
       )}
     </>

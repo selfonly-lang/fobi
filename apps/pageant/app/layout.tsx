@@ -7,6 +7,7 @@ import { resolveSite } from "@/lib/site";
 import "./globals.css";
 import "./operations.css";
 import "./miss-taiwan.css";
+import "./home-hub.css";
 export const metadata: Metadata = {
   title: {
     default: "SELF PAGEANT｜全球選美・時尚・人物・活動平台",

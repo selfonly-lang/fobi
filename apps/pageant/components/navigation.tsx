@@ -26,6 +26,8 @@ export function Navigation({ site }: { site: Site }) {
         : [
             ["/news", "選美誌"],
             ["/events", "賽事與課程"],
+            ["/#pageant-market", "二手選美用品"],
+            ["/#pageant-ai", "SHE · SELF AI"],
             ["/tv", "BeautyTV"],
             ["/publications", "電子會刊"],
           ];
