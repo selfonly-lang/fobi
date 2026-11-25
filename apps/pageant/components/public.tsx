@@ -3,7 +3,6 @@ import {
   ArrowUpRight,
   ArrowRight,
   Play,
-  CalendarDays,
   MapPin,
 } from "lucide-react";
 import type {
@@ -15,8 +14,10 @@ import type {
   Publication,
 } from "@/lib/types";
 import { officialArticle, defaultCover } from "@/lib/catalog";
-import { PLATFORM, statusLabel, money } from "@/lib/domain";
+import { PLATFORM, statusLabel } from "@/lib/domain";
 import { Reveal } from "./motion";
+import { ActivityLinks, Ecosystem, Guides, HubNavigation, InterestCard, MarketAndCourses } from "./home-hub";
+import { pageantHomeCatalog } from "@/lib/home-hub";
 export function SectionTitle({
   kicker,
   title,
@@ -239,12 +240,7 @@ export function MagazineHome({ data }: { data: Catalog }) {
   const stories = data.articles
     .filter((a) => a.id !== feature?.id && a.id !== lead?.id)
     .slice(0, 3);
-  const upcoming = data.activities.filter(
-    (a) =>
-      a.status === "open" &&
-      a.starts_at &&
-      Date.parse(a.starts_at) > Date.now(),
-  );
+  const { interest, courses, events } = pageantHomeCatalog(data);
   return (
     <>
       <section className="editorial-hero wrap">
@@ -264,12 +260,13 @@ export function MagazineHome({ data }: { data: Catalog }) {
               <br />
               在這裡，遇見選美、時尚與女性的更多可能。
             </p>
+            {interest && <InterestCard activity={interest} />}
             <div className="hero-actions">
-              <Link href="/news" className="button dark">
-                閱讀選美誌 <ArrowUpRight size={16} />
+              <Link href="/news" className={interest ? "text-link" : "button dark"}>
+                閱讀選美新聞 <ArrowUpRight size={16} />
               </Link>
               <Link href="/events" className="text-link">
-                探索賽事 <ArrowRight size={15} />
+                探索所有賽事 <ArrowRight size={15} />
               </Link>
             </div>
             <div className="hero-note">
@@ -289,13 +286,14 @@ export function MagazineHome({ data }: { data: Catalog }) {
           <div className="hero-image-caption">
             <span>THE INTERNATIONAL EDITION</span>
             <a href="https://fobi.self.com.tw">
-              FOBI 2026 · 世界美顏小姐 <ArrowUpRight size={17} />
+              FOBI 2026 · 世界美顏小姐回顧 <ArrowUpRight size={17} />
             </a>
           </div>
         </Reveal>
         <div className="hero-edge">MORE THAN A CROWN. A WORLD OF STORIES.</div>
       </section>
-      <section className="wrap ops-entry-grid" aria-label="選擇妳想開始的旅程">{[['/events','我是參賽者','探索賽事與招募'],['/events?type=course','我想上課','培訓與舞台練習'],['/partners','我是品牌方','合作與贊助機會'],['/create','我要辦活動','建立完整賽事專案']].map(([href,title,caption])=><Link key={href} href={href}><span>{caption}</span><b>{title}</b><ArrowUpRight size={19}/></Link>)}</section><div className="editorial-strip">
+      <HubNavigation />
+      <div className="editorial-strip">
         <div className="wrap">
           <span>GLOBAL PAGEANTS</span>
           <i>✦</i>
@@ -306,9 +304,9 @@ export function MagazineHome({ data }: { data: Catalog }) {
           <span>TAIWAN TO THE WORLD</span>
         </div>
       </div>
-      <section className="wrap section">
+      <section className="wrap section hub-section" id="pageant-news" aria-label="選美新聞">
         <SectionTitle
-          kicker="THE EDITOR’S SELECTION"
+          kicker="THE EDITOR’S SELECTION · 選美新聞"
           title="舞台之外，故事正在發生。"
           href="/news"
           label="所有報導"
@@ -351,6 +349,7 @@ export function MagazineHome({ data }: { data: Catalog }) {
           </div>
         </div>
       </section>
+      <Guides />
       {feature && (
         <section className="portrait-band">
           <div className="wrap portrait-layout">
@@ -385,9 +384,9 @@ export function MagazineHome({ data }: { data: Catalog }) {
           </div>
         </section>
       )}
-      <section className="wrap section">
+      <section className="wrap section hub-section" id="pageant-events" aria-label="賽事活動">
         <SectionTitle
-          kicker="ON THE GLOBAL STAGE"
+          kicker="ON THE GLOBAL STAGE · 賽事活動"
           title="每一個舞台，都有自己的光。"
           href="/events"
           label="探索活動與課程"
@@ -399,24 +398,10 @@ export function MagazineHome({ data }: { data: Catalog }) {
             </Reveal>
           ))}
         </div>
-        {upcoming.length > 0 && (
-          <div className="upcoming-list">
-            {upcoming.slice(0, 3).map((a) => (
-              <Link href={"/activities/" + a.id} key={a.id}>
-                <CalendarDays size={18} />
-                <span>
-                  {new Date(a.starts_at!).toLocaleDateString("zh-TW", {
-                    timeZone: a.timezone,
-                  })}
-                </span>
-                <b>{a.title}</b>
-                <span>{a.amount ? money(a.amount) : "免費報名"}</span>
-                <ArrowUpRight size={18} />
-              </Link>
-            ))}
-          </div>
-        )}
+        <ActivityLinks activities={events} empty="目前沒有其他開放的活動。可瀏覽賽事專案及歷屆回顧。" />
       </section>
+      <MarketAndCourses courses={courses} />
+      <Ecosystem />
       {data.media.length > 0 && (
         <section className="film-section">
           <div className="wrap section">
@@ -477,9 +462,14 @@ export function MagazineHome({ data }: { data: Catalog }) {
             <br />
             讓你的每一個想法，有一個完整的起點。
           </p>
-          <Link href="/create" className="button dark">
-            建立我的活動 <ArrowUpRight size={17} />
-          </Link>
+          <div className="hub-actions">
+            <Link href="/create" className="button dark">
+              建立我的活動 <ArrowUpRight size={17} />
+            </Link>
+            <Link href="/partners" className="text-link">
+              品牌與贊助合作 <ArrowUpRight size={15} />
+            </Link>
+          </div>
         </div>
         <div className="create-watermark">STAGE</div>
       </section>
